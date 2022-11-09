@@ -1,0 +1,11 @@
+sample	treatment	sampling_site	season	vegetation
+Sample_1	W	1	winter	no
+Sample_2	C	2	winter	no
+Sample_3	C	1	winter	no
+Sample_4	W	4	summer	NA
+Sample_5	W	3	winter	yes
+Sample_6	C	4	summer	yes
+Sample_7	W	2	winter	NA
+Sample_8	C	3	summer	yes
+Sample_9	C	5	summer	yes
+Sample_10	W	5	summer	yes

@@ -693,6 +693,28 @@ rbind(matrix_two, matrix_three)
 
 The last `rbind()` did not work because the matrices has a different number of columns. When putting together matrices, you need to make sure they have the correct dimensions.
 
+### A mathematical side note or How a bug is born
+
+In linear algebra matrices are quite popular. So, it is important to know how to use them to perform common operations such as sum or multiplication, since it may be non obvious. Let's make an example of multiplication:
+
+```{r}
+
+# define a simple 2x2 matrix
+simple_matrix <- matrix(c(1,2,3,4), nrow=2, ncol=2)
+
+# define simple vector to multiply the simple matrix
+simple_vector <- c(0, 1)
+
+# multiply matrix by vector, "R version"
+simple_matrix * simple_vector
+
+# multiply matrix by vector, linear algebra version
+simple_matrix %*% simple_vector
+
+```
+
+The difference is that in linear algebra, multiplying a matrix by a vector will give you back a vector. However, using the wrong tool, i.e. `*`, to perform a simple operation may give you unexpected results.
+
 ### Dataframes
 
 On the other hand, we have dataframes:
@@ -792,8 +814,11 @@ Now, let's load a (well formatted) table from a file, just to see how it's done:
 
 ```{r}
 
+# set path to directory where files are kept
+path_to_files <- "/home/gabriele/work/microbiology/think_like_a_programmer/ready_for_sharing/data/"
+
 # load a table from a csv file
-ecology_data <- read.csv("meta_data.csv", header=T, sep="\t")
+ecology_data <- read.csv(paste(path_to_files, "meta_data.csv", sep=""), header=T, sep="\t")
 
 # show number of rows and number of columns
 nrow(ecology_data)
