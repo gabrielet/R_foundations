@@ -368,7 +368,7 @@ display: none;
 
 <h1 class="title toc-ignore">Think like a programmer - an
 introduction</h1>
-<h4 class="date">Tuesday 08, November</h4>
+<h4 class="date">Wednesday 09, November</h4>
 
 </div>
 
@@ -404,6 +404,8 @@ structures</a>
 <li><a href="#dataframes-and-matrices" id="toc-dataframes-and-matrices">Dataframes and matrices</a>
 <ul>
 <li><a href="#matrices" id="toc-matrices">Matrices</a></li>
+<li><a href="#a-mathematical-side-note-or-how-a-bug-is-born" id="toc-a-mathematical-side-note-or-how-a-bug-is-born">A mathematical
+side note or How a bug is born</a></li>
 <li><a href="#dataframes" id="toc-dataframes">Dataframes</a></li>
 <li><a href="#last-small-thing-about-lists" id="toc-last-small-thing-about-lists">Last, small thing about
 lists</a></li>
@@ -1049,6 +1051,28 @@ rbind(matrix_two, matrix_three)</code></pre>
 different number of columns. When putting together matrices, you need to
 make sure they have the correct dimensions.</p>
 </div>
+<div id="a-mathematical-side-note-or-how-a-bug-is-born" class="section level3">
+<h3>A mathematical side note or How a bug is born</h3>
+<p>In linear algebra matrices are quite popular. So, it is important to
+know how to use them to perform common operations such as sum or
+multiplication, since it may be non obvious. Let’s make an example of
+multiplication:</p>
+<pre class="r"><code># define a simple 2x2 matrix
+simple_matrix &lt;- matrix(c(1,2,3,4), nrow=2, ncol=2)
+
+# define simple vector to multiply the simple matrix
+simple_vector &lt;- c(0, 1)
+
+# multiply matrix by vector, &quot;R version&quot;
+simple_matrix * simple_vector
+
+# multiply matrix by vector, linear algebra version
+simple_matrix %*% simple_vector</code></pre>
+<p>The difference is that in linear algebra, multiplying a matrix by a
+vector will give you back a vector. However, using the wrong tool,
+i.e. <code>*</code>, to perform a simple operation may give you
+unexpected results.</p>
+</div>
 <div id="dataframes" class="section level3">
 <h3>Dataframes</h3>
 <p>On the other hand, we have dataframes:</p>
@@ -1141,8 +1165,11 @@ it, and everything in between).</p>
 happy.</p>
 <p>Now, let’s load a (well formatted) table from a file, just to see how
 it’s done:</p>
-<pre class="r"><code># load a table from a csv file
-ecology_data &lt;- read.csv(&quot;meta_data.csv&quot;, header=T, sep=&quot;\t&quot;)
+<pre class="r"><code># set path to directory where files are kept
+path_to_files &lt;- &quot;/home/gabriele/work/microbiology/think_like_a_programmer/ready_for_sharing/download_these_files/data/&quot;
+
+# load a table from a csv file
+ecology_data &lt;- read.csv(paste(path_to_files, &quot;meta_data.csv&quot;, sep=&quot;&quot;), header=T, sep=&quot;\t&quot;)
 
 # show number of rows and number of columns
 nrow(ecology_data)

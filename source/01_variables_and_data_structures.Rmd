@@ -815,7 +815,7 @@ Now, let's load a (well formatted) table from a file, just to see how it's done:
 ```{r}
 
 # set path to directory where files are kept
-path_to_files <- "/home/gabriele/work/microbiology/think_like_a_programmer/ready_for_sharing/data/"
+path_to_files <- "/home/gabriele/work/microbiology/think_like_a_programmer/ready_for_sharing/download_these_files/data/"
 
 # load a table from a csv file
 ecology_data <- read.csv(paste(path_to_files, "meta_data.csv", sep=""), header=T, sep="\t")
