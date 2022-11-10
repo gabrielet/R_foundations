@@ -1,0 +1,460 @@
+---
+title: "Think like a programmer - an introduction"
+date: "`r format(Sys.time(), '%A %d, %B')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    theme: readable
+    colortheme: "default"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
+```
+
+# Data structures
+
+A data structure is a container for a set of objects.
+
+## Vectors
+
+Vectors are variables containing more than one object:
+  
+```{r}
+
+# define a character variable, which is actually a vector
+friends <- c("Francesca", "Valerio", "Sofia", "Elena")
+
+# print the content of friends
+paste("the content of friends is ", friends, sep="")
+
+```
+
+`friends` is a vector, i.e. a data structure. The vector `friends` was built using the function `c()` that basically combines the characters that were passed in input. In `friends` we put four values. You can get this information using a function that show you the _length_, or the number of elements, in a vector. The function, as you may have guessed, is `length()`.
+
+```{r}
+
+# how many elements are there in friends?
+length(friends)
+
+# print the objects contained in the vector called friends
+print(paste0("the first object in contact is ", friends[1]))
+print(paste0("the second object in contact is ", friends[2]))
+print(paste0("the third object in contact is ", friends[3]))
+print(paste0("the fourth object in contact is ", friends[4]))
+
+```
+
+## Lists
+
+Lists are variables containing more than one object, as vectors. However, contrary to vectors lists need to be defined before using them. This means that first you need to define an empty list, then you can fill it:
+  
+```{r}
+
+# define an empty list
+a_list <- list()
+
+# add something to the list, i.e. a numerical value
+a_list[["a_number"]] <- 121.36509356
+
+# add something more to the list, i.e. some characters
+a_list[["some_chars"]] <- "somechars"
+
+# print the content of the list
+a_list
+
+```
+
+Ok, but what is the difference between lists and vectors, then? To answer this question look into the type of objects that you can store into a list and into a vector.
+
+```{r}
+
+# define vector of numerics
+numerics_vect <- c(1, 1.24587, 45, 39372.2134)
+
+# define a vector of characters
+friends <- c("Francesca", "Valerio", "Sofia", "Elena")
+
+# define a vector of numerics AND characters (can we??)
+nums_and_chars <- c("one", 2, "three", 4, 5)
+
+# print the content of the vectors we just created
+numerics_vect
+friends
+nums_and_chars
+
+```
+
+If we look at the `nums_and_char` vector, you will notice something weird: numerics are quoted. This means that they are not numerics anymore. They were casted, automatically by R, into characters (because R can't cast a character into a numeric).
+
+The problem, for R, is that you cannot create a vector containing different data types, i.e. characters and numerics together. This, however, can be achieved through `lists`:
+
+```{r}
+
+# define empty list
+a_complex_list <- list()
+
+# fill the list
+a_complex_list[["drawer_one"]] <- "one"
+a_complex_list[["drawer_two"]] <- 2
+a_complex_list[["drawer_three"]] <- "three"
+a_complex_list[["drawer_four"]] <- 4
+a_complex_list[["drawer_five"]] <- 5
+
+# show the content of the list
+a_complex_list
+
+```
+
+In this case, numerics are not quoted. They are still numerics! Just to test if that's true:
+  
+```{r}
+
+# print the type of data contained in all the drawers of the list
+print(c(typeof(a_complex_list[["drawer_one"]]), typeof(a_complex_list[["drawer_two"]]), typeof(a_complex_list[["drawer_three"]]), typeof(a_complex_list[["drawer_four"]]), typeof(a_complex_list[["drawer_five"]])))
+
+# same for the vector
+print(c(typeof(nums_and_chars[1]), typeof(nums_and_chars[2]), typeof(nums_and_chars[3]), typeof(nums_and_chars[4]), typeof(nums_and_chars[5])))
+
+```
+
+In the first case different types are shown. In the second case...always characters: that's the difference between lists and vectors.
+
+## Matrices
+
+On the one hand, we have matrices, which can only contain one type of data (remember _integers_, _double_, _characters_, _factors_??):
+  
+```{r}
+
+# define a matrix of zeroes
+a_matrix_of_numbers <- matrix(0, nrow=3, ncol=4)
+
+# define a matrix of chars
+a_matrix_of_chars <- matrix("0", nrow=3, ncol=4)
+
+# show the variables content
+a_matrix_of_numbers
+a_matrix_of_chars
+
+# assign a character to a_matrix_of_numbers
+a_matrix_of_numbers[1, 1] <- "0"
+
+# show the content of the variable
+a_matrix_of_numbers
+
+```
+
+After substituting an element of `a_matrix_of_numbers` with a character, i.e. "0", all the other zeros were _casted_ into chars. As we said, a matrix can only contain a specific data type.
+
+With this example, we also introduced the word _substituting_ an element of the matrix. The substitution, or _assignment_ happened here:
+  
+```{r}
+
+# set value in position (1, 1)
+a_matrix_of_numbers[1, 1] <- "0"
+
+```
+
+By doing so, you are accessing the value in the matrix, i.e. row 1, column 1, and putting something _into_ it, or _assigning_. In other words you _substitute_ or _overwrite_ the previous content.
+
+Of course, you can access whole matrices, a single cell (as we just did), a whole row, or a whole column. The general notation follows this pattern `matrix[n_of_row, n_of_column]`:
+  
+ - if we specify `n_of_row` **and not** `n_of_column`, i.e. `a_matrix[1, ]`, we are accessing the first row, all the columns. We are getting the whole first row;
+ - if we specify `n_of_column` **and not** `n_of_row`, i.e. `a_matrix[, 1]`, we are accessing the first column, all the rows. We are getting the whole first column;
+ - if we specify both `n_of_row` **and** `n_of_column`, i.e. `a_matrix[1, 1]`, we are accessing a single cell;
+ - if we specify both `n_of_row` **and** `n_of_column` but more than one, i.e. `a_matrix[c(1,2), c(3, 4)]`, we are accessing a subset of cells;
+ - if we specify nothing, i.e. `a_matrix[,]` **or** `a_matrix`, we are accessing the whole matrix.
+
+An example with numbers:
+  
+```{r}
+
+# define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
+# (we have 12 cells, right? and R will fill the matrix for us)
+a_matrix_of_numbers <- matrix(c(1:12), ncol=3, nrow=4)
+
+# print
+a_matrix_of_numbers
+
+# now, grab the second row, all the columns
+a_matrix_of_numbers[2, ]
+
+# now, grab the second column, all the rows
+a_matrix_of_numbers[, 2]
+
+# now, grab the second row, third column
+a_matrix_of_numbers[2, 3]
+
+# now, grab the second and fourth rows, the second and third column
+a_matrix_of_numbers[c(2, 4), c(2, 3)]
+
+```
+
+Pretty convenient to subset matrices and work with some of the values, if needed!
+  
+What is even more convenient, however, is the possibility to assign names to rows and columns:
+  
+```{r}
+
+# define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
+a_matrix_of_numbers <- matrix(c(1:12), ncol=3, nrow=4)
+
+# use the function rownames to assign names to rows
+rownames(a_matrix_of_numbers) <- c("row_one", "row_two", "row_three", "row_four")
+
+# use the function colnames to assign names to columns
+colnames(a_matrix_of_numbers) <- c("col_one", "col_two", "col_three")
+
+# remember that the function rownames (and also colnames)
+# can be used to visualise columns and rows names
+rownames(a_matrix_of_numbers)
+colnames(a_matrix_of_numbers)
+
+```
+
+At this point, you can get columns, or rows, by using their names:
+  
+```{r}
+
+# get second column
+a_matrix_of_numbers[, "col_two"]
+
+# get fourth row
+a_matrix_of_numbers["row_four",]
+
+```
+
+Matrices can be combined together, by columns or by rows, using two functions: `cbind()` and `rbind()`:
+  
+```{r error=TRUE}
+
+# define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
+matrix_one <- matrix(c(1:12), ncol=3, nrow=4)
+
+# define another matrix with 3 cols and 4 rows, with numbers from 1 to 12
+matrix_two <- matrix(c(13:24), ncol=3, nrow=4)
+
+# define a matrix with 4 cols and 3 rows, with numbers from 1 to 12
+matrix_three <- matrix(c(25:36), ncol=4, nrow=3)
+
+# now merge matrix_one and matrix_two by columns, i.e. use cbind
+cbind(matrix_one, matrix_two)
+
+# now merge matrix_one and matrix_two by rows, i.e. use rbind
+rbind(matrix_one, matrix_two)
+
+# now try to merge matrix_two and matrix_three by rows, i.e. use rbind
+rbind(matrix_two, matrix_three)
+
+```
+
+The last `rbind()` did not work because the matrices has a different number of columns. When putting together matrices, you need to make sure they have the correct dimensions.
+
+### A mathematical side note or How a bug was born
+
+In linear algebra matrices are quite popular. So, it is important to know how to use them to perform common operations such as sum or multiplication, since it may be non obvious. An example of multiplication:
+  
+```{r}
+
+# define a simple 2x2 matrix
+simple_matrix <- matrix(c(1,2,3,4), nrow=2, ncol=2)
+
+# define simple vector to multiply the simple matrix
+simple_vector <- c(0, 1)
+
+# multiply matrix by vector, "R version"
+simple_matrix * simple_vector
+
+# multiply matrix by vector, linear algebra version
+simple_matrix %*% simple_vector
+
+```
+
+The difference is that in linear algebra, multiplying a matrix by a vector will give you back a vector. However, using the wrong tool, i.e. `*`, to perform a simple operation may give you unexpected results.
+
+## Dataframes
+
+On the other hand, we have dataframes, which can contain both _integers_, _double_, _characters_, _factors_, you name it:
+  
+```{r}
+
+# create a dataframe with 4 rows and 2 columns
+a_dataframe <- data.frame(some_numbers=c(1, 435, 65432, 7.65376), some_chars=c("Elena", "Sofia", "Valerio", "Francesca"))
+
+# show the content of the dataframe
+a_dataframe
+
+```
+
+In this case you defined a dataframe and assigned a name to each of the two columns. This was done by telling to R that `some_numbers` and `some_chars`, i.e. two vectors, should be combined into a `data.frame`. The process in all its parts is:
+  
+```{r}
+
+# first, define two vectors
+student_mark <- c(10, 8, 8.5, 9)
+student_name <- c("Elena", "Sofia", "Valerio", "Francesca")
+
+# second, put the two vectors together as a data frame
+students_data <- cbind.data.frame(student_mark, student_name)
+
+# show the content of the dataframe
+students_data
+
+```
+
+Here, we used a new function, i.e. `cbind.data.frame()`, because we wanted to put together the two vectors as columns. You could do it by row, i.e. using `rbind.data.frame()` depending on what you need. It's exactly the same we did when we used `rbind` or `cbind` for matrices.
+
+Dataframes, as matrices, can be accessed in several ways. You can access a single cell, a column, a row, or a set of columns and rows by using the same notation, i.e. the square brackets `[1, c(1, 4)]`, but also using row and columns names. In the case of columns, though, it's a bit different with respect to what we did with matrices:
+  
+```{r}
+
+# access the numbers column using the $ symbol
+students_data$student_mark
+
+# access the numbers column using the $ symbol
+students_data$student_name
+
+```
+
+Remember that dataframes can be accessed in all the way matrices can be accessed, but they also have the `$` symbol allowing you to get a column by using its name (we can't use the \$ with matrices). This can be used to add new columns to dataframes in a very simple way:
+
+```{r}
+
+# add new column, as a vector, to an existing dataframe
+# by specifying its name
+students_data$student_surname <- c("F.", "G.", "M.", "B.")
+
+# show the content of the new dataframe
+students_data
+
+```
+
+### Last, small thing about lists
+
+Finally, it is important to remember that, as we have already seen, lists can contain different objects in their cells:
+
+```{r}
+
+# create an empty list
+another_complex_list <- list()
+
+# add a numeric vector to the list
+another_complex_list[["numerics"]] <- c(1, 2, 3, 4, 5)
+
+# add a character vector to the list
+another_complex_list[["chars"]] <- c("1", "2", "3", "4", "5")
+
+# add a matrix to the list
+another_complex_list[["matrix"]] <- a_matrix_of_numbers
+
+# add a dataframe to the list
+another_complex_list[["dataframe"]] <- students_data
+
+# show the content of the list
+another_complex_list
+
+```
+
+In this example, a lists is used to create a complex data structure containing many different piece of information. Each piece of information is stored into it's own cell, with it's own name, to easily access it when needed.
+
+### A side note about tables
+
+When we talked about matrices and dataframes, what we didn't talk about was how to load existing tables into R (yes, I am talking the data you managed to collect after sampling soil, extracting DNA, sequencing it, and everything in between).
+
+The only thing that you need to know about tables is (another golden rule, for everyone not only good programmers):
+
+ > when you build a table make sure it is well formatted and save it as _.csv_.
+
+If this rule is applied your (and other people's) life will be easier and happier.
+
+Now load a (well formatted) table from a file, just to see how it's done, and find some information about the just loaded table:
+
+```{r}
+
+# set path to working directory
+path_to_working_directory <- "/home/gabriele/work/"
+
+# set path to directory where files are kept
+path_to_files <- "microbiology/think_like_a_programmer/R_foundations/lessons_files/data/"
+
+# load a table from a csv file
+ecology_data <- read.csv(paste(path_to_working_directory, path_to_files, "meta_data.csv", sep=""), header=T, sep="\t")
+
+# show number of rows and number of columns
+nrow(ecology_data)
+ncol(ecology_data)
+
+# show these values at once
+dim(ecology_data)
+
+# show the first six lines of the loaded table
+head(ecology_data)
+
+# show the first ten, but you need to specify it
+# since by default the lines that are shown are six
+head(ecology_data, n=8)
+
+```
+
+At this point, it's worth introducing three functions that can be used to subset tables. These function take advantage of logical values. In other words, these functions will give you back some values will be `TRUE` or `FALSE`. So, to subset a table you will need to define _what you like_, which will be `TRUE`, and _what you don't like_, which will be `FALSE`.
+
+Think like programmers for a second.
+
+So, say that you want to subset a table to get those samples which treatment is equal to _Control_.
+
+In current language you would say exactly what we just said, i.e. "Which Samples are Controls?".
+
+Well, it turns out that _which_, in R, is an actual function. Indeed, `which()`, allows you to get those values which are equal or not equal to other values.
+
+So, get those samples that are Controls:
+
+```{r}
+
+# print table, just to have an idea of what we are dealing with
+head(ecology_data)
+
+# get control samples using the which function and a logical operator
+which(ecology_data$treatment=="C")
+
+```
+
+What is `which()` telling you? What if I show you this, instead, of the `which()`? How is this related to the result that we got from the `which()` function?
+
+```{r}
+
+# get control samples
+ecology_data$treatment=="C"
+
+```
+
+The answer is that the `which()` function is showing you the number of rows of those samples that are controls. The other command, on the other hand, is showing which samples are controls, i.e. `control==TRUE`, and which are not, i.e. `control==FALSE`.
+
+So, now that you know which samples are control and which are not, it's time to use this piece of information to subset the original metadata table:
+  
+```{r}
+
+# store control samples in a variable
+control_samples_rows <- which(ecology_data$treatment=="C")
+
+# subset ecology_data, by rows, since the which returned
+# the number of rows for control samples
+ecology_data[control_samples_rows, ]
+
+
+# or, use the logical vector
+control_samples_logical <- ecology_data$treatment=="C"
+
+# subset
+ecology_data[control_samples_logical, ]
+
+```
+
+Of course, it is possible to create any combination of conditions, using any (combination of) logical operator.
+
+#### Two very nice exercises
+
+Subset the table to get only those samples that:
+  
+  1. are not Controls;
+2. are Controls sampled in Winter.

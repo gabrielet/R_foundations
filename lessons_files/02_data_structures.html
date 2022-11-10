@@ -374,39 +374,18 @@ introduction</h1>
 
 <div id="TOC">
 <ul>
-<li><a href="#short-intro-to-r" id="toc-short-intro-to-r">Short intro to
-R</a></li>
-<li><a href="#super-short-into-to-rstudio" id="toc-super-short-into-to-rstudio">Super short into to
-RStudio</a></li>
-<li><a href="#think-like-a-programmer" id="toc-think-like-a-programmer">Think like a programmer</a></li>
-<li><a href="#building-blocks-of-programming" id="toc-building-blocks-of-programming">Building blocks of
-programming</a>
-<ul>
-<li><a href="#r-environment" id="toc-r-environment">R
-environment</a></li>
-<li><a href="#variables" id="toc-variables">Variables</a>
-<ul>
-<li><a href="#data-types" id="toc-data-types">Data types</a></li>
-<li><a href="#numerics" id="toc-numerics">Numerics</a></li>
-<li><a href="#characters" id="toc-characters">Characters</a></li>
-<li><a href="#factors" id="toc-factors">Factors</a></li>
-</ul></li>
-<li><a href="#side-note-about-casting" id="toc-side-note-about-casting">Side note about Casting</a>
-<ul>
-<li><a href="#logicals" id="toc-logicals">Logicals</a></li>
-</ul></li>
 <li><a href="#data-structures" id="toc-data-structures">Data
 structures</a>
 <ul>
 <li><a href="#vectors" id="toc-vectors">Vectors</a></li>
 <li><a href="#lists" id="toc-lists">Lists</a></li>
-</ul></li>
-<li><a href="#dataframes-and-matrices" id="toc-dataframes-and-matrices">Dataframes and matrices</a>
+<li><a href="#matrices" id="toc-matrices">Matrices</a>
 <ul>
-<li><a href="#matrices" id="toc-matrices">Matrices</a></li>
 <li><a href="#a-mathematical-side-note-or-how-a-bug-was-born" id="toc-a-mathematical-side-note-or-how-a-bug-was-born">A mathematical
 side note or How a bug was born</a></li>
-<li><a href="#dataframes" id="toc-dataframes">Dataframes</a></li>
+</ul></li>
+<li><a href="#dataframes" id="toc-dataframes">Dataframes</a>
+<ul>
 <li><a href="#last-small-thing-about-lists" id="toc-last-small-thing-about-lists">Last, small thing about
 lists</a></li>
 <li><a href="#a-side-note-about-tables" id="toc-a-side-note-about-tables">A side note about tables</a></li>
@@ -415,435 +394,11 @@ lists</a></li>
 </ul>
 </div>
 
-<div id="short-intro-to-r" class="section level1">
-<h1>Short intro to R</h1>
-<p>R is a programming language which is mainly used for statistical
-purposes but in reality it has many more applications. R exists in a
-base form, offering a wide set of tools, which are called
-<em>functions</em>, that are used to perform many operations such as
-computing means, plotting, regression analysis, and much more.</p>
-<p>In addition, there are many packages, e.g. <em>ggplot2</em>,
-<em>phyloseq</em>, <em>Vegan</em>, …, that were created to extend the
-basic set of R functions for more specific tasks like DNA sequences
-analysis, gene enrichments analysis, network construction, advanced
-plotting, computing <span class="math inline">\(\alpha\)</span>-diversity, and much more.</p>
-<p>Of course, packages need to be installed before using them. You can
-find packages <a href="https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&amp;fuzzy_slug=">in
-several places</a>, such as CRAN, R-Forge, Github, or Bioconductor.
-packages can be installed from all these sources and then it will be
-possible to take advantage of the functionalities they offer.</p>
-</div>
-<div id="super-short-into-to-rstudio" class="section level1">
-<h1>Super short into to RStudio</h1>
-<p>RStudio is and Integrated Development Environment (IDE) that allows
-you to run R scripts, edit them in a text editor, visualise and export
-results and plots, look into tables, create and compile Markdown-based
-documents (such as this document we’re using), and many more things.</p>
-<p>If you don’t want to use RStudio you can use R from the command line
-and write your scripts using a text editor.</p>
-</div>
-<div id="think-like-a-programmer" class="section level1">
-<h1>Think like a programmer</h1>
-<p>Programming may seems complicated at first, and R is not the best way
-of learning it (there are programming languages that are easier to
-understand), but it’s not about the language. Programming is a different
-way of thinking how problems can be solved.</p>
-<p>In programming you should think through logic statements and
-loops.</p>
-<p>Programming means putting together a set of instructions, in a
-<em>program</em> or a <em>script</em>, that will return the expected
-result. These instructions <em>have to</em>:</p>
-<ul>
-<li>be ordered, since it is not possible to read a book with random
-sentences;</li>
-<li>follow that-programming-language specific rules.</li>
-</ul>
-<p>These instructions <em>should be</em>:</p>
-<ul>
-<li>as simple as possible;</li>
-<li>well commented so (you and) other peoples can understand it in the
-future.</li>
-</ul>
-</div>
-<div id="building-blocks-of-programming" class="section level1">
-<h1>Building blocks of programming</h1>
-<div id="r-environment" class="section level2">
-<h2>R environment</h2>
-<p>When we first start a session of R, we must be aware that R is
-<em>sitting</em> in a specific folder in our computer. You can, of
-course, specify which folder this folder is, but you need to be aware.
-So…which folder are you currently in, i.e. the working directory? You
-can ask R using the function <code>getwd()</code> which basically
-<em>gets the working directory</em>:</p>
-<pre class="r"><code># where am I??
-getwd()</code></pre>
-<p>If this is not the directory you want to be working in, and there are
-many reasons for that, you can always change it using another function
-which is <code>setwd()</code>, which basically <em>sets a Working
-Directory</em>:</p>
-<pre class="r"><code># move to the folder containing the data for this course
-setwd(&quot;/home/gabriele/work/microbiology/think_like_a_programmer/&quot;)</code></pre>
-<p>Now that we set the working directory, it’s time to get to know the R
-environment, which represent the sets of variables, functions, and
-packages that are available to you in a specific R session. To get these
-information we can use two functions: <code>ls()</code> and
-<code>search()</code>:</p>
-<pre class="r"><code># show objects I can use
-ls()
-
-# show packages I can use
-search()</code></pre>
-<p>The working directory, and the working environment are very
-important. We will get back to this later on, though.</p>
-<p>You can also have an idea of which files are currently in the working
-directory, i.e. the one that <code>getwd()</code> returns, using the
-function <code>list.files()</code>:</p>
-<pre class="r"><code># show the files in the current directory
-list.files()</code></pre>
-</div>
-<div id="variables" class="section level2">
-<h2>Variables</h2>
-<p>A variable can be seen as a box that contains zero, one, or many
-things which can be used, modified, and deleted whenever you like.</p>
-<p>You have probably heard about variables. Variables are used, for
-example, in mathematics to represent unknown values in equations:</p>
-<p><span class="math inline">\(3x + \frac{1}{2} y = 0\)</span></p>
-<p>In this case <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> are the names of two different
-variables. It means they can take, <em>theoretically</em>, any value.
-The same applies in R: a variable can be <em>substituted</em>, or can
-<em>contain</em> any value.</p>
-<p>When you use, or <em>call</em>, a variable, what you are actually
-doing is using the value that is contained in it.</p>
-<p>So, a variable is like a box which can contain something that you
-want to use later on. That is why you put it into the box: it’s just a
-storage. When you need whatever was inside the box, you will know where
-to find it and how it’s called.</p>
-<p>The action is performed <em>on</em> the content of the box. Of
-course, if something is not needed later on, you don’t define a variable
-for it: it’s a waste of space (how many things you have in boxes that
-are never used and just takes space??).</p>
-<p>Assigning a value to a variable in R:</p>
-<pre class="r"><code># assign a value using left arrow
-a_value &lt;- 5
-a_value
-
-# assign a value using right arrow
-10 -&gt; another_value
-another_value
-
-# assign a value using equal
-a_third_value = 15
-a_third_value
-
-# assign two values at once
-left_assign &lt;- 100 -&gt; right_assign
-left_assign
-right_assign</code></pre>
-<p>All of these assignments are valid. However, the symbol
-<code>=</code> is usually found only when a value is <em>passed</em> to
-a parameter (we will see this!), while the left arrow,
-i.e. <code>&lt;-</code>, is the preferred one. The right arrow can also
-be used but it’s very uncommon.</p>
-<div id="data-types" class="section level3">
-<h3>Data types</h3>
-<p>In R there are several data types, each one with its own
-characteristics. A general distinction can be made by separating data
-types in <em>numerical</em> and <em>categorical</em>.</p>
-</div>
-<div id="numerics" class="section level3">
-<h3>Numerics</h3>
-<p>Numerics, as you may expect, are numbers. Numbers which can be used
-to perform mathematics (, statistics, and much more). Numerics can be
-either integers or double (if they have decimals).</p>
-<p>Example of numerics:</p>
-<pre class="r"><code># define a variable named one and assign an integer to it
-one &lt;- 1
-
-# define a variable named three_point_five and assign a double
-three_point_five &lt;- 3.5
-
-# sum up one and three_point_five, you will get a double
-one + three_point_five
-
-# same result can be obtained by summing up 1 and 3.5
-1 + 3.5</code></pre>
-<p>Numerics can be stored inside variables and then used for operations,
-at any point in the code, but only after they were <em>declared</em>,
-i.e. after they actually exist.</p>
-<p>The only thing you need to remember is the name of the variable where
-the numeric was stored. So, to keep things simple, just use meaningful
-names for your variables (we already were doing it, anyway), to remember
-what they contain.</p>
-<p>You can now use the variables that were defined above, to perform
-some more operations:</p>
-<pre class="r"><code># some more random operations
-one + 3.5
-
-three_point_five / 3
-
-one * three_point_five</code></pre>
-</div>
-<div id="characters" class="section level3">
-<h3>Characters</h3>
-<p>Characters, on the other hand, represents those <em>symbols</em> that
-are not numbers. So, for example, letters and words.</p>
-<p>Example of characters:</p>
-<pre class="r"><code># define a variable named a_characters containing a single character
-a_character &lt;- &quot;c&quot;
-
-# define a variable where many characters are pasted together
-# we call this sequence of characters &quot;string&quot;
-some_characters &lt;- &quot;manycharacters&quot;</code></pre>
-<p>Clearly, arithmetic operations can be only performed on numbers,
-i.e. numerics. It does not make sense to sum up characters, or does
-it?</p>
-<pre class="r"><code># sum (the content of) some_characters and 1
-some_characters + 1</code></pre>
-<pre><code>## Error in some_characters + 1: non-numeric argument to binary operator</code></pre>
-<p>Here, R is telling you that something is wrong. The errors arose
-because you are trying to use a non-numeric object, i.e. the variables
-<code>some_characters</code> to perform some arithmetic operations (a
-sum).</p>
-<p>The interesting thing with <code>characters</code>, is that they can
-be concatenated to form more complex sequences of
-<code>characters</code>. To do this, we need to introduce a new
-function: <code>paste()</code> that allows you <em>combining</em> the
-content of variables together.</p>
-<p>For example, define a path to a folder in your computer:</p>
-<pre class="r"><code># path to Desktop folder
-path_to_folder &lt;- &quot;/home/gabriele/Desktop/&quot;
-
-# show the path
-path_to_folder
-
-# path to work-related stuff. put together path_to_folder with the
-# name of the work folder:
-path_to_work_folder &lt;- paste(path_to_folder, &quot;work_folder/&quot;, sep=&quot;&quot;)
-
-# show the path
-path_to_work_folder
-
-# path to pics from the last vacation. same as for the work folder
-path_to_vacations_pics_folder &lt;- paste(path_to_folder, &quot;vacations_pics/&quot;)
-
-# show the path
-path_to_vacations_pics_folder</code></pre>
-<p>In this way you can define a common path,
-<code>path_to_folder</code>, and build more complex paths on top of it.
-That’s how variables can be pasted:</p>
-<pre class="r"><code># set result in advance
-five &lt;- 5
-
-# now sum three + two
-print(paste(&quot;three plus two equals&quot;, five))</code></pre>
-<div id="a-very-nice-exercise" class="section level4">
-<h4>A very nice exercise</h4>
-<p>Use the function <code>list.files()</code> to view the content of
-<em>path_to_folder</em> and <em>path_to_work_folder</em>. Then, move the
-current working directory (remember <code>getwd()</code>) to
-<em>path_to_folder</em>.</p>
-</div>
-</div>
-<div id="factors" class="section level3">
-<h3>Factors</h3>
-<p>Factors may look like characters, but they have different
-properties.</p>
-<p>Examples of factors:</p>
-<pre class="r"><code># these are characters
-some_characters &lt;- &quot;some_characters&quot;
-
-# define a factor using a sequence of characters
-a_factor &lt;- as.factor(some_characters)</code></pre>
-<p>Factors are used to represent <em>Categorical variables</em> (in the
-statistical sense). <em>Categorical variables</em> can be
-<em>Nominal</em> or <em>Ordinal</em>. The difference is that
-<em>ordinal</em> have a sort of order, <em>nominal</em> do not.</p>
-<p>For instance, define a nominal categorical variable that contains
-many different (sequences of) characters, such as:</p>
-<pre class="r"><code># list some friends as characters
-friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
-
-# cast friends to factor
-friends &lt;- factor(friends)
-
-# show the content of the variable
-friends
-
-# add other friends, while keeping same levels
-friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;, &quot;Francesca&quot;, &quot;Valerio&quot;)
-friends &lt;- factor(friends)
-friends</code></pre>
-<p>Now, define an ordinal categorical variable, instead:</p>
-<pre class="r"><code># list soil depths, as characters
-depths &lt;- c(&quot;surface&quot;, &quot;medium&quot;, &quot;deep&quot;, &quot;shallow&quot;, &quot;very_deep&quot;)
-
-# cast depths as factor and order it using levels
-depths &lt;- factor(depths, order=TRUE, levels=c(&quot;very_deep&quot;, &quot;deep&quot;, &quot;medium&quot;, &quot;shallow&quot;, &quot;surface&quot;))
-
-# show the content of the variable
-depths</code></pre>
-<p>There is an interesting difference between <code>friends</code> and
-<code>depths</code>. The first one has levels that are ordered, by R,
-alphabetically: they are names, meaning no one is bigger, slower,
-higher, or weigh more than another: just names. And yes, you can still
-order them as you like, but you need to specify it as with the
-<code>depths</code>, i.e. using <code>levels</code>.</p>
-<p>On the other hand, soil levels are ordered since <em>verydeep</em> is
-deeper than <em>medium</em> which, in turn, is deeper than
-<em>shallow</em>. Here, the order is important. That’s why you may want
-to set the levels (this is very handy when performing statistical
-analysis or other stuff such as plotting).</p>
-</div>
-</div>
-<div id="side-note-about-casting" class="section level2">
-<h2>Side note about Casting</h2>
-<p>To <em>cast</em> (or <em>casting</em>) means transforming an object
-of a type into an object of another type, as we just did using the
-function <code>as.factor()</code>. Another example can be done using the
-function <code>as.integer()</code>. This function transforms something
-into an integer, if it is possible:</p>
-<pre class="r"><code># transform a double into integer
-as.integer(2.3)
-
-# transform a character into an integer and sum two
-as.integer(&quot;1&quot;) + 2
-
-# transform another character into an integer
-# (this will give you an error since the letter A does not correspond to any number!)
-as.integer(&quot;A&quot;)</code></pre>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
-<p>Interestingly, you can perform operations using factors:</p>
-<pre class="r"><code># shall we sum up some depths?
-sum(as.integer(depths))</code></pre>
-<div id="logicals" class="section level3">
-<h3>Logicals</h3>
-<p>Logical can take values that are either <code>TRUE</code> or
-<code>FALSE</code>. They are fundamental in programming because contrary
-to human logic, computer logic works with zero and one, black or white:
-in programming a <em>statement</em> can be <code>TRUE</code> or
-<code>FALSE</code>.</p>
-<p>Logical values have specific operations that are performed through
-logical operators. They are three: AND, OR, and NOT. In R, they are
-written as symbols which you can find on your keyboard:</p>
-<ul>
-<li>AND: <code>&amp;</code>;</li>
-<li>OR: <code>|</code>;</li>
-<li>NOT: <code>!</code>.</li>
-</ul>
-<p><code>TRUE</code> can be abbreviated as <code>T</code>,
-<code>FALSE</code> as <code>F</code>.</p>
-<p>The AND operator takes two logical values as input, and return TRUE
-when both are TRUE. We can translate this as: “I will be happy if I can
-have popcorn and a zombie movie!”.</p>
-<pre class="r"><code># true and true
-TRUE &amp; TRUE
-
-# true and false
-TRUE &amp; F
-
-# false and true
-FALSE &amp; T
-
-# false and false
-F &amp; F</code></pre>
-<p>The OR operator works in the same way as the AND operator but it
-returns TRUE if one of the two logical values is TRUE. We can translate
-this as: “I will be happy if I can have either a hot chocolate or a
-coffee with whip cream”.</p>
-<pre class="r"><code># true or true
-T | T
-
-# true or false
-TRUE | FALSE
-
-# false or true
-F | TRUE
-
-# false or false
-F | FALSE</code></pre>
-<p>The NOT operator is a negation of the logical operator it is used
-with logical values or functions:</p>
-<pre class="r"><code># not true
-!T
-
-# not false
-!F
-
-# is 4 a numeric??
-four &lt;- &quot;four&quot;
-is.numeric(four)
-
-# or, is it not??
-!is.numeric(four)
-
-# wait, but is it or is it not??
-!!is.numeric(four)</code></pre>
-<p>There are other operators that are used for comparing objects:</p>
-<ul>
-<li>equal to: <code>==</code>;</li>
-<li>not equal to: <code>!=</code>;</li>
-<li>greater than: <code>&gt;</code>;</li>
-<li>greater than or equal to: <code>&gt;=</code>;</li>
-<li>smaller than: <code>&lt;</code>;</li>
-<li>smaller than or equal to: <code>&lt;=</code>.</li>
-</ul>
-<p>A few examples:</p>
-<pre class="r"><code># equal to
-&quot;hello&quot; == &quot;ciao&quot;
-
-# equal to
-4 == 5
-
-# not equal to
-10 != 100
-
-# smaller than
-4 &lt; 5
-
-# greater than or equal to
-100 &gt;= 10
-
-# you can also combine expressions
-10 &gt; 9 | &quot;a&quot; == &quot;b&quot;
-
-10 &lt; 9 &amp; 5 &gt; 4
-
-10 &gt;= 9 | 5 &lt; 4</code></pre>
-<p>Remember that logical operators have precedence, for example as in
-mathematics when multiplication has precedence over addition. For R:</p>
-<ul>
-<li><code>!</code> has precedence over</li>
-<li><code>&amp;</code> which has precedence over</li>
-<li><code>|</code>.</li>
-</ul>
-<p>For a full list of operators and precedence, see <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html">here</a>.</p>
-<p>We will see how logical values and operators work when used in actual
-loops.</p>
-<div id="vectors-of-logical-values" class="section level4">
-<h4>Vectors of logical values</h4>
-<p>Logical values can be combined in vectors:</p>
-<pre class="r"><code># define two vectors of logical values
-logi_vals_one &lt;- c(TRUE, TRUE, FALSE)
-
-logi_vals_two &lt;- c(FALSE, TRUE, FALSE)
-
-# test the AND logical operator on the vectors
-logi_vals_one &amp; logi_vals_two
-
-# test the OR logical operator on the vectors
-logi_vals_one | logi_vals_two
-
-# test the NOT logical operator on the vectors
-!logi_vals_one
-!logi_vals_two</code></pre>
-</div>
-</div>
-</div>
-<div id="data-structures" class="section level2">
-<h2>Data structures</h2>
+<div id="data-structures" class="section level1">
+<h1>Data structures</h1>
 <p>A data structure is a container for a set of objects.</p>
-<div id="vectors" class="section level3">
-<h3>Vectors</h3>
+<div id="vectors" class="section level2">
+<h2>Vectors</h2>
 <p>Vectors are variables containing more than one object:</p>
 <pre class="r"><code># define a character variable, which is actually a vector
 friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
@@ -866,8 +421,8 @@ print(paste0(&quot;the second object in contact is &quot;, friends[2]))
 print(paste0(&quot;the third object in contact is &quot;, friends[3]))
 print(paste0(&quot;the fourth object in contact is &quot;, friends[4]))</code></pre>
 </div>
-<div id="lists" class="section level3">
-<h3>Lists</h3>
+<div id="lists" class="section level2">
+<h2>Lists</h2>
 <p>Lists are variables containing more than one object, as vectors.
 However, contrary to vectors lists need to be defined before using them.
 This means that first you need to define an empty list, then you can
@@ -929,17 +484,11 @@ print(c(typeof(nums_and_chars[1]), typeof(nums_and_chars[2]), typeof(nums_and_ch
 case…always characters: that’s the difference between lists and
 vectors.</p>
 </div>
-</div>
-<div id="dataframes-and-matrices" class="section level2">
-<h2>Dataframes and matrices</h2>
-<p>Now that vectors, lists, and data types were introduced, it’s time to
-put these things together into matrices and data frames. The main
-difference between matrix and dataframes is the same we have seen for
-lists and vectors. Matrices can contain only one type of data, while
-dataframes can contain different kind of data.</p>
-<div id="matrices" class="section level3">
-<h3>Matrices</h3>
-<p>On the one hand, we have matrices:</p>
+<div id="matrices" class="section level2">
+<h2>Matrices</h2>
+<p>On the one hand, we have matrices, which can only contain one type of
+data (remember <em>integers</em>, <em>double</em>, <em>characters</em>,
+<em>factors</em>??):</p>
 <pre class="r"><code># define a matrix of zeroes
 a_matrix_of_numbers &lt;- matrix(0, nrow=3, ncol=4)
 
@@ -956,8 +505,9 @@ a_matrix_of_numbers[1, 1] &lt;- &quot;0&quot;
 # show the content of the variable
 a_matrix_of_numbers</code></pre>
 <p>After substituting an element of <code>a_matrix_of_numbers</code>
-with a character, i.e. “0”, all the other zeros were casted into chars.
-As we said, a matrix can only contain a specific data type.</p>
+with a character, i.e. “0”, all the other zeros were <em>casted</em>
+into chars. As we said, a matrix can only contain a specific data
+type.</p>
 <p>With this example, we also introduced the word <em>substituting</em>
 an element of the matrix. The substitution, or <em>assignment</em>
 happened here:</p>
@@ -971,24 +521,24 @@ previous content.</p>
 did), a whole row, or a whole column. The general notation follows this
 pattern <code>matrix[n_of_row, n_of_column]</code>:</p>
 <ul>
-<li>If we specify <code>n_of_row</code> <strong>and not</strong>
+<li>if we specify <code>n_of_row</code> <strong>and not</strong>
 <code>n_of_column</code>, i.e. <code>a_matrix[1, ]</code>, we are
 accessing the first row, all the columns. We are getting the whole first
 row;</li>
-<li>If we specify <code>n_of_column</code> <strong>and not</strong>
+<li>if we specify <code>n_of_column</code> <strong>and not</strong>
 <code>n_of_row</code>, i.e. <code>a_matrix[, 1]</code>, we are accessing
 the first column, all the rows. We are getting the whole first
 column;</li>
-<li>If we specify both <code>n_of_row</code> <strong>and</strong>
+<li>if we specify both <code>n_of_row</code> <strong>and</strong>
 <code>n_of_column</code>, i.e. <code>a_matrix[1, 1]</code>, we are
 accessing a single cell;</li>
-<li>If we specify both <code>n_of_row</code> <strong>and</strong>
+<li>if we specify both <code>n_of_row</code> <strong>and</strong>
 <code>n_of_column</code> but more than one,
 i.e. <code>a_matrix[c(1,2), c(3, 4)]</code>, we are accessing a subset
 of cells;</li>
-<li>If we specify nothing, i.e. <code>a_matrix[,]</code>
+<li>if we specify nothing, i.e. <code>a_matrix[,]</code>
 <strong>or</strong> <code>a_matrix</code>, we are accessing the whole
-matrix;</li>
+matrix.</li>
 </ul>
 <p>An example with numbers:</p>
 <pre class="r"><code># define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
@@ -1056,7 +606,6 @@ rbind(matrix_two, matrix_three)</code></pre>
 <p>The last <code>rbind()</code> did not work because the matrices has a
 different number of columns. When putting together matrices, you need to
 make sure they have the correct dimensions.</p>
-</div>
 <div id="a-mathematical-side-note-or-how-a-bug-was-born" class="section level3">
 <h3>A mathematical side note or How a bug was born</h3>
 <p>In linear algebra matrices are quite popular. So, it is important to
@@ -1079,9 +628,12 @@ vector will give you back a vector. However, using the wrong tool,
 i.e. <code>*</code>, to perform a simple operation may give you
 unexpected results.</p>
 </div>
-<div id="dataframes" class="section level3">
-<h3>Dataframes</h3>
-<p>On the other hand, we have dataframes:</p>
+</div>
+<div id="dataframes" class="section level2">
+<h2>Dataframes</h2>
+<p>On the other hand, we have dataframes, which can contain both
+<em>integers</em>, <em>double</em>, <em>characters</em>,
+<em>factors</em>, you name it:</p>
 <pre class="r"><code># create a dataframe with 4 rows and 2 columns
 a_dataframe &lt;- data.frame(some_numbers=c(1, 435, 65432, 7.65376), some_chars=c(&quot;Elena&quot;, &quot;Sofia&quot;, &quot;Valerio&quot;, &quot;Francesca&quot;))
 
@@ -1128,11 +680,10 @@ students_data$student_surname &lt;- c(&quot;F.&quot;, &quot;G.&quot;, &quot;M.&q
 
 # show the content of the new dataframe
 students_data</code></pre>
-</div>
 <div id="last-small-thing-about-lists" class="section level3">
 <h3>Last, small thing about lists</h3>
 <p>Finally, it is important to remember that, as we have already seen,
-lists can contain different objects in their cells. A final example:</p>
+lists can contain different objects in their cells:</p>
 <pre class="r"><code># create an empty list
 another_complex_list &lt;- list()
 
@@ -1151,9 +702,9 @@ another_complex_list[[&quot;dataframe&quot;]] &lt;- students_data
 # show the content of the list
 another_complex_list</code></pre>
 <p>In this example, a lists is used to create a complex data structure
-that provide different informations. Each information is stored into
-it’s own cell, with it’s own name, to easily access that piece of
-information when needed.</p>
+containing many different piece of information. Each piece of
+information is stored into it’s own cell, with it’s own name, to easily
+access it when needed.</p>
 </div>
 <div id="a-side-note-about-tables" class="section level3">
 <h3>A side note about tables</h3>
@@ -1161,20 +712,24 @@ information when needed.</p>
 about was how to load existing tables into R (yes, I am talking the data
 you managed to collect after sampling soil, extracting DNA, sequencing
 it, and everything in between).</p>
-<p>The only thing that we need to know about tables is:</p>
+<p>The only thing that you need to know about tables is (another golden
+rule, for everyone not only good programmers):</p>
 <blockquote>
 <p>when you build a table make sure it is well formatted and save it as
 <em>.csv</em>.</p>
 </blockquote>
-<p>If this rule is applied your life will be easier and you will be
-happy.</p>
-<p>Now, load a (well formatted) table from a file, just to see how it’s
-done:</p>
-<pre class="r"><code># set path to directory where files are kept
-path_to_files &lt;- &quot;/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/&quot;
+<p>If this rule is applied your (and other people’s) life will be easier
+and happier.</p>
+<p>Now load a (well formatted) table from a file, just to see how it’s
+done, and find some information about the just loaded table:</p>
+<pre class="r"><code># set path to working directory
+path_to_working_directory &lt;- &quot;/home/gabriele/work/&quot;
+
+# set path to directory where files are kept
+path_to_files &lt;- &quot;microbiology/think_like_a_programmer/R_foundations/lessons_files/data/&quot;
 
 # load a table from a csv file
-ecology_data &lt;- read.csv(paste(path_to_files, &quot;meta_data.csv&quot;, sep=&quot;&quot;), header=T, sep=&quot;\t&quot;)
+ecology_data &lt;- read.csv(paste(path_to_working_directory, path_to_files, &quot;meta_data.csv&quot;, sep=&quot;&quot;), header=T, sep=&quot;\t&quot;)
 
 # show number of rows and number of columns
 nrow(ecology_data)
