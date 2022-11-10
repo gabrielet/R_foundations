@@ -450,9 +450,9 @@ understand), but it’s not about the language. Programming is a different
 way of thinking how problems can be solved.</p>
 <p>In programming you should think through logic statements and
 loops.</p>
-<p>Programming means putting together a set of instructions, lets call
-it a <em>program</em> or a <em>script</em>, that will return the
-expected result. These instructions <em>have to</em>:</p>
+<p>Programming means putting together a set of instructions, in a
+<em>program</em> or a <em>script</em>, that will return the expected
+result. These instructions <em>have to</em>:</p>
 <ul>
 <li>be ordered, since it is not possible to read a book with random
 sentences;</li>
@@ -472,9 +472,9 @@ future.</li>
 <p>When we first start a session of R, we must be aware that R is
 <em>sitting</em> in a specific folder in our computer. You can, of
 course, specify which folder this folder is, but you need to be aware.
-So…which folder are you currently in, i.e. the working directory? Let’s
-ask R using the function <code>getwd()</code> which basically <em>gets
-the working directory</em>.</p>
+So…which folder are you currently in, i.e. the working directory? You
+can ask R using the function <code>getwd()</code> which basically
+<em>gets the working directory</em>:</p>
 <pre class="r"><code># where am I??
 getwd()</code></pre>
 <p>If this is not the directory you want to be working in, and there are
@@ -495,6 +495,11 @@ ls()
 search()</code></pre>
 <p>The working directory, and the working environment are very
 important. We will get back to this later on, though.</p>
+<p>You can also have an idea of which files are currently in the working
+directory, i.e. the one that <code>getwd()</code> returns, using the
+function <code>list.files()</code>:</p>
+<pre class="r"><code># show the files in the current directory
+list.files()</code></pre>
 </div>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
@@ -566,9 +571,9 @@ one + three_point_five
 at any point in the code, but only after they were <em>declared</em>,
 i.e. after they actually exist.</p>
 <p>The only thing you need to remember is the name of the variable where
-the numeric was stored. So, to keep things simple, let’s start using
-meaningful names for your variables (we already were doing it, anyway),
-to remember what they contain.</p>
+the numeric was stored. So, to keep things simple, just use meaningful
+names for your variables (we already were doing it, anyway), to remember
+what they contain.</p>
 <p>You can now use the variables that were defined above, to perform
 some more operations:</p>
 <pre class="r"><code># some more random operations
@@ -587,7 +592,7 @@ are not numbers. So, for example, letters and words.</p>
 a_character &lt;- &quot;c&quot;
 
 # define a variable where many characters are pasted together
-# let&#39;s call this a string
+# we call this sequence of characters &quot;string&quot;
 some_characters &lt;- &quot;manycharacters&quot;</code></pre>
 <p>Clearly, arithmetic operations can be only performed on numbers,
 i.e. numerics. It does not make sense to sum up characters, or does
@@ -604,7 +609,7 @@ be concatenated to form more complex sequences of
 <code>characters</code>. To do this, we need to introduce a new
 function: <code>paste()</code> that allows you <em>combining</em> the
 content of variables together.</p>
-<p>For example, let’s define a path to a folder in your computer:</p>
+<p>For example, define a path to a folder in your computer:</p>
 <pre class="r"><code># path to Desktop folder
 path_to_folder &lt;- &quot;/home/gabriele/Desktop/&quot;
 
@@ -631,11 +636,9 @@ five &lt;- 5
 
 # now sum three + two
 print(paste(&quot;three plus two equals&quot;, five))</code></pre>
-<p>You can combine any kind of variable with <code>paste()</code> but
-results, sometimes, can be surprising (and may hide bugs)!</p>
 <div id="a-very-nice-exercise" class="section level4">
 <h4>A very nice exercise</h4>
-<p>Use the function <code>ls()</code> to show the content of
+<p>Use the function <code>list.files()</code> to view the content of
 <em>path_to_folder</em> and <em>path_to_work_folder</em>. Then, move the
 current working directory (remember <code>getwd()</code>) to
 <em>path_to_folder</em>.</p>
@@ -643,19 +646,21 @@ current working directory (remember <code>getwd()</code>) to
 </div>
 <div id="factors" class="section level3">
 <h3>Factors</h3>
-<p>Factors may be look like characters, but they have other properties
-as well.</p>
+<p>Factors may look like characters, but they have different
+properties.</p>
 <p>Examples of factors:</p>
 <pre class="r"><code># these are characters
 some_characters &lt;- &quot;some_characters&quot;
 
 # define a factor using a sequence of characters
 a_factor &lt;- as.factor(some_characters)</code></pre>
-<p>Factors can be used to represent categorical variables (in the
-statistical sense). Categorical variables can be Nominal or Ordinal. For
-instance, let’s define a nominal categorical variable that contains many
-different (sequences of) characters, such as:</p>
-<pre class="r"><code># list some friends
+<p>Factors are used to represent <em>Categorical variables</em> (in the
+statistical sense). <em>Categorical variables</em> can be
+<em>Nominal</em> or <em>Ordinal</em>. The difference is that
+<em>ordinal</em> have a sort of order, <em>nominal</em> do not.</p>
+<p>For instance, define a nominal categorical variable that contains
+many different (sequences of) characters, such as:</p>
+<pre class="r"><code># list some friends as characters
 friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
 
 # cast friends to factor
@@ -668,11 +673,11 @@ friends
 friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;, &quot;Francesca&quot;, &quot;Valerio&quot;)
 friends &lt;- factor(friends)
 friends</code></pre>
-<p>Now let’s define an ordinal categorical variable, instead:</p>
-<pre class="r"><code># list soil depths
+<p>Now, define an ordinal categorical variable, instead:</p>
+<pre class="r"><code># list soil depths, as characters
 depths &lt;- c(&quot;surface&quot;, &quot;medium&quot;, &quot;deep&quot;, &quot;shallow&quot;, &quot;very_deep&quot;)
 
-# cast depths as factor and order it (it&#39;s ordinal, right?)
+# cast depths as factor and order it using levels
 depths &lt;- factor(depths, order=TRUE, levels=c(&quot;very_deep&quot;, &quot;deep&quot;, &quot;medium&quot;, &quot;shallow&quot;, &quot;surface&quot;))
 
 # show the content of the variable
@@ -682,12 +687,12 @@ depths</code></pre>
 alphabetically: they are names, meaning no one is bigger, slower,
 higher, or weigh more than another: just names. And yes, you can still
 order them as you like, but you need to specify it as with the
-<code>depths</code>.</p>
-<p>On the other hand, soil levels are ordered: <em>verydeep</em> is
+<code>depths</code>, i.e. using <code>levels</code>.</p>
+<p>On the other hand, soil levels are ordered since <em>verydeep</em> is
 deeper than <em>medium</em> which, in turn, is deeper than
 <em>shallow</em>. Here, the order is important. That’s why you may want
 to set the levels (this is very handy when performing statistical
-analysis such as linear regression or other stuff such as plotting).</p>
+analysis or other stuff such as plotting).</p>
 </div>
 </div>
 <div id="side-note-about-casting" class="section level2">
@@ -727,10 +732,9 @@ written as symbols which you can find on your keyboard:</p>
 </ul>
 <p><code>TRUE</code> can be abbreviated as <code>T</code>,
 <code>FALSE</code> as <code>F</code>.</p>
-<p>To understand how they work let’s start with the AND operator. The
-AND operator takes two logical values as input, and return TRUE when
-both are TRUE. We can translate this as: “I will be happy if I can have
-popcorn and a zombie movie!”.</p>
+<p>The AND operator takes two logical values as input, and return TRUE
+when both are TRUE. We can translate this as: “I will be happy if I can
+have popcorn and a zombie movie!”.</p>
 <pre class="r"><code># true and true
 TRUE &amp; TRUE
 
@@ -805,9 +809,14 @@ is.numeric(four)
 10 &lt; 9 &amp; 5 &gt; 4
 
 10 &gt;= 9 | 5 &lt; 4</code></pre>
-<p>Finally, there are some functions that <em>return</em>, i.e. they
-give as output or as a result, a logical value. An example of such
-functions is <code>which()</code>.</p>
+<p>Remember that logical operators have precedence, for example as in
+mathematics when multiplication has precedence over addition. For R:</p>
+<ul>
+<li><code>!</code> has precedence over</li>
+<li><code>&amp;</code> which has precedence over</li>
+<li><code>|</code>.</li>
+</ul>
+<p>For a full list of operators and precedence, see <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html">here</a>.</p>
 <p>We will see how logical values and operators work when used in actual
 loops.</p>
 <div id="vectors-of-logical-values" class="section level4">
@@ -832,14 +841,10 @@ logi_vals_one | logi_vals_two
 </div>
 <div id="data-structures" class="section level2">
 <h2>Data structures</h2>
-<p>So far we have seen numerics, characters, and logical values (and
-actually a few vectors), which can be considered as the basis which you
-can use to build more complex data structures. At this point it is safe
-to say that a data structure is a container for a set of objects.</p>
+<p>A data structure is a container for a set of objects.</p>
 <div id="vectors" class="section level3">
 <h3>Vectors</h3>
-<p>Vectors are variables containing more than one object. They are like
-sets. Let’s look in detail what it means:</p>
+<p>Vectors are variables containing more than one object:</p>
 <pre class="r"><code># define a character variable, which is actually a vector
 friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
 
@@ -847,7 +852,7 @@ friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &
 paste(&quot;the content of friends is &quot;, friends, sep=&quot;&quot;)</code></pre>
 <p><code>friends</code> is a vector, i.e. a data structure. The vector
 <code>friends</code> was built using the function <code>c()</code> that
-basically combines the strings that were used as input. In
+basically combines the characters that were passed in input. In
 <code>friends</code> we put four values. You can get this information
 using a function that show you the <em>length</em>, or the number of
 elements, in a vector. The function, as you may have guessed, is
@@ -879,8 +884,8 @@ a_list[[&quot;some_chars&quot;]] &lt;- &quot;somechars&quot;
 # print the content of the list
 a_list</code></pre>
 <p>Ok, but what is the difference between lists and vectors, then? To
-answer this question let’s look into the type of objects that you can
-store into a list and into a vector.</p>
+answer this question look into the type of objects that you can store
+into a list and into a vector.</p>
 <pre class="r"><code># define vector of numerics
 numerics_vect &lt;- c(1, 1.24587, 45, 39372.2134)
 
@@ -985,7 +990,7 @@ of cells;</li>
 <strong>or</strong> <code>a_matrix</code>, we are accessing the whole
 matrix;</li>
 </ul>
-<p>Let’s make an example with numbers:</p>
+<p>An example with numbers:</p>
 <pre class="r"><code># define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
 # (we have 12 cells, right? and R will fill the matrix for us)
 a_matrix_of_numbers &lt;- matrix(c(1:12), ncol=3, nrow=4)
@@ -993,16 +998,16 @@ a_matrix_of_numbers &lt;- matrix(c(1:12), ncol=3, nrow=4)
 # print
 a_matrix_of_numbers
 
-# now, let&#39;s grab the second row, all the columns
+# now, grab the second row, all the columns
 a_matrix_of_numbers[2, ]
 
-# now, let&#39;s grab the second column, all the rows
+# now, grab the second column, all the rows
 a_matrix_of_numbers[, 2]
 
-# now, let&#39;s grab the second row, third column
+# now, grab the second row, third column
 a_matrix_of_numbers[2, 3]
 
-# now, let&#39;s grab the second and fourth rows, the second and third column
+# now, grab the second and fourth rows, the second and third column
 a_matrix_of_numbers[c(2, 4), c(2, 3)]</code></pre>
 <p>Pretty convenient to subset matrices and work with some of the
 values, if needed!</p>
@@ -1056,7 +1061,7 @@ make sure they have the correct dimensions.</p>
 <h3>A mathematical side note or How a bug was born</h3>
 <p>In linear algebra matrices are quite popular. So, it is important to
 know how to use them to perform common operations such as sum or
-multiplication, since it may be non obvious. Let’s make an example of
+multiplication, since it may be non obvious. An example of
 multiplication:</p>
 <pre class="r"><code># define a simple 2x2 matrix
 simple_matrix &lt;- matrix(c(1,2,3,4), nrow=2, ncol=2)
@@ -1085,8 +1090,8 @@ a_dataframe</code></pre>
 <p>In this case you defined a dataframe and assigned a name to each of
 the two columns. This was done by telling to R that
 <code>some_numbers</code> and <code>some_chars</code>, i.e. two vectors,
-should be combined into a <code>data.frame</code>. Let’s split the
-process in all its parts:</p>
+should be combined into a <code>data.frame</code>. The process in all
+its parts is:</p>
 <pre class="r"><code># first, define two vectors
 student_mark &lt;- c(10, 8, 8.5, 9)
 student_name &lt;- c(&quot;Elena&quot;, &quot;Sofia&quot;, &quot;Valerio&quot;, &quot;Francesca&quot;)
@@ -1127,8 +1132,7 @@ students_data</code></pre>
 <div id="last-small-thing-about-lists" class="section level3">
 <h3>Last, small thing about lists</h3>
 <p>Finally, it is important to remember that, as we have already seen,
-lists can contain different objects in their cells. Let’s make a final
-example:</p>
+lists can contain different objects in their cells. A final example:</p>
 <pre class="r"><code># create an empty list
 another_complex_list &lt;- list()
 
@@ -1164,10 +1168,10 @@ it, and everything in between).</p>
 </blockquote>
 <p>If this rule is applied your life will be easier and you will be
 happy.</p>
-<p>Now, let’s load a (well formatted) table from a file, just to see how
-it’s done:</p>
+<p>Now, load a (well formatted) table from a file, just to see how it’s
+done:</p>
 <pre class="r"><code># set path to directory where files are kept
-path_to_files &lt;- &quot;/home/gabriele/work/microbiology/think_like_a_programmer/ready_for_sharing/download_these_files/data/&quot;
+path_to_files &lt;- &quot;/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/&quot;
 
 # load a table from a csv file
 ecology_data &lt;- read.csv(paste(path_to_files, &quot;meta_data.csv&quot;, sep=&quot;&quot;), header=T, sep=&quot;\t&quot;)
@@ -1191,15 +1195,15 @@ In other words, these functions will give you back some values will be
 <code>TRUE</code> or <code>FALSE</code>. So, to subset a table you will
 need to define <em>what you like</em>, which will be <code>TRUE</code>,
 and <em>what you don’t like</em>, which will be <code>FALSE</code>.</p>
-<p>Let’s think like programmers for a second.</p>
-<p>Let’s say that you want to subset a table to get those samples which
+<p>Think like programmers for a second.</p>
+<p>So, say that you want to subset a table to get those samples which
 treatment is equal to <em>Control</em>.</p>
 <p>In current language you would say exactly what we just said,
 i.e. “Which Samples are Controls?”.</p>
 <p>Well, it turns out that <em>which</em>, in R, is an actual function.
 Indeed, <code>which()</code>, allows you to get those values which are
 equal or not equal to other values.</p>
-<p>So, let’s get those samples that are Controls:</p>
+<p>So, get those samples that are Controls:</p>
 <pre class="r"><code># print table, just to have an idea of what we are dealing with
 head(ecology_data)
 
@@ -1232,7 +1236,7 @@ control_samples_logical &lt;- ecology_data$treatment==&quot;C&quot;
 # subset
 ecology_data[control_samples_logical, ]</code></pre>
 <p>Of course, it is possible to create any combination of conditions,
-using the logical operators.</p>
+using any (combination of) logical operator.</p>
 <div id="two-very-nice-exercises" class="section level4">
 <h4>Two very nice exercises</h4>
 <p>Subset the table to get only those samples that:</p>

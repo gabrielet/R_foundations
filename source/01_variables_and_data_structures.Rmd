@@ -15,9 +15,9 @@ knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
 
 # Short intro to R
 
-R is a programming language which is mainly used for statistical purposes but in reality it has many more applications. R exists in a base form, offering a wide set of tools, which are called *functions*, that are used to perform many operations such as computing means, plotting, regression analysis, and much more.
+R is a programming language which is mainly used for statistical purposes but in reality it has many more applications. R exists in a base form, offering a wide set of tools, which are called _functions_, that are used to perform many operations such as computing means, plotting, regression analysis, and much more.
 
-In addition, there are many packages, e.g. *ggplot2*, *phyloseq*, *Vegan*, ..., that were created to extend the basic set of R functions for more specific tasks like DNA sequences analysis, gene enrichments analysis, network construction, advanced plotting, computing $\alpha$-diversity, and much more.
+In addition, there are many packages, e.g. _ggplot2_, _phyloseq_, _Vegan_, ..., that were created to extend the basic set of R functions for more specific tasks like DNA sequences analysis, gene enrichments analysis, network construction, advanced plotting, computing $\alpha$-diversity, and much more.
 
 Of course, packages need to be installed before using them. You can find packages [in several places](https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&fuzzy_slug=), such as CRAN, R-Forge, Github, or Bioconductor. packages can be installed from all these sources and then it will be possible to take advantage of the functionalities they offer.
 
@@ -33,12 +33,12 @@ Programming may seems complicated at first, and R is not the best way of learnin
 
 In programming you should think through logic statements and loops.
 
-Programming means putting together a set of instructions, lets call it a *program* or a *script*, that will return the expected result. These instructions *have to*:
+Programming means putting together a set of instructions, in a _program_ or a _script_, that will return the expected result. These instructions _have to_:
 
 -   be ordered, since it is not possible to read a book with random sentences;
 -   follow that-programming-language specific rules.
 
-These instructions *should be*:
+These instructions _should be_:
 
 -   as simple as possible;
 -   well commented so (you and) other peoples can understand it in the future.
@@ -47,7 +47,7 @@ These instructions *should be*:
 
 ## R environment
 
-When we first start a session of R, we must be aware that R is _sitting_ in a specific folder in our computer. You can, of course, specify which folder this folder is, but you need to be aware. So...which folder are you currently in, i.e. the working directory? Let's ask R using the function `getwd()` which basically _gets the working directory_.
+When we first start a session of R, we must be aware that R is _sitting_ in a specific folder in our computer. You can, of course, specify which folder this folder is, but you need to be aware. So...which folder are you currently in, i.e. the working directory? You can ask R using the function `getwd()` which basically _gets the working directory_:
 
 ```{r}
 
@@ -78,6 +78,15 @@ search()
 ```
 
 The working directory, and the working environment are very important. We will get back to this later on, though.
+
+You can also have an idea of which files are currently in the working directory, i.e. the one that `getwd()` returns, using the function `list.files()`:
+
+```{r}
+
+# show the files in the current directory
+list.files()
+
+```
 
 ## Variables
 
@@ -148,7 +157,7 @@ one + three_point_five
 
 Numerics can be stored inside variables and then used for operations, at any point in the code, but only after they were _declared_, i.e. after they actually exist.
 
-The only thing you need to remember is the name of the variable where the numeric was stored. So, to keep things simple, let's start using meaningful names for your variables (we already were doing it, anyway), to remember what they contain.
+The only thing you need to remember is the name of the variable where the numeric was stored. So, to keep things simple, just use meaningful names for your variables (we already were doing it, anyway), to remember what they contain.
 
 You can now use the variables that were defined above, to perform some more operations:
 
@@ -175,7 +184,7 @@ Example of characters:
 a_character <- "c"
 
 # define a variable where many characters are pasted together
-# let's call this a string
+# we call this sequence of characters "string"
 some_characters <- "manycharacters"
 
 ```
@@ -193,7 +202,7 @@ Here, R is telling you that something is wrong. The errors arose because you are
 
 The interesting thing with `characters`, is that they can be concatenated to form more complex sequences of `characters`. To do this, we need to introduce a new function: `paste()` that allows you _combining_ the content of variables together.
 
-For example, let's define a path to a folder in your computer:
+For example, define a path to a folder in your computer:
 
 ```{r}
 
@@ -229,15 +238,13 @@ five <- 5
 print(paste("three plus two equals", five))
 ```
 
-You can combine any kind of variable with `paste()` but results, sometimes, can be surprising (and may hide bugs)!
-
 #### A very nice exercise
 
-Use the function `ls()` to show the content of _path_to_folder_ and _path_to_work_folder_. Then, move the current working directory (remember `getwd()`) to _path_to_folder_.
+Use the function `list.files()` to view the content of _path_to_folder_ and _path_to_work_folder_. Then, move the current working directory (remember `getwd()`) to _path_to_folder_.
 
 ### Factors
 
-Factors may be look like characters, but they have other properties as well.
+Factors may look like characters, but they have different properties.
 
 Examples of factors:
 
@@ -251,11 +258,13 @@ a_factor <- as.factor(some_characters)
 
 ```
 
-Factors can be used to represent categorical variables (in the statistical sense). Categorical variables can be Nominal or Ordinal. For instance, let's define a nominal categorical variable that contains many different (sequences of) characters, such as:
+Factors are used to represent _Categorical variables_ (in the statistical sense). _Categorical variables_ can be _Nominal_ or _Ordinal_. The difference is that _ordinal_ have a sort of order, _nominal_ do not.
+
+For instance, define a nominal categorical variable that contains many different (sequences of) characters, such as:
 
 ```{r}
 
-# list some friends
+# list some friends as characters
 friends <- c("Francesca", "Valerio", "Sofia", "Elena")
 
 # cast friends to factor
@@ -271,14 +280,14 @@ friends
 
 ```
 
-Now let's define an ordinal categorical variable, instead:
+Now, define an ordinal categorical variable, instead:
 
 ```{r}
 
-# list soil depths
+# list soil depths, as characters
 depths <- c("surface", "medium", "deep", "shallow", "very_deep")
 
-# cast depths as factor and order it (it's ordinal, right?)
+# cast depths as factor and order it using levels
 depths <- factor(depths, order=TRUE, levels=c("very_deep", "deep", "medium", "shallow", "surface"))
 
 # show the content of the variable
@@ -286,9 +295,9 @@ depths
 
 ```
 
-There is an interesting difference between `friends` and `depths`. The first one has levels that are ordered, by R, alphabetically: they are names, meaning no one is bigger, slower, higher, or weigh more than another: just names. And yes, you can still order them as you like, but you need to specify it as with the `depths`.
+There is an interesting difference between `friends` and `depths`. The first one has levels that are ordered, by R, alphabetically: they are names, meaning no one is bigger, slower, higher, or weigh more than another: just names. And yes, you can still order them as you like, but you need to specify it as with the `depths`, i.e. using `levels`.
 
-On the other hand, soil levels are ordered: *verydeep* is deeper than *medium* which, in turn, is deeper than *shallow*. Here, the order is important. That's why you may want to set the levels (this is very handy when performing statistical analysis such as linear regression or other stuff such as plotting).
+On the other hand, soil levels are ordered since _verydeep_ is deeper than _medium_ which, in turn, is deeper than _shallow_. Here, the order is important. That's why you may want to set the levels (this is very handy when performing statistical analysis or other stuff such as plotting).
 
 ## Side note about Casting
 
@@ -329,7 +338,7 @@ Logical values have specific operations that are performed through logical opera
 
 `TRUE` can be abbreviated as `T`, `FALSE` as `F`.
 
-To understand how they work let's start with the AND operator. The AND operator takes two logical values as input, and return TRUE when both are TRUE. We can translate this as: "I will be happy if I can have popcorn and a zombie movie!".
+The AND operator takes two logical values as input, and return TRUE when both are TRUE. We can translate this as: "I will be happy if I can have popcorn and a zombie movie!".
 
 ```{r}
 
@@ -424,7 +433,13 @@ A few examples:
 
 ```
 
-Finally, there are some functions that _return_, i.e. they give as output or as a result, a logical value. An example of such functions is `which()`.
+Remember that logical operators have precedence, for example as in mathematics when multiplication has precedence over addition. For R:
+
+ - `!` has precedence over
+ - `&` which has precedence over
+ - `|`.
+ 
+For a full list of operators and precedence, see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html).
 
 We will see how logical values and operators work when used in actual loops.
 
@@ -453,11 +468,11 @@ logi_vals_one | logi_vals_two
 
 ## Data structures
 
-So far we have seen numerics, characters, and logical values (and actually a few vectors), which can be considered as the basis which you can use to build more complex data structures. At this point it is safe to say that a data structure is a container for a set of objects.
+A data structure is a container for a set of objects.
 
 ### Vectors
 
-Vectors are variables containing more than one object. They are like sets. Let's look in detail what it means:
+Vectors are variables containing more than one object:
 
 ```{r}
 
@@ -469,7 +484,7 @@ paste("the content of friends is ", friends, sep="")
 
 ```
 
-`friends` is a vector, i.e. a data structure. The vector `friends` was built using the function `c()` that basically combines the strings that were used as input. In `friends` we put four values. You can get this information using a function that show you the _length_, or the number of elements, in a vector. The function, as you may have guessed, is `length()`.
+`friends` is a vector, i.e. a data structure. The vector `friends` was built using the function `c()` that basically combines the characters that were passed in input. In `friends` we put four values. You can get this information using a function that show you the _length_, or the number of elements, in a vector. The function, as you may have guessed, is `length()`.
 
 ```{r}
 
@@ -504,7 +519,7 @@ a_list
 
 ```
 
-Ok, but what is the difference between lists and vectors, then? To answer this question let's look into the type of objects that you can store into a list and into a vector.
+Ok, but what is the difference between lists and vectors, then? To answer this question look into the type of objects that you can store into a list and into a vector.
 
 ```{r}
 
@@ -608,7 +623,7 @@ Of course, you can access whole matrices, a single cell (as we just did), a whol
 -   If we specify both `n_of_row` **and** `n_of_column` but more than one, i.e. `a_matrix[c(1,2), c(3, 4)]`, we are accessing a subset of cells;
 -   If we specify nothing, i.e. `a_matrix[,]` **or** `a_matrix`, we are accessing the whole matrix;
 
-Let's make an example with numbers:
+An example with numbers:
 
 ```{r}
 
@@ -619,16 +634,16 @@ a_matrix_of_numbers <- matrix(c(1:12), ncol=3, nrow=4)
 # print
 a_matrix_of_numbers
 
-# now, let's grab the second row, all the columns
+# now, grab the second row, all the columns
 a_matrix_of_numbers[2, ]
 
-# now, let's grab the second column, all the rows
+# now, grab the second column, all the rows
 a_matrix_of_numbers[, 2]
 
-# now, let's grab the second row, third column
+# now, grab the second row, third column
 a_matrix_of_numbers[2, 3]
 
-# now, let's grab the second and fourth rows, the second and third column
+# now, grab the second and fourth rows, the second and third column
 a_matrix_of_numbers[c(2, 4), c(2, 3)]
 
 ```
@@ -695,7 +710,7 @@ The last `rbind()` did not work because the matrices has a different number of c
 
 ### A mathematical side note or How a bug was born
 
-In linear algebra matrices are quite popular. So, it is important to know how to use them to perform common operations such as sum or multiplication, since it may be non obvious. Let's make an example of multiplication:
+In linear algebra matrices are quite popular. So, it is important to know how to use them to perform common operations such as sum or multiplication, since it may be non obvious. An example of multiplication:
 
 ```{r}
 
@@ -729,7 +744,7 @@ a_dataframe
 
 ```
 
-In this case you defined a dataframe and assigned a name to each of the two columns. This was done by telling to R that `some_numbers` and `some_chars`, i.e. two vectors, should be combined into a `data.frame`. Let's split the process in all its parts:
+In this case you defined a dataframe and assigned a name to each of the two columns. This was done by telling to R that `some_numbers` and `some_chars`, i.e. two vectors, should be combined into a `data.frame`. The process in all its parts is:
 
 ```{r}
 
@@ -774,7 +789,7 @@ students_data
 
 ### Last, small thing about lists
 
-Finally, it is important to remember that, as we have already seen, lists can contain different objects in their cells. Let's make a final example:
+Finally, it is important to remember that, as we have already seen, lists can contain different objects in their cells. A final example:
 
 ```{r}
 
@@ -810,12 +825,12 @@ The only thing that we need to know about tables is:
 
 If this rule is applied your life will be easier and you will be happy.
 
-Now, let's load a (well formatted) table from a file, just to see how it's done:
+Now, load a (well formatted) table from a file, just to see how it's done:
 
 ```{r}
 
 # set path to directory where files are kept
-path_to_files <- "/home/gabriele/work/microbiology/think_like_a_programmer/ready_for_sharing/download_these_files/data/"
+path_to_files <- "/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/"
 
 # load a table from a csv file
 ecology_data <- read.csv(paste(path_to_files, "meta_data.csv", sep=""), header=T, sep="\t")
@@ -838,15 +853,15 @@ head(ecology_data, n=8)
 
 At this point, it's worth introducing three functions that can be used to subset tables. These function take advantage of logical values. In other words, these functions will give you back some values will be `TRUE` or `FALSE`. So, to subset a table you will need to define _what you like_, which will be `TRUE`, and _what you don't like_, which will be `FALSE`.
 
-Let's think like programmers for a second.
+Think like programmers for a second.
 
-Let's say that you want to subset a table to get those samples which treatment is equal to _Control_.
+So, say that you want to subset a table to get those samples which treatment is equal to _Control_.
 
 In current language you would say exactly what we just said, i.e. "Which Samples are Controls?".
 
 Well, it turns out that _which_, in R, is an actual function. Indeed, `which()`, allows you to get those values which are equal or not equal to other values.
 
-So, let's get those samples that are Controls:
+So, get those samples that are Controls:
 
 ```{r}
 
@@ -889,7 +904,7 @@ ecology_data[control_samples_logical, ]
 
 ```
 
-Of course, it is possible to create any combination of conditions, using the logical operators.
+Of course, it is possible to create any combination of conditions, using any (combination of) logical operator.
 
 #### Two very nice exercises
 
