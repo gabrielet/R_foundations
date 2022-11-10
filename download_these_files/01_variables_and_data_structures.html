@@ -368,7 +368,7 @@ display: none;
 
 <h1 class="title toc-ignore">Think like a programmer - an
 introduction</h1>
-<h4 class="date">Wednesday 09, November</h4>
+<h4 class="date">Thursday 10, November</h4>
 
 </div>
 
@@ -404,8 +404,8 @@ structures</a>
 <li><a href="#dataframes-and-matrices" id="toc-dataframes-and-matrices">Dataframes and matrices</a>
 <ul>
 <li><a href="#matrices" id="toc-matrices">Matrices</a></li>
-<li><a href="#a-mathematical-side-note-or-how-a-bug-is-born" id="toc-a-mathematical-side-note-or-how-a-bug-is-born">A mathematical
-side note or How a bug is born</a></li>
+<li><a href="#a-mathematical-side-note-or-how-a-bug-was-born" id="toc-a-mathematical-side-note-or-how-a-bug-was-born">A mathematical
+side note or How a bug was born</a></li>
 <li><a href="#dataframes" id="toc-dataframes">Dataframes</a></li>
 <li><a href="#last-small-thing-about-lists" id="toc-last-small-thing-about-lists">Last, small thing about
 lists</a></li>
@@ -424,11 +424,11 @@ base form, offering a wide set of tools, which are called
 computing means, plotting, regression analysis, and much more.</p>
 <p>In addition, there are many packages, e.g. <em>ggplot2</em>,
 <em>phyloseq</em>, <em>Vegan</em>, …, that were created to extend the
-basic set of R functions for more specific tasks. DNA sequences
+basic set of R functions for more specific tasks like DNA sequences
 analysis, gene enrichments analysis, network construction, advanced
-plotting, computing -diversity, etc…</p>
-<p>Of course, packages need to be installed before using them. packages
-can be found <a href="https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&amp;fuzzy_slug=">in
+plotting, computing <span class="math inline">\(\alpha\)</span>-diversity, and much more.</p>
+<p>Of course, packages need to be installed before using them. You can
+find packages <a href="https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&amp;fuzzy_slug=">in
 several places</a>, such as CRAN, R-Forge, Github, or Bioconductor.
 packages can be installed from all these sources and then it will be
 possible to take advantage of the functionalities they offer.</p>
@@ -474,7 +474,7 @@ future.</li>
 course, specify which folder this folder is, but you need to be aware.
 So…which folder are you currently in, i.e. the working directory? Let’s
 ask R using the function <code>getwd()</code> which basically <em>gets
-the Working Directory</em>.</p>
+the working directory</em>.</p>
 <pre class="r"><code># where am I??
 getwd()</code></pre>
 <p>If this is not the directory you want to be working in, and there are
@@ -619,10 +619,10 @@ path_to_work_folder &lt;- paste(path_to_folder, &quot;work_folder/&quot;, sep=&q
 path_to_work_folder
 
 # path to pics from the last vacation. same as for the work folder
-path_to_vacations_pics_foder &lt;- paste(path_to_folder, &quot;vacations_pics/&quot;)
+path_to_vacations_pics_folder &lt;- paste(path_to_folder, &quot;vacations_pics/&quot;)
 
 # show the path
-path_to_vacations_pics_foder</code></pre>
+path_to_vacations_pics_folder</code></pre>
 <p>In this way you can define a common path,
 <code>path_to_folder</code>, and build more complex paths on top of it.
 That’s how variables can be pasted:</p>
@@ -632,7 +632,7 @@ five &lt;- 5
 # now sum three + two
 print(paste(&quot;three plus two equals&quot;, five))</code></pre>
 <p>You can combine any kind of variable with <code>paste()</code> but
-results, sometimes, can be surprising!</p>
+results, sometimes, can be surprising (and may hide bugs)!</p>
 <div id="a-very-nice-exercise" class="section level4">
 <h4>A very nice exercise</h4>
 <p>Use the function <code>ls()</code> to show the content of
@@ -678,10 +678,11 @@ depths &lt;- factor(depths, order=TRUE, levels=c(&quot;very_deep&quot;, &quot;de
 # show the content of the variable
 depths</code></pre>
 <p>There is an interesting difference between <code>friends</code> and
-<code>depths</code>. The first one has levels that are ordered, by
-default by R, alphabetically (you can still order them as you like).
-They are names, they don’t have a strict order, no one is bigger,
-slower, higher, or weigh more than another: just names.</p>
+<code>depths</code>. The first one has levels that are ordered, by R,
+alphabetically: they are names, meaning no one is bigger, slower,
+higher, or weigh more than another: just names. And yes, you can still
+order them as you like, but you need to specify it as with the
+<code>depths</code>.</p>
 <p>On the other hand, soil levels are ordered: <em>verydeep</em> is
 deeper than <em>medium</em> which, in turn, is deeper than
 <em>shallow</em>. Here, the order is important. That’s why you may want
@@ -1051,8 +1052,8 @@ rbind(matrix_two, matrix_three)</code></pre>
 different number of columns. When putting together matrices, you need to
 make sure they have the correct dimensions.</p>
 </div>
-<div id="a-mathematical-side-note-or-how-a-bug-is-born" class="section level3">
-<h3>A mathematical side note or How a bug is born</h3>
+<div id="a-mathematical-side-note-or-how-a-bug-was-born" class="section level3">
+<h3>A mathematical side note or How a bug was born</h3>
 <p>In linear algebra matrices are quite popular. So, it is important to
 know how to use them to perform common operations such as sum or
 multiplication, since it may be non obvious. Let’s make an example of

@@ -17,9 +17,9 @@ knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
 
 R is a programming language which is mainly used for statistical purposes but in reality it has many more applications. R exists in a base form, offering a wide set of tools, which are called *functions*, that are used to perform many operations such as computing means, plotting, regression analysis, and much more.
 
-In addition, there are many packages, e.g. *ggplot2*, *phyloseq*, *Vegan*, ..., that were created to extend the basic set of R functions for more specific tasks.  DNA sequences analysis, gene enrichments analysis, network construction, advanced plotting, computing \alpha-diversity, etc...
+In addition, there are many packages, e.g. *ggplot2*, *phyloseq*, *Vegan*, ..., that were created to extend the basic set of R functions for more specific tasks like DNA sequences analysis, gene enrichments analysis, network construction, advanced plotting, computing $\alpha$-diversity, and much more.
 
-Of course, packages need to be installed before using them. packages can be found [in several places](https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&fuzzy_slug=), such as CRAN, R-Forge, Github, or Bioconductor. packages can be installed from all these sources and then it will be possible to take advantage of the functionalities they offer.
+Of course, packages need to be installed before using them. You can find packages [in several places](https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&fuzzy_slug=), such as CRAN, R-Forge, Github, or Bioconductor. packages can be installed from all these sources and then it will be possible to take advantage of the functionalities they offer.
 
 # Super short into to RStudio
 
@@ -47,7 +47,7 @@ These instructions *should be*:
 
 ## R environment
 
-When we first start a session of R, we must be aware that R is _sitting_ in a specific folder in our computer. You can, of course, specify which folder this folder is, but you need to be aware. So...which folder are you currently in, i.e. the working directory? Let's ask R using the function `getwd()` which basically _gets the Working Directory_.
+When we first start a session of R, we must be aware that R is _sitting_ in a specific folder in our computer. You can, of course, specify which folder this folder is, but you need to be aware. So...which folder are you currently in, i.e. the working directory? Let's ask R using the function `getwd()` which basically _gets the working directory_.
 
 ```{r}
 
@@ -211,10 +211,10 @@ path_to_work_folder <- paste(path_to_folder, "work_folder/", sep="")
 path_to_work_folder
 
 # path to pics from the last vacation. same as for the work folder
-path_to_vacations_pics_foder <- paste(path_to_folder, "vacations_pics/")
+path_to_vacations_pics_folder <- paste(path_to_folder, "vacations_pics/")
 
 # show the path
-path_to_vacations_pics_foder
+path_to_vacations_pics_folder
 
 ```
 
@@ -229,7 +229,7 @@ five <- 5
 print(paste("three plus two equals", five))
 ```
 
-You can combine any kind of variable with `paste()` but results, sometimes, can be surprising!
+You can combine any kind of variable with `paste()` but results, sometimes, can be surprising (and may hide bugs)!
 
 #### A very nice exercise
 
@@ -286,7 +286,7 @@ depths
 
 ```
 
-There is an interesting difference between `friends` and `depths`. The first one has levels that are ordered, by default by R, alphabetically (you can still order them as you like). They are names, they don't have a strict order, no one is bigger, slower, higher, or weigh more than another: just names.
+There is an interesting difference between `friends` and `depths`. The first one has levels that are ordered, by R, alphabetically: they are names, meaning no one is bigger, slower, higher, or weigh more than another: just names. And yes, you can still order them as you like, but you need to specify it as with the `depths`.
 
 On the other hand, soil levels are ordered: *verydeep* is deeper than *medium* which, in turn, is deeper than *shallow*. Here, the order is important. That's why you may want to set the levels (this is very handy when performing statistical analysis such as linear regression or other stuff such as plotting).
 
@@ -693,7 +693,7 @@ rbind(matrix_two, matrix_three)
 
 The last `rbind()` did not work because the matrices has a different number of columns. When putting together matrices, you need to make sure they have the correct dimensions.
 
-### A mathematical side note or How a bug is born
+### A mathematical side note or How a bug was born
 
 In linear algebra matrices are quite popular. So, it is important to know how to use them to perform common operations such as sum or multiplication, since it may be non obvious. Let's make an example of multiplication:
 
