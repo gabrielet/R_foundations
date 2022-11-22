@@ -1590,436 +1590,301 @@ introduction</h1>
 </div>
 
 
-<div id="short-intro-to-r" class="section level1">
-<h1>Short intro to R</h1>
-<p>R is a programming language which is mainly used for statistical
-purposes but in reality it has many more applications. R exists in a
-base form, offering a wide set of tools, which are called
-<em>functions</em>, that are used to perform many operations such as
-computing means, plotting, regression analysis, and much more.</p>
-<p>In addition, there are many packages, e.g. <em>ggplot2</em>,
-<em>phyloseq</em>, <em>Vegan</em>, …, that were created to extend the
-basic set of R functions for more specific tasks like DNA sequences
-analysis, gene enrichment analysis, network construction, advanced
-plotting, computing <span class="math inline">\(\alpha\)</span>-diversity, and much more.</p>
-<p>Of course, packages need to be installed before using them. You can
-find packages <a href="https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&amp;fuzzy_slug=">in
-several places</a>, such as CRAN, R-Forge, Github, or Bioconductor.</p>
-</div>
-<div id="super-short-into-to-rstudio" class="section level1">
-<h1>Super short into to RStudio</h1>
-<p>RStudio is and Integrated Development Environment (IDE) that allows
-you to run R scripts, edit them in a text editor, visualise and export
-results and plots, look into tables, create and compile Markdown-based
-documents (such as this document we’re using), and many more things.</p>
-<p>If you don’t want to use RStudio you can use R from the command line
-and write your scripts using a text editor.</p>
-</div>
-<div id="think-like-a-programmer" class="section level1">
-<h1>Think like a programmer</h1>
-<p>Programming may seems complicated at first, and R is not the best way
-of learning it (there are programming languages that are easier to
-understand), but it’s not about the language. Programming is a different
-way of thinking how problems can be solved.</p>
-<p>In programming you should think through logic statements and
-loops.</p>
-<p>Programming means putting together a set of instructions, in a
-<em>program</em> or a <em>script</em>, that will return the expected
-result. These instructions <em>have to</em>:</p>
-<ul>
-<li>be ordered, since it is not possible to read a book with random
-sentences;</li>
-<li>follow that-programming-language specific rules.</li>
-</ul>
-<p>These instructions <em>should be</em>:</p>
-<ul>
-<li>as simple as possible;</li>
-<li>well commented so (you and) other peoples can understand it in the
-future.</li>
-</ul>
-</div>
-<div id="building-blocks-of-programming" class="section level1">
-<h1>Building blocks of programming</h1>
-<div id="r-environment" class="section level2">
-<h2>R environment</h2>
-<p>When we first start a session of R, we must be aware that R is
-<em>sitting</em> in a specific folder in our computer. You can, of
-course, specify which folder this folder is, but you need to be aware.
-So…which folder are you currently in, i.e. the working directory? You
-can ask R using the function <code>getwd()</code> which basically
-<em>gets the working directory</em>:</p>
-<pre class="r"><code># where am I??
-getwd()</code></pre>
-<p>If this is not the directory you want to be working in, and there are
-many reasons for that, you can always change it using another function
-which is <code>setwd()</code>, which basically <em>sets a Working
-Directory</em>:</p>
-<pre class="r"><code># move to the folder containing the data for this course
-setwd(&quot;/home/gabriele/work/microbiology/think_like_a_programmer/&quot;)</code></pre>
-<p>Now that we set the working directory, it’s time to get to know the R
-environment, which represent the sets of variables, functions, and
-packages that are available to you in a specific R session. To get these
-information we can use two functions: <code>ls()</code> and
-<code>search()</code>:</p>
-<pre class="r"><code># show objects I can use
-ls()
-
-# show packages I can use
-search()</code></pre>
-<p>The working directory, and the working environment are very
-important. We will get back to this later on, though.</p>
-<p>You can also have an idea of which files are currently in the working
-directory, i.e. the one that <code>getwd()</code> returns, using the
-function <code>list.files()</code>:</p>
-<pre class="r"><code># show the files in the current directory
-list.files()</code></pre>
-</div>
-<div id="variables" class="section level2">
-<h2>Variables</h2>
-<p>A variable can be considered as a box that contains zero, one, or
-many things which can be used, modified, and deleted whenever you
-like.</p>
-<p>You have probably heard about variables. Variables are used, for
-example, in mathematics to represent unknown values in equations:</p>
-<p><span class="math inline">\(3x + \frac{1}{2} y = 0\)</span></p>
-<p>In this case <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> are the names of two different
-variables. They can take, <em>theoretically</em>, any value and you will
-get something back. The same applies in R: a variable can be
-<em>substituted</em>, or can <em>contain</em> any value, and is used to
-perform tasks.</p>
-<p>When you use, or <em>call</em>, a variable, what you are actually
-doing is using the value that is contained in it.</p>
-<p>So, a variable is like a box which can contain something that you
-want to use later on. That is why you put it into the box: it’s just a
-storage. When you need whatever was inside the box, you will know where
-to find it and how it’s called.</p>
-<p>The action is performed <em>on</em> the content of the box. Of
-course, if something is not needed later on, you don’t define a variable
-for it: it’s a waste of space (how many things you have in boxes that
-are never used and just takes space??).</p>
-<p>Assigning a value to a variable in R:</p>
-<pre class="r"><code># assign a value using left arrow
-a_value &lt;- 5
-a_value
-
-# assign a value using right arrow
-10 -&gt; another_value
-another_value
-
-# assign a value using equal
-a_third_value = 15
-a_third_value
-
-# assign two values at once
-left_assign &lt;- 100 -&gt; right_assign
-left_assign
-right_assign</code></pre>
-<p>All of these assignments are valid. However, the symbol
-<code>=</code> is usually found only when a value is <em>passed</em> to
-a parameter (we will see this!), while the left arrow,
-i.e. <code>&lt;-</code>, is the preferred one. The right arrow can also
-be used but it’s very uncommon.</p>
-</div>
-<div id="data-types" class="section level2">
-<h2>Data types</h2>
-<p>In variables you can store objects. These objects can be classified
-in data types according to their nature.</p>
-<p>In R there are several data types, each one with its own
-characteristics. A general distinction can be made by separating data
-types in <em>numerical</em>, <em>categorical</em>, and
-<em>logicals</em>.</p>
-<div id="numerics" class="section level3">
-<h3>Numerics</h3>
-<p>Numerics, as you may expect, are numbers. Numbers which can be used
-to perform mathematics (, statistics, and much more). Numerics can be
-either integers or double (if they have decimals).</p>
-<p>Example of numerics:</p>
-<pre class="r"><code># define a variable named one and assign an integer to it
-one &lt;- 1
-
-# define a variable named three_point_five and assign a double
-three_point_five &lt;- 3.5
-
-# sum up one and three_point_five, you will get a double
-one + three_point_five
-
-# same result can be obtained by summing up 1 and 3.5
-1 + 3.5</code></pre>
-<p>Numerics can be stored inside variables and then used for operations,
-at any point in the code, but only after they were <em>declared</em>,
-i.e. after they actually exist.</p>
-<p>The only thing you need to remember is the name of the variable where
-the numeric was stored. Also, a good programmer knows that there are
-many golden rules. One of them is:</p>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<p>Functions are everywhere: R comes with a lot of functions already
+ready, you can have new ones available through packages, and even more
+fun: you can define them by yourself!</p>
+<p>But what is, actually, a function? How do you construct one? What is
+its goal?</p>
+<div id="a-simple-function" class="section level2">
+<h2>A simple function</h2>
+<p>Functions play a fundamental part in programming: they are tools that
+allow you performing operations, in a compact way. A script should be
+kept as simple as possible and functions help you to achieve this goal,
+and save you a lot of writing, too. Golden rule for the good
+programmer:</p>
 <blockquote>
-<p>Name variables in a way that helps you remember what they
-contain.</p>
+<p>Use functions!</p>
 </blockquote>
-<p>Which will help in keeping the code as simple as possible.</p>
-<p>You can now use the variables that were defined above, to perform
-some more operations:</p>
-<pre class="r"><code># some more random operations
-one + 3.5
+<p>A function usually (but not always) requires some <em>input</em>, i.e
+one or more <em>parameters</em>, and will provide, or <em>return</em>,
+some <em>output</em> or <em>result</em>. The <em>input</em> is
+<em>passed</em> to the function inside the brackets:
+<code>function(here goes the input)</code>.</p>
+<p>Before writing your first function remember another golden rule, very
+similar to the one for variables, which all good programmers know:</p>
+<blockquote>
+<p>Name functions so they tell you what they do.</p>
+</blockquote>
+<p>Now, this is a very basic function with no input, i.e. the brackets
+in the function declaration are empty, and no output:</p>
+<pre class="r"><code># define a function with a meaningful name
+i_do_nothing &lt;- function(){}
 
-three_point_five / 3
+# run the function
+i_do_nothing()</code></pre>
+<p>At this point, a new function is defined within the R environment you
+are working into (and only here!). This function is returning a
+<code>NULL</code> which means you got nothing back. The function takes
+no input, provides no output.</p>
+<p>Now, create a function that does something. Still no input, but some
+output:</p>
+<pre class="r"><code># define function
+print_something &lt;- function() {
+  # define what the function does through a list of instructions
+  print(&quot;hello world!&quot;)
+}
 
-one * three_point_five</code></pre>
+# run our trivial function, without any input
+print_something()</code></pre>
+<p>As you can see, the function was run with empty brackets:
+<code>print_something()</code>. This is very important: the inside of
+the brackets is where you <em>pass</em> the parameters that are required
+by the function. This function requires no parameters: it was defined
+with empty brackets. So you know that the function requires no
+input.</p>
+<p>Something more interesting might be a printing function but with some
+parameters in input, and some output. You will need to create a function
+with expected parameters names in its brackets:</p>
+<pre class="r"><code># define function that takes two inputs
+print_my_words &lt;- function(a_greeting, a_name) {
+  # define what the function does through a list of instructions
+  print(paste(a_greeting, a_name, sep=&quot; &quot;))
+}</code></pre>
+<p>You can finally use this function to print something:</p>
+<pre class="r"><code># try this
+print_my_words(&quot;hello&quot;, &quot;world&quot;)
+
+# or this
+print_my_words(&quot;ciao&quot;, &quot;Gabri&quot;)
+
+# or this
+print_my_words(&quot;hezky&quot;, &quot;den&quot;)
+
+# or even this
+print_my_words(&quot;&quot;, &quot;&quot;)</code></pre>
+<p>What was done, here, was to use the function
+<code>print_my_words()</code> to make R printing the two parameters as a
+single sequence of characters.</p>
 </div>
-<div id="categorical---characters" class="section level3">
-<h3>Categorical - characters</h3>
-<p>Characters, on the other hand, represents those <em>symbols</em> that
-are not numbers. So, for example, letters and words.</p>
-<p>Example of characters:</p>
-<pre class="r"><code># define a variable named a_characters containing a single character
-a_character &lt;- &quot;c&quot;
-
-# define a variable where many characters are pasted together
-# we call this sequence of characters &quot;string&quot;
-some_characters &lt;- &quot;manycharacters&quot;</code></pre>
-<p>Clearly, arithmetic operations can be only performed on numbers,
-i.e. numerics. It does not make sense to sum up characters, or does
+<div id="more-advanced-functions" class="section level2">
+<h2>More advanced functions</h2>
+<p>As mentioned, functions can be way more useful than doing nothing.
+For example, you can compute the average value of a set of values.</p>
+<div id="questions" class="section level4">
+<h4>Questions</h4>
+<p>How to compute the average value of a set of values? How do you do
 it?</p>
-<pre class="r"><code># sum (the content of) some_characters and 1
-some_characters + 1</code></pre>
-<pre><code>## Error in some_characters + 1: non-numeric argument to binary operator</code></pre>
-<p>Here, R is telling you that something is wrong. The errors arose
-because you are trying to use a non-numeric object, i.e. the variables
-<code>some_characters</code> to perform some arithmetic operations (a
-sum).</p>
-<p>The interesting thing with <code>characters</code>, is that they can
-be concatenated to form more complex sequences of
-<code>characters</code>. To do this, we need to introduce a new
-function: <code>paste()</code> that allows you <em>combining</em> the
-content of variables together.</p>
-<p>For example, define a path to a folder in your computer:</p>
-<pre class="r"><code># path to Desktop folder
-path_to_folder &lt;- &quot;/home/gabriele/Desktop/&quot;
-
-# show the path
-path_to_folder
-
-# path to work-related stuff. put together path_to_folder with the
-# name of the work folder:
-path_to_work_folder &lt;- paste(path_to_folder, &quot;work_folder/&quot;, sep=&quot;&quot;)
-
-# show the path
-path_to_work_folder
-
-# path to pics from the last vacation. same as for the work folder
-path_to_vacations_pics_folder &lt;- paste(path_to_folder, &quot;vacations_pics/&quot;)
-
-# show the path
-path_to_vacations_pics_folder</code></pre>
-<p>In this way you can define a common path,
-<code>path_to_folder</code>, and build more complex paths on top of it.
-That’s how variables can be pasted:</p>
-<pre class="r"><code># set result in advance
-five &lt;- 5
-
-# now sum three + two
-print(paste(&quot;three plus two equals&quot;, five))</code></pre>
-<div id="a-very-nice-exercise" class="section level4">
-<h4>A very nice exercise</h4>
-<p>Use the function <code>list.files()</code> to view the content of
-<em>path_to_folder</em> and <em>path_to_work_folder</em>. Then, move the
-current working directory (remember <code>getwd()</code>) to
-<em>path_to_folder</em>.</p>
-</div>
-</div>
-<div id="categorical---factors" class="section level3">
-<h3>Categorical - factors</h3>
-<p>Factors may look like characters, but they have different
-properties.</p>
-<p>Examples of factors:</p>
-<pre class="r"><code># these are characters
-some_characters &lt;- &quot;some_characters&quot;
-
-# define a factor using a sequence of characters
-a_factor &lt;- as.factor(some_characters)</code></pre>
-<p>Factors are used to represent <em>Categorical variables</em> (in the
-statistical sense). <em>Categorical variables</em> can be
-<em>Nominal</em> or <em>Ordinal</em>. The difference is that
-<em>ordinal</em> have a sort of order, <em>nominal</em> do not.</p>
-<p>For instance, define a nominal categorical variable that contains
-many different (sequences of) characters, such as:</p>
-<pre class="r"><code># list some friends as characters
-friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
-
-# cast friends to factor
-friends &lt;- factor(friends)
-
-# show the content of the variable
-friends
-
-# add other friends, while keeping same levels
-friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;, &quot;Francesca&quot;, &quot;Valerio&quot;)
-friends &lt;- factor(friends)
-friends</code></pre>
-<p>Now, define an ordinal categorical variable, instead:</p>
-<pre class="r"><code># list soil depths, as characters
-depths &lt;- c(&quot;surface&quot;, &quot;medium&quot;, &quot;deep&quot;, &quot;shallow&quot;, &quot;very_deep&quot;)
-
-# cast depths as factor and order it using levels
-depths &lt;- factor(depths, order=TRUE, levels=c(&quot;very_deep&quot;, &quot;deep&quot;, &quot;medium&quot;, &quot;shallow&quot;, &quot;surface&quot;))
-
-# show the content of the variable
-depths</code></pre>
-<p>There is an interesting difference between <code>friends</code> and
-<code>depths</code>. The first one has levels that are ordered, by R,
-alphabetically: they are names, meaning no one is bigger, slower,
-higher, or weigh more than another: just names. And yes, you can still
-order them as you like, but you need to specify it as with the
-<code>depths</code>, i.e. using <code>levels</code>.</p>
-<p>On the other hand, soil levels are ordered since <em>verydeep</em> is
-deeper than <em>medium</em> which, in turn, is deeper than
-<em>shallow</em>. Here, the order is important. That’s why you may want
-to set the levels (this is very handy when performing statistical
-analysis or other stuff such as plotting).</p>
-</div>
-<div id="logicals" class="section level3">
-<h3>Logicals</h3>
-<p>Logical can take values that are either <code>TRUE</code> or
-<code>FALSE</code>. They are fundamental in programming because contrary
-to human logic, computer logic works with zero and one, black or white:
-in programming a <em>statement</em> can be <code>TRUE</code> or
-<code>FALSE</code>.</p>
-<p>Logical values have specific operations that are performed through
-logical operators. They are three: AND, OR, and NOT. In R, they are
-written as symbols which you can find on your keyboard:</p>
+<p>First, you will need to figure out how an average is computed.
+According to Wikipedia, this is how the <a href="https://en.wikipedia.org/wiki/Mean#Arithmetic_mean_(AM)">arithmetic
+mean</a> (the one you are interested into!) is defined as:</p>
+<p><span class="math display">\[\overline{x} = \frac{1}{n}
+\sum_{i=1}^{n}x_{i} = \frac{x_{1} + x_{2} + \dots + x_{n}}{n}\]</span>
+Translated in human language, what you are going to do is:</p>
 <ul>
-<li>AND: <code>&amp;</code>;</li>
-<li>OR: <code>|</code>;</li>
-<li>NOT: <code>!</code>.</li>
+<li>sum up all the values;</li>
+<li>divide them by the number of values.</li>
 </ul>
-<p><code>TRUE</code> can be abbreviated as <code>T</code>,
-<code>FALSE</code> as <code>F</code>.</p>
-<p>The AND operator takes two logical values as input, and return TRUE
-when both are TRUE. We can translate this as: “I will be happy if I can
-have popcorn and a zombie movie!”.</p>
-<pre class="r"><code># true and true
-TRUE &amp; TRUE
+<p>Now, you want to create a function that does what was just described.
+Call this function with a meaningful name,
+e.g. <code>arithmetic_mean</code>.</p>
+<p>It will need some input and it will provide some output:</p>
+<pre class="r"><code># define the function average for two values
+arithmetic_mean_two_vals &lt;- function(value_one, value_two) {
+  # sum the two values and divide by the number of values
+  average &lt;- (value_one + value_two) / 2
+  print(average)
+}
 
-# true and false
-TRUE &amp; F
+# try your function
+arithmetic_mean_two_vals(3, 6)
+arithmetic_mean_two_vals(5, 10)
+arithmetic_mean_two_vals(2, 4)
+arithmetic_mean_two_vals(100, 200)</code></pre>
+<p>We can do the same, for three values. How would you do it?</p>
+<pre class="r fold-hide"><code># define the function average for three values
+arithmetic_mean_three_vals &lt;- function(value_one, value_two, value_three) {
+  # sum the two values and divide by the number of values
+  average &lt;- (value_one + value_two + value_three) / 3
+  print(average)
+}
 
-# false and true
-FALSE &amp; T
+# try your function
+arithmetic_mean_three_vals(3, 6, 12)
+arithmetic_mean_three_vals(5, 10, 25)
+arithmetic_mean_three_vals(2, 4, 3)
+arithmetic_mean_three_vals(100, 200, 130)</code></pre>
+<p>Now, whenever you want to compute the average of a set of values, you
+don’t need to look for the formula in the internet and rewrite all the
+instructions over and over. What you need to do is simply run the
+function and thank you very much.</p>
+</div>
+</div>
+<div id="writing-better-functions" class="section level2">
+<h2>Writing better functions</h2>
+<p>The function that was just defined can be written in many different
+ways: there is no right or wrong, but there could be better or worse.
+And here is when you must <em>think like a good programmer</em>. A good
+programmer knows the <a href="https://en.wikipedia.org/wiki/Perfect_is_the_enemy_of_good">golden
+rule</a> or programming:</p>
+<blockquote>
+<p>Perfect is the enemy of good.</p>
+</blockquote>
+<p>A very good programmer knows the rule and applies it. Which means
+that, at some point, you will need to stop searching for a better
+solution and actually do the analysis.</p>
+<p>The two functions for computing averages which were defined, are
+actually not very useful (and surely not perfect!):</p>
+<ol style="list-style-type: decimal">
+<li>the input is limited to two or three values;</li>
+<li>the result is a string and a string is not really useful when you
+deal with numbers.</li>
+</ol>
+<div id="questions-1" class="section level4">
+<h4>Questions</h4>
+<p>What if you want to use the average value for other operations and
+you end up with a sequence of characters? What would you do?</p>
+<p>To improve the function, you can start by thinking “how to pass
+different sets of values to my function??”.</p>
+<p>This is easily done by using <code>vectors</code>: a vector is a data
+structure that may contain many numbers so…yep, you might want to
+consider a vector as a smart input for your smart function!</p>
+<p>Then, you may want to ask yourselves “how do the function compute the
+sum of those many values??”. Here things get more tricky because knowing
+R starts to become important.</p>
+<p>You can either <a href="https://duckduckgo.com/?q=sum+all+elements+of+vector+R&amp;t=ffab&amp;atb=v320-1&amp;ia=web">ask
+the internet</a>, or use a function, i.e. <code>sum()</code> that R has
+already available that will be used to compute the sum all the values in
+the vector.</p>
+<p>Finally, you will need to divide the sum by the number of values. The
+question here, is “how to compute the number of the values in the
+vector??”. Again, you can use a function that R already has available,
+i.e. <code>length()</code> that will return the length of the vector, or
+the number of values that it contains.</p>
+<pre class="r"><code># define the function average for two values
+arithmetic_mean_many_values &lt;- function(a_set_of_values) {
+  # sum the two values and divide by the number of values
+  the_sum &lt;- sum(a_set_of_values)
+  # compute the number of values in the vector
+  the_n_of_vals &lt;- length(a_set_of_values)
+  # compute the average
+  print(the_sum/the_n_of_vals)
+}
 
-# false and false
-F &amp; F</code></pre>
-<p>The OR operator works in the same way as the AND operator but it
-returns TRUE if one of the two logical values is TRUE. We can translate
-this as: “I will be happy if I can have either a hot chocolate or a
-coffee with whip cream”.</p>
-<pre class="r"><code># true or true
-T | T
+# try your function
+arithmetic_mean_many_values(c(1, 2, 4))
+arithmetic_mean_many_values(c(1, 5, 7, 10, 12))
+arithmetic_mean_many_values(c(10, 3))</code></pre>
+<p>This is very nice! You have now <em>generalised</em> the concept of
+average from two or three values to any number of values. However, you
+still can’t use the output of the function since it still is a printed
+string.</p>
+<p>It’s now a good time to introduce the <code>return()</code>
+function:</p>
+<pre class="r"><code># define the function average for two values
+arithmetic_mean &lt;- function(a_set_of_values) {
+  # sum the two values and divide by the number of values
+  the_sum &lt;- sum(a_set_of_values)
+  # compute the number of values in the vector
+  the_n_of_vals &lt;- length(a_set_of_values)
+  # compute the average
+  average &lt;- the_sum/the_n_of_vals
+  # return the average value we just computed
+  return(average)
+}
 
-# true or false
-TRUE | FALSE
+# try your function
+average_of_three &lt;- arithmetic_mean(c(1, 2, 4))
+average_of_five &lt;- arithmetic_mean(c(1, 5, 7, 10, 12))
+average_of_two &lt;- arithmetic_mean(c(10, 3))</code></pre>
+<p>Now, this is a proper function (probably not perfect, but it is good
+enough so you can stop working on it).</p>
+<p>Now, pretend you wanted to sum up all the averages:</p>
+<pre class="r"><code># sum the averages, not very useful but ok!
+sum(average_of_three, average_of_five, average_of_two)</code></pre>
+<p>Very useful, right?</p>
+<p>(By the way, R already has a function for computing averages, which
+is called <code>mean()</code>, but it was fun anyway!)</p>
+</div>
+</div>
+<div id="having-functions-available-whenever-you-need-them" class="section level2">
+<h2>Having functions available whenever you need them</h2>
+<p>At the very beginning of the course we talked about the R environment
+(remember <code>ls()</code> and <code>search()</code>??).</p>
+<p>With functions, the environment is very important because a function
+will only be available in the environment where it was defined. In the
+current environment you have the <code>arithmetic_mean()</code> function
+available because we just defined it (<code>ls()</code>).</p>
+<p>However, if you restart the R session, the function
+<code>arithmetic_mean()</code> will not be available. Does this means
+that you will need to define it again? Well, yes and no. Yes because you
+will need to <em>load</em> it from somewhere, but no because you were
+smart (were you?) and you had it saved somewhere.</p>
+<p>If you didn’t: open a new R file and copy-paste the function
+<code>arithmetic_mean()</code> into it. Save the file as
+<code>functions.R</code>.</p>
+<p>Now restart your R session and type <code>ls()</code>. The
+environment is empty: <code>arithmetic_mean()</code> is not
+available!</p>
+<p>It’s now time to load your functions file to get the
+<code>arithmetic_mean()</code> back. To do it use the function
+<code>source()</code> which basically runs the content of a file:</p>
+<pre class="r"><code># source the functions file
+source(&quot;functions.R&quot;)
 
-# false or true
-F | TRUE
+# is `arithmetic_mean()` there?
+ls()</code></pre>
+<p>Great, you have your <code>arithmetic_mean()</code> back and you can
+now take advantage of it. This is very useful for you since all the
+functions you defined and you may need can always be stored in a file.
+Just <code>source()</code> the file when it’s needed and you will have
+your functions at hand!</p>
+</div>
+<div id="combining-functions" class="section level2">
+<h2>Combining functions</h2>
+<p>As we said, a function returns something as output, usually. When it
+does it, that output can become the input of another function.</p>
+<pre class="r"><code># define a vector
+a_vector &lt;- c(1, 8, 12, 54, 67, 23, 90)
 
-# false or false
-F | FALSE</code></pre>
-<p>The NOT operator is a negation of the logical operator it is used
-with logical values or functions:</p>
-<pre class="r"><code># not true
-!T
-
-# not false
-!F
-
-# is 4 a numeric??
-four &lt;- &quot;four&quot;
-is.numeric(four)
-
-# or, is it not??
-!is.numeric(four)
-
-# wait, but is it or is it not??
-!!is.numeric(four)</code></pre>
-<p>There are other operators that are used for comparing objects:</p>
+# compute the square root of the mean of the values
+# in the vector.
+as.character(mean(a_vector))</code></pre>
+<p>The idea is that <code>mean(a_vector)</code> will return a value,
+i.e. the mean, which is used as input for <code>as.character()</code>.
+Remember that what is inside the brackets, <code>()</code>, is the input
+for the function. You can combine as many functions you want to.</p>
+</div>
+<div id="r-manual" class="section level2">
+<h2>R manual</h2>
+<p>If you don’t know how a function works, you can always ask R.</p>
+<pre class="r"><code># help!
+help(mean)</code></pre>
+<p>You can create the manual of your own functions in three ways:</p>
 <ul>
-<li>equal to: <code>==</code>;</li>
-<li>not equal to: <code>!=</code>;</li>
-<li>greater than: <code>&gt;</code>;</li>
-<li>greater than or equal to: <code>&gt;=</code>;</li>
-<li>smaller than: <code>&lt;</code>;</li>
-<li>smaller than or equal to: <code>&lt;=</code>.</li>
+<li>comment all the steps inside the script (using the <code>#</code>
+symbol for commented lines);</li>
+<li>create a package with documentation (this is more complicated);</li>
+<li>all of the above.</li>
 </ul>
-<p>A few examples:</p>
-<pre class="r"><code># equal to
-&quot;hello&quot; == &quot;ciao&quot;
-
-# equal to
-4 == 5
-
-# not equal to
-10 != 100
-
-# smaller than
-4 &lt; 5
-
-# greater than or equal to
-100 &gt;= 10
-
-# you can also combine expressions
-10 &gt; 9 | &quot;a&quot; == &quot;b&quot;
-
-10 &lt; 9 &amp; 5 &gt; 4
-
-10 &gt;= 9 | 5 &lt; 4</code></pre>
-<p>Remember that logical operators have precedence, for example as in
-mathematics when multiplication has precedence over addition. For R:</p>
-<ul>
-<li><code>!</code> has precedence over</li>
-<li><code>&amp;</code> which has precedence over</li>
-<li><code>|</code>.</li>
-</ul>
-<p>For a full list of operators and precedence, see <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html">here</a>.</p>
-<p>We will see how logical values and operators work when used in actual
-loops.</p>
-<div id="vectors-of-logical-values" class="section level4">
-<h4>Vectors of logical values</h4>
-<p>Logical values can be combined in vectors:</p>
-<pre class="r"><code># define two vectors of logical values
-logi_vals_one &lt;- c(TRUE, TRUE, FALSE)
-
-logi_vals_two &lt;- c(FALSE, TRUE, FALSE)
-
-# test the AND logical operator on the vectors
-logi_vals_one &amp; logi_vals_two
-
-# test the OR logical operator on the vectors
-logi_vals_one | logi_vals_two
-
-# test the NOT logical operator on the vectors
-!logi_vals_one
-!logi_vals_two</code></pre>
+<p>Commenting is very important because when you will go back to some
+code you wrote months ago…then you won’t understand anything. Commented
+code will help but it will be a mess, anyway.</p>
+<p>Golden rule of a good programmer:</p>
+<blockquote>
+<p>Comment your code.</p>
+</blockquote>
 </div>
-</div>
-</div>
-<div id="side-note-about-casting" class="section level2">
-<h2>Side note about Casting</h2>
-<p>To <em>cast</em> (or <em>casting</em>) means transforming an object
-of a type into an object of another type, as we just did using the
-function <code>as.factor()</code>. Another example can be done using the
-function <code>as.integer()</code>. This function transforms something
-into an integer, if it is possible:</p>
-<pre class="r"><code># transform a double into integer
-as.integer(2.3)
-
-# transform a character into an integer and sum two
-as.integer(&quot;1&quot;) + 2
-
-# transform another character into an integer
-# (this will give you an error since the letter A does not correspond to any number!)
-as.integer(&quot;A&quot;)</code></pre>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
-<p>Interestingly, you can perform operations using factors:</p>
-<pre class="r"><code># shall we sum up some depths?
-sum(as.integer(depths))</code></pre>
+<div id="a-very-nice-exercise" class="section level2">
+<h2>A very nice exercise</h2>
+<p>Create a function that takes in input two different set of numbers.
+As output, it should return: 1) average, 2) median, 3) minimum, and 4)
+maximum for both sets of numbers. The function have to return all these
+info in a proper data structure.</p>
+<p>Idea one: you can create a data frame with the necessary info. Idea
+two: you can create a nice list (with a proper name for each element),
+with the necessary info.</p>
 </div>
 </div>
 

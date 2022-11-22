@@ -3,7 +3,9 @@ title: "Think like a programmer - an introduction"
 date: "`r format(Sys.time(), '%A %d, %B')`"
 output:
   html_document:
+    code_folding: show
     toc: true
+    toc_float: true
     toc_depth: 3
     theme: readable
     colortheme: "default"
@@ -15,11 +17,15 @@ knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
 
 # Data structures
 
-A data structure is a container for a set of objects.
+A data structure is a container for a set of objects which can be of many type, e.g. numerics, characters, factors, or logicals.
+
+Data structures are usually stored into variables, exactly like a number, or a sequence of character.
+
+There are different type of data structures, in R.
 
 ## Vectors
 
-Vectors are variables containing more than one object:
+Vectors are variables containing more than one object. You have already seen a vector:
   
 ```{r}
 
@@ -31,7 +37,7 @@ paste("the content of friends is ", friends, sep="")
 
 ```
 
-`friends` is a vector, i.e. a data structure. The vector `friends` was built using the function `c()` that basically combines the characters that were passed in input. In `friends` we put four values. You can get this information using a function that show you the _length_, or the number of elements, in a vector. The function, as you may have guessed, is `length()`.
+`friends` is a vector, i.e. a data structure. The vector `friends` was built using the function `c()` that basically combines the characters that were passed as input. In `friends` four values were stored. You can get this information using a function that show you the _length_, or the number of elements, in a vector. The function, as you may have guessed, is `length()`.
 
 ```{r}
 
@@ -46,9 +52,15 @@ print(paste0("the fourth object in contact is ", friends[4]))
 
 ```
 
+It is important to note that, in R, the first value of a vector starts at position 1. In other programming languages, this is not always true since some may start at position 0.
+
+#### Question
+
+Can you create a variable with one value and access this value as you would access a value in a vector?
+
 ## Lists
 
-Lists are variables containing more than one object, as vectors. However, contrary to vectors lists need to be defined before using them. This means that first you need to define an empty list, then you can fill it:
+Lists are data structures containing more than one object, as vectors. However, contrary to vectors lists need to be defined before using them. This means that first you need to define an empty list, then you can fill it.
   
 ```{r}
 
@@ -66,17 +78,17 @@ a_list
 
 ```
 
-Ok, but what is the difference between lists and vectors, then? To answer this question look into the type of objects that you can store into a list and into a vector.
+Also, lists can contain different data types at the same time. This is a fundamental difference between lists and vectors:
 
 ```{r}
 
-# define vector of numerics
+# a vector of numerics is ok
 numerics_vect <- c(1, 1.24587, 45, 39372.2134)
 
-# define a vector of characters
+# a vector of characters is ok
 friends <- c("Francesca", "Valerio", "Sofia", "Elena")
 
-# define a vector of numerics AND characters (can we??)
+# a vector of numerics AND characters is not ok!
 nums_and_chars <- c("one", 2, "three", 4, 5)
 
 # print the content of the vectors we just created
@@ -86,7 +98,7 @@ nums_and_chars
 
 ```
 
-If we look at the `nums_and_char` vector, you will notice something weird: numerics are quoted. This means that they are not numerics anymore. They were casted, automatically by R, into characters (because R can't cast a character into a numeric).
+If we look at the `nums_and_char` vector, you will notice something weird: numerics are quoted. This means that they are not numerics anymore. They were _casted_, automatically by R, into characters (because R can't cast a character into a numeric so that's the only way to keep data types consistent).
 
 The problem, for R, is that you cannot create a vector containing different data types, i.e. characters and numerics together. This, however, can be achieved through `lists`:
 
@@ -119,11 +131,11 @@ print(c(typeof(nums_and_chars[1]), typeof(nums_and_chars[2]), typeof(nums_and_ch
 
 ```
 
-In the first case different types are shown. In the second case...always characters: that's the difference between lists and vectors.
+In the first case, different types are shown. In the second case...always characters: that's the difference between lists and vectors.
 
 ## Matrices
 
-On the one hand, we have matrices, which can only contain one type of data (remember _integers_, _double_, _characters_, _factors_??):
+Matrices are collections of vectors, which means the can contain only one data type:
   
 ```{r}
 
@@ -145,9 +157,9 @@ a_matrix_of_numbers
 
 ```
 
-After substituting an element of `a_matrix_of_numbers` with a character, i.e. "0", all the other zeros were _casted_ into chars. As we said, a matrix can only contain a specific data type.
+After substituting an element of `a_matrix_of_numbers` with a character, i.e. "0", all the other zeros were _casted_ into chars.
 
-With this example, we also introduced the word _substituting_ an element of the matrix. The substitution, or _assignment_ happened here:
+With this example, an element of the matrix. was _substituted_ with a character. This means that you can interact with the matrix itself. Substitution, or _assignment_:
   
 ```{r}
 
@@ -156,9 +168,9 @@ a_matrix_of_numbers[1, 1] <- "0"
 
 ```
 
-By doing so, you are accessing the value in the matrix, i.e. row 1, column 1, and putting something _into_ it, or _assigning_. In other words you _substitute_ or _overwrite_ the previous content.
+By doing so, you are accessing the value in the matrix, i.e. row 1, column 1, and putting something _into_ it, or _assigning_ something to that position. You _substitute_ or _overwrite_ the previous content.
 
-Of course, you can access whole matrices, a single cell (as we just did), a whole row, or a whole column. The general notation follows this pattern `matrix[n_of_row, n_of_column]`:
+Of course, you can access whole matrices, a single cell, a whole row, or a whole column. The general notation follows this pattern `matrix[n_of_row, n_of_column]`:
   
  - if we specify `n_of_row` **and not** `n_of_column`, i.e. `a_matrix[1, ]`, we are accessing the first row, all the columns. We are getting the whole first row;
  - if we specify `n_of_column` **and not** `n_of_row`, i.e. `a_matrix[, 1]`, we are accessing the first column, all the rows. We are getting the whole first column;
@@ -213,6 +225,8 @@ colnames(a_matrix_of_numbers)
 
 ```
 
+`colnames()` and `rownames()` are two-way functions: they can show you something or you can use them to assign something.
+
 At this point, you can get columns, or rows, by using their names:
   
 ```{r}
@@ -251,7 +265,7 @@ rbind(matrix_two, matrix_three)
 
 The last `rbind()` did not work because the matrices has a different number of columns. When putting together matrices, you need to make sure they have the correct dimensions.
 
-### A mathematical side note or How a bug was born
+### How bugs are born
 
 In linear algebra matrices are quite popular. So, it is important to know how to use them to perform common operations such as sum or multiplication, since it may be non obvious. An example of multiplication:
   
@@ -271,23 +285,25 @@ simple_matrix %*% simple_vector
 
 ```
 
-The difference is that in linear algebra, multiplying a matrix by a vector will give you back a vector. However, using the wrong tool, i.e. `*`, to perform a simple operation may give you unexpected results.
+This is a good example of how, using the wrong tool, i.e. `*`, to perform a simple operation will produce what is called a _bug_. This is an error that give you unexpected, or wrong results.
 
-## Dataframes
+Some bugs are easy to spot because your code won't work. Some others are more complex, because you might not notice them. Be careful!
 
-On the other hand, we have dataframes, which can contain both _integers_, _double_, _characters_, _factors_, you name it:
+## Data frames
+
+Data frames, contrary to matrices, can contain any data type:
   
 ```{r}
 
 # create a dataframe with 4 rows and 2 columns
-a_dataframe <- data.frame(some_numbers=c(1, 435, 65432, 7.65376), some_chars=c("Elena", "Sofia", "Valerio", "Francesca"))
+a_dataframe <- data.frame(some_numbers=c(1, 435, 65432, 7.65376), some_chars=c("Elena", "Sofia", "Valerio", "Francesca"), some_logicals=c(T, F, F, F))
 
 # show the content of the dataframe
 a_dataframe
 
 ```
 
-In this case you defined a dataframe and assigned a name to each of the two columns. This was done by telling to R that `some_numbers` and `some_chars`, i.e. two vectors, should be combined into a `data.frame`. The process in all its parts is:
+You just defined a dataframe and assigned a name to each column. This was done by telling to R that `some_numbers`, `some_chars`, and `some_logicals`, i.e. three vectors, should be combined into a `data.frame`. The process in all its parts is:
   
 ```{r}
 
@@ -303,9 +319,9 @@ students_data
 
 ```
 
-Here, we used a new function, i.e. `cbind.data.frame()`, because we wanted to put together the two vectors as columns. You could do it by row, i.e. using `rbind.data.frame()` depending on what you need. It's exactly the same we did when we used `rbind` or `cbind` for matrices.
+Here, the function `cbind.data.frame()` was used to put together two vectors as columns. You could do it by row, i.e. using `rbind.data.frame()`. It's exactly the same as using `rbind` or `cbind` for matrices.
 
-Dataframes, as matrices, can be accessed in several ways. You can access a single cell, a column, a row, or a set of columns and rows by using the same notation, i.e. the square brackets `[1, c(1, 4)]`, but also using row and columns names. In the case of columns, though, it's a bit different with respect to what we did with matrices:
+Data frames, as matrices, can be accessed in several ways. You can access a single cell, a column, a row, or a set of columns and rows by using the same notation, i.e. the square brackets `[1, c(1, 4)]`, but also using row and columns names. In the case of columns, though, it's a bit different with respect to what you can do with matrices:
   
 ```{r}
 
@@ -317,7 +333,7 @@ students_data$student_name
 
 ```
 
-Remember that dataframes can be accessed in all the way matrices can be accessed, but they also have the `$` symbol allowing you to get a column by using its name (we can't use the \$ with matrices). This can be used to add new columns to dataframes in a very simple way:
+Remember that data frames can be accessed in all the way matrices can be accessed, but they also have the `$` symbol allowing you to get a column by using its name (we can't use the `$` with matrices). The `$` can be used to add new columns to data frames in a very simple way:
 
 ```{r}
 
@@ -332,7 +348,7 @@ students_data
 
 ### Last, small thing about lists
 
-Finally, it is important to remember that, as we have already seen, lists can contain different objects in their cells:
+As a side note about lists, it is worth saying that you can store anything, in a list:
 
 ```{r}
 
@@ -356,27 +372,27 @@ another_complex_list
 
 ```
 
-In this example, a lists is used to create a complex data structure containing many different piece of information. Each piece of information is stored into it's own cell, with it's own name, to easily access it when needed.
+In this example, a list was used to create a complex data structure containing many different piece of information. Each piece of information is stored into it's own cell, with it's own name, to easily access it when needed.
 
 ### A side note about tables
 
-When we talked about matrices and dataframes, what we didn't talk about was how to load existing tables into R (yes, I am talking the data you managed to collect after sampling soil, extracting DNA, sequencing it, and everything in between).
+Matrices and data frames can be build from existing tables, that you may have built outside R such as the data you managed to collect after sampling soil, extracting DNA, sequencing it, and everything in between.
 
-The only thing that you need to know about tables is (another golden rule, for everyone not only good programmers):
+The only thing that you need to know about tables is:
 
  > when you build a table make sure it is well formatted and save it as _.csv_.
 
 If this rule is applied your (and other people's) life will be easier and happier.
 
-Now load a (well formatted) table from a file, just to see how it's done, and find some information about the just loaded table:
+To load a (well formatted) table from a file you will need to know where it is located in your computer:
 
 ```{r}
 
 # set path to working directory
-path_to_working_directory <- "/home/gabriele/work/"
+path_to_working_directory <- "/home/gabriele/work/microbiology/"
 
 # set path to directory where files are kept
-path_to_files <- "microbiology/think_like_a_programmer/R_foundations/lessons_files/data/"
+path_to_files <- "think_like_a_programmer/R_foundations/lessons_files/data/"
 
 # load a table from a csv file
 ecology_data <- read.csv(paste(path_to_working_directory, path_to_files, "meta_data.csv", sep=""), header=T, sep="\t")
@@ -397,29 +413,22 @@ head(ecology_data, n=8)
 
 ```
 
-At this point, it's worth introducing three functions that can be used to subset tables. These function take advantage of logical values. In other words, these functions will give you back some values will be `TRUE` or `FALSE`. So, to subset a table you will need to define _what you like_, which will be `TRUE`, and _what you don't like_, which will be `FALSE`.
+At this point, it's worth introducing three functions that can be used to subset tables. These function take advantage of logical values. In other words, these functions will give you back some values will be `TRUE` or `FALSE`.
 
-Think like programmers for a second.
+To subset a table you will need to define _what you like_, which will be `TRUE`, and _what you don't like_, which will be `FALSE`.
 
-So, say that you want to subset a table to get those samples which treatment is equal to _Control_.
-
-In current language you would say exactly what we just said, i.e. "Which Samples are Controls?".
-
-Well, it turns out that _which_, in R, is an actual function. Indeed, `which()`, allows you to get those values which are equal or not equal to other values.
-
-So, get those samples that are Controls:
+Think like a programmer, now. First, you must know what you're dealing with, in this case a table. Have a look at the table:
 
 ```{r}
 
 # print table, just to have an idea of what we are dealing with
 head(ecology_data)
 
-# get control samples using the which function and a logical operator
-which(ecology_data$treatment=="C")
-
 ```
 
-What is `which()` telling you? What if I show you this, instead, of the `which()`? How is this related to the result that we got from the `which()` function?
+First: you will need to work with the column Treatment, i.e. _ecology_data$treatment_.
+
+At this point, you need to get those samples which treatment is equal to _Control_. You can use logical operators:
 
 ```{r}
 
@@ -428,7 +437,35 @@ ecology_data$treatment=="C"
 
 ```
 
-The answer is that the `which()` function is showing you the number of rows of those samples that are controls. The other command, on the other hand, is showing which samples are controls, i.e. `control==TRUE`, and which are not, i.e. `control==FALSE`.
+You can store these vector of logical values inside a variable or you can directly use the logical values:
+
+```{r}
+
+# get control samples
+treated_samples <- ecology_data$treatment=="C"
+
+# show subsetted table using the variable just created
+ecology_data[treated_samples, ]
+
+# show subsetted table using logical values directly
+ecology_data[ecology_data$treatment=="C", ]
+
+```
+
+There is an interesting function, that you can also use for other purposes. The function is `which()`:
+
+```{r}
+
+# get control samples using the which function and a logical operator
+which(ecology_data$treatment=="C")
+
+```
+
+#### Question
+
+What is `which()` telling you?
+
+The `which()` function returns the number of rows of those samples that satisfied the condition. Using the logical operator `==` without the `which()` only returns a vector of logicals that tells you which samples are controls, i.e. `control==TRUE`, and which are not, i.e. `control==FALSE`.
 
 So, now that you know which samples are control and which are not, it's time to use this piece of information to subset the original metadata table:
   
@@ -440,7 +477,6 @@ control_samples_rows <- which(ecology_data$treatment=="C")
 # subset ecology_data, by rows, since the which returned
 # the number of rows for control samples
 ecology_data[control_samples_rows, ]
-
 
 # or, use the logical vector
 control_samples_logical <- ecology_data$treatment=="C"
@@ -457,4 +493,4 @@ Of course, it is possible to create any combination of conditions, using any (co
 Subset the table to get only those samples that:
   
   1. are not Controls;
-2. are Controls sampled in Winter.
+  2. are Controls sampled in Winter.

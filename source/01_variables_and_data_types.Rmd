@@ -3,7 +3,9 @@ title: "Think like a programmer - an introduction"
 date: "`r format(Sys.time(), '%A %d, %B')`"
 output:
   html_document:
+    code_folding: show
     toc: true
+    toc_float: true
     toc_depth: 3
     theme: readable
     colortheme: "default"
@@ -17,9 +19,9 @@ knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
 
 R is a programming language which is mainly used for statistical purposes but in reality it has many more applications. R exists in a base form, offering a wide set of tools, which are called _functions_, that are used to perform many operations such as computing means, plotting, regression analysis, and much more.
 
-In addition, there are many packages, e.g. _ggplot2_, _phyloseq_, _Vegan_, ..., that were created to extend the basic set of R functions for more specific tasks like DNA sequences analysis, gene enrichments analysis, network construction, advanced plotting, computing $\alpha$-diversity, and much more.
+In addition, there are many packages, e.g. _ggplot2_, _phyloseq_, _Vegan_, ..., that were created to extend the basic set of R functions for more specific tasks like DNA sequences analysis, gene enrichment analysis, network construction, advanced plotting, computing $\alpha$-diversity, and much more.
 
-Of course, packages need to be installed before using them. You can find packages [in several places](https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&fuzzy_slug=), such as CRAN, R-Forge, Github, or Bioconductor. packages can be installed from all these sources and then it will be possible to take advantage of the functionalities they offer.
+Of course, packages need to be installed before using them. You can find packages [in several places](https://rdrr.io/find/?repos=cran%2Cbioc%2Crforge%2Cgithub&fuzzy_slug=), such as CRAN, R-Forge, Github, or Bioconductor.
 
 # Super short into to RStudio
 
@@ -90,13 +92,13 @@ list.files()
 
 ## Variables
 
-A variable can be seen as a box that contains zero, one, or many things which can be used, modified, and deleted whenever you like.
+A variable can be considered as a box that contains zero, one, or many things which can be used, modified, and deleted whenever you like.
 
 You have probably heard about variables. Variables are used, for example, in mathematics to represent unknown values in equations:
 
 $3x + \frac{1}{2} y = 0$
 
-In this case $x$, $y$ are the names of two different variables. It means they can take, _theoretically_, any value. The same applies in R: a variable can be _substituted_, or can _contain_ any value.
+In this case $x$, $y$ are the names of two different variables. They can take, _theoretically_, any value and you will get something back. The same applies in R: a variable can be _substituted_, or can _contain_ any value, and is used to perform tasks.
 
 When you use, or _call_, a variable, what you are actually doing is using the value that is contained in it.
 
@@ -129,9 +131,11 @@ right_assign
 
 All of these assignments are valid. However, the symbol `=` is usually found only when a value is _passed_ to a parameter (we will see this!), while the left arrow, i.e. `<-`, is the preferred one. The right arrow can also be used but it's very uncommon.
 
-### Data types
+## Data types
 
-In R there are several data types, each one with its own characteristics. A general distinction can be made by separating data types in _numerical_ and _categorical_.
+In variables you can store objects. These objects can be classified in data types according to their nature.
+
+In R there are several data types, each one with its own characteristics. A general distinction can be made by separating data types in _numerical_, _categorical_, and _logicals_.
 
 ### Numerics
 
@@ -176,7 +180,7 @@ one * three_point_five
 
 ```
 
-### Characters
+### Categorical - characters
 
 Characters, on the other hand, represents those _symbols_ that are not numbers. So, for example, letters and words.
 
@@ -246,7 +250,7 @@ print(paste("three plus two equals", five))
 
 Use the function `list.files()` to view the content of _path_to_folder_ and _path_to_work_folder_. Then, move the current working directory (remember `getwd()`) to _path_to_folder_.
 
-### Factors
+### Categorical - factors
 
 Factors may look like characters, but they have different properties.
 
@@ -302,33 +306,6 @@ depths
 There is an interesting difference between `friends` and `depths`. The first one has levels that are ordered, by R, alphabetically: they are names, meaning no one is bigger, slower, higher, or weigh more than another: just names. And yes, you can still order them as you like, but you need to specify it as with the `depths`, i.e. using `levels`.
 
 On the other hand, soil levels are ordered since _verydeep_ is deeper than _medium_ which, in turn, is deeper than _shallow_. Here, the order is important. That's why you may want to set the levels (this is very handy when performing statistical analysis or other stuff such as plotting).
-
-## Side note about Casting
-
-To _cast_ (or _casting_) means transforming an object of a type into an object of another type, as we just did using the function `as.factor()`. Another example can be done using the function `as.integer()`. This function transforms something into an integer, if it is possible:
-
-```{r}
-
-# transform a double into integer
-as.integer(2.3)
-
-# transform a character into an integer and sum two
-as.integer("1") + 2
-
-# transform another character into an integer
-# (this will give you an error since the letter A does not correspond to any number!)
-as.integer("A")
-
-```
-
-Interestingly, you can perform operations using factors:
-
-```{r}
-
-# shall we sum up some depths?
-sum(as.integer(depths))
-
-```
 
 ### Logicals
 
@@ -467,5 +444,32 @@ logi_vals_one | logi_vals_two
 # test the NOT logical operator on the vectors
 !logi_vals_one
 !logi_vals_two
+
+```
+
+## Side note about Casting
+
+To _cast_ (or _casting_) means transforming an object of a type into an object of another type, as we just did using the function `as.factor()`. Another example can be done using the function `as.integer()`. This function transforms something into an integer, if it is possible:
+
+```{r}
+
+# transform a double into integer
+as.integer(2.3)
+
+# transform a character into an integer and sum two
+as.integer("1") + 2
+
+# transform another character into an integer
+# (this will give you an error since the letter A does not correspond to any number!)
+as.integer("A")
+
+```
+
+Interestingly, you can perform operations using factors:
+
+```{r}
+
+# shall we sum up some depths?
+sum(as.integer(depths))
 
 ```

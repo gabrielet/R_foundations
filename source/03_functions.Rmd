@@ -1,0 +1,313 @@
+---
+title: "Think like a programmer - an introduction"
+date: "`r format(Sys.time(), '%A %d, %B')`"
+output:
+  html_document:
+    code_folding: show
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: readable
+    colortheme: "default"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
+```
+
+# Functions
+
+Functions are everywhere: R comes with a lot of functions already ready, you can have new ones available through packages, and even more fun: you can define them by yourself!
+
+But what is, actually, a function? How do you construct one? What is its goal?
+
+## A simple function
+
+Functions play a fundamental part in programming: they are tools that allow you performing operations, in a compact way. A script should be kept as simple as possible and functions help you to achieve this goal, and save you a lot of writing, too. Golden rule for the good programmer:
+
+ > Use functions!
+
+A function usually (but not always) requires some _input_, i.e one or more _parameters_, and will provide, or _return_, some _output_ or _result_. The _input_ is _passed_ to the function inside the brackets: `function(here goes the input)`.
+
+Before writing your first function remember another golden rule, very similar to the one for variables, which all good programmers know:
+
+> Name functions so they tell you what they do.
+
+Now, this is a very basic function with no input, i.e. the brackets in the function declaration are empty, and no output:
+
+```{r}
+
+# define a function with a meaningful name
+i_do_nothing <- function(){}
+
+# run the function
+i_do_nothing()
+
+```
+
+At this point, a new function is defined within the R environment you are working into (and only here!). This function is returning a `NULL` which means you got nothing back. The function takes no input, provides no output.
+
+Now, create a function that does something. Still no input, but some output:
+
+```{r}
+
+# define function
+print_something <- function() {
+  # define what the function does through a list of instructions
+  print("hello world!")
+}
+
+# run our trivial function, without any input
+print_something()
+
+```
+
+As you can see, the function was run with empty brackets: `print_something()`. This is very important: the inside of the brackets is where you _pass_ the parameters that are required by the function. This function requires no parameters: it was defined with empty brackets. So you know that the function requires no input.
+
+Something more interesting might be a printing function but with some parameters in input, and some output. You will need to create a function with expected parameters names in its brackets:
+
+```{r}
+
+# define function that takes two inputs
+print_my_words <- function(a_greeting, a_name) {
+  # define what the function does through a list of instructions
+  print(paste(a_greeting, a_name, sep=" "))
+}
+
+```
+
+You can finally use this function to print something:
+
+```{r}
+
+# try this
+print_my_words("hello", "world")
+
+# or this
+print_my_words("ciao", "Gabri")
+
+# or this
+print_my_words("hezky", "den")
+
+# or even this
+print_my_words("", "")
+
+```
+
+What was done, here, was to use the function `print_my_words()` to make R printing the two parameters as a single sequence of characters.
+
+## More advanced functions
+
+As mentioned, functions can be way more useful than doing nothing. For example, you can compute the average value of a set of values.
+
+#### Questions
+
+How to compute the average value of a set of values? How do you do it?
+
+First, you will need to figure out how an average is computed. According to Wikipedia, this is how the [arithmetic mean](https://en.wikipedia.org/wiki/Mean#Arithmetic_mean_(AM)) (the one you are interested into!) is defined as:
+
+$$\overline{x} = \frac{1}{n} \sum_{i=1}^{n}x_{i} = \frac{x_{1} + x_{2} + \dots + x_{n}}{n}$$ Translated in human language, what you are going to do is:
+
+-   sum up all the values;
+-   divide them by the number of values.
+
+Now, you want to create a function that does what was just described. Call this function with a meaningful name, e.g. `arithmetic_mean`.
+
+It will need some input and it will provide some output:
+
+```{r}
+
+# define the function average for two values
+arithmetic_mean_two_vals <- function(value_one, value_two) {
+  # sum the two values and divide by the number of values
+  average <- (value_one + value_two) / 2
+  print(average)
+}
+
+# try your function
+arithmetic_mean_two_vals(3, 6)
+arithmetic_mean_two_vals(5, 10)
+arithmetic_mean_two_vals(2, 4)
+arithmetic_mean_two_vals(100, 200)
+
+```
+
+We can do the same, for three values. How would you do it?
+
+```{r class.source = "fold-hide"}
+
+# define the function average for three values
+arithmetic_mean_three_vals <- function(value_one, value_two, value_three) {
+  # sum the two values and divide by the number of values
+  average <- (value_one + value_two + value_three) / 3
+  print(average)
+}
+
+# try your function
+arithmetic_mean_three_vals(3, 6, 12)
+arithmetic_mean_three_vals(5, 10, 25)
+arithmetic_mean_three_vals(2, 4, 3)
+arithmetic_mean_three_vals(100, 200, 130)
+
+```
+
+Now, whenever you want to compute the average of a set of values, you don't need to look for the formula in the internet and rewrite all the instructions over and over. What you need to do is simply run the function and thank you very much.
+
+## Writing better functions
+
+The function that was just defined can be written in many different ways: there is no right or wrong, but there could be better or worse. And here is when you must _think like a good programmer_. A good programmer knows the [golden rule](https://en.wikipedia.org/wiki/Perfect_is_the_enemy_of_good) or programming:
+
+> Perfect is the enemy of good.
+
+A very good programmer knows the rule and applies it. Which means that, at some point, you will need to stop searching for a better solution and actually do the analysis.
+
+The two functions for computing averages which were defined, are actually not very useful (and surely not perfect!):
+
+ 1. the input is limited to two or three values;
+ 2. the result is a string and a string is not really useful when you deal with numbers.
+
+#### Questions
+
+What if you want to use the average value for other operations and you end up with a sequence of characters? What would you do?
+
+To improve the function, you can start by thinking "how to pass different sets of values to my function??".
+
+This is easily done by using `vectors`: a vector is a data structure that may contain many numbers so...yep, you might want to consider a vector as a smart input for your smart function!
+
+Then, you may want to ask yourselves "how do the function compute the sum of those many values??". Here things get more tricky because knowing R starts to become important.
+
+You can either [ask the internet](https://duckduckgo.com/?q=sum+all+elements+of+vector+R&t=ffab&atb=v320-1&ia=web), or use a function, i.e. `sum()` that R has already available that will be used to compute the sum all the values in the vector.
+
+Finally, you will need to divide the sum by the number of values. The question here, is "how to compute the number of the values in the vector??". Again, you can use a function that R already has available, i.e. `length()` that will return the length of the vector, or the number of values that it contains.
+
+```{r}
+
+# define the function average for two values
+arithmetic_mean_many_values <- function(a_set_of_values) {
+  # sum the two values and divide by the number of values
+  the_sum <- sum(a_set_of_values)
+  # compute the number of values in the vector
+  the_n_of_vals <- length(a_set_of_values)
+  # compute the average
+  print(the_sum/the_n_of_vals)
+}
+
+# try your function
+arithmetic_mean_many_values(c(1, 2, 4))
+arithmetic_mean_many_values(c(1, 5, 7, 10, 12))
+arithmetic_mean_many_values(c(10, 3))
+
+```
+
+This is very nice! You have now _generalised_ the concept of average from two or three values to any number of values. However, you still can't use the output of the function since it still is a printed string.
+
+It's now a good time to introduce the `return()` function:
+
+```{r}
+
+# define the function average for two values
+arithmetic_mean <- function(a_set_of_values) {
+  # sum the two values and divide by the number of values
+  the_sum <- sum(a_set_of_values)
+  # compute the number of values in the vector
+  the_n_of_vals <- length(a_set_of_values)
+  # compute the average
+  average <- the_sum/the_n_of_vals
+  # return the average value we just computed
+  return(average)
+}
+
+# try your function
+average_of_three <- arithmetic_mean(c(1, 2, 4))
+average_of_five <- arithmetic_mean(c(1, 5, 7, 10, 12))
+average_of_two <- arithmetic_mean(c(10, 3))
+
+```
+
+Now, this is a proper function (probably not perfect, but it is good enough so you can stop working on it).
+
+Now, pretend you wanted to sum up all the averages:
+
+```{r}
+
+# sum the averages, not very useful but ok!
+sum(average_of_three, average_of_five, average_of_two)
+
+```
+
+Very useful, right?
+
+(By the way, R already has a function for computing averages, which is called `mean()`, but it was fun anyway!)
+
+## Having functions available whenever you need them
+
+At the very beginning of the course we talked about the R environment (remember `ls()` and `search()`??).
+
+With functions, the environment is very important because a function will only be available in the environment where it was defined. In the current environment you have the `arithmetic_mean()` function available because we just defined it (`ls()`).
+
+However, if you restart the R session, the function `arithmetic_mean()` will not be available. Does this means that you will need to define it again? Well, yes and no. Yes because you will need to _load_ it from somewhere, but no because you were smart (were you?) and you had it saved somewhere.
+
+If you didn't: open a new R file and copy-paste the function `arithmetic_mean()` into it. Save the file as `functions.R`.
+
+Now restart your R session and type `ls()`. The environment is empty: `arithmetic_mean()` is not available!
+
+It's now time to load your functions file to get the `arithmetic_mean()` back. To do it use the function `source()` which basically runs the content of a file:
+
+```{r}
+
+# source the functions file
+source("functions.R")
+
+# is `arithmetic_mean()` there?
+ls()
+
+```
+
+Great, you have your `arithmetic_mean()` back and you can now take advantage of it. This is very useful for you since all the functions you defined and you may need can always be stored in a file. Just `source()` the file when it's needed and you will have your functions at hand!
+
+## Combining functions
+
+As we said, a function returns something as output, usually. When it does it, that output can become the input of another function.
+
+```{r}
+
+# define a vector
+a_vector <- c(1, 8, 12, 54, 67, 23, 90)
+
+# compute the square root of the mean of the values
+# in the vector.
+as.character(mean(a_vector))
+
+```
+
+The idea is that `mean(a_vector)` will return a value, i.e. the mean, which is used as input for `as.character()`. Remember that what is inside the brackets, `()`, is the input for the function. You can combine as many functions you want to.
+
+## R manual
+
+If you don't know how a function works, you can always ask R.
+
+```{r}
+
+# help!
+help(mean)
+
+```
+
+You can create the manual of your own functions in three ways:
+
+ - comment all the steps inside the script (using the `#` symbol for commented lines);
+ - create a package with documentation (this is more complicated);
+ - all of the above.
+
+Commenting is very important because when you will go back to some code you wrote months ago...then you won't understand anything. Commented code will help but it will be a mess, anyway. 
+
+Golden rule of a good programmer:
+
+> Comment your code.
+
+## A very nice exercise
+
+Create a function that takes in input two different set of numbers. As output, it should return: 1) average, 2) median, 3) minimum, and 4) maximum for both sets of numbers. The function have to return all these info in a proper data structure.
+
+Idea one: you can create a data frame with the necessary info.
+Idea two: you can create a nice list (with a proper name for each element), with the necessary info.
