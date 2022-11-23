@@ -228,7 +228,7 @@ path_to_work_folder <- paste(path_to_folder, "work_folder/", sep="")
 path_to_work_folder
 
 # path to pics from the last vacation. same as for the work folder
-path_to_vacations_pics_folder <- paste(path_to_folder, "vacations_pics/")
+path_to_vacations_pics_folder <- paste(path_to_folder, "vacations_pics/", sep="")
 
 # show the path
 path_to_vacations_pics_folder
