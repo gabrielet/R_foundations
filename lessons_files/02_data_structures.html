@@ -1585,7 +1585,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Think like a programmer - an
 introduction</h1>
-<h4 class="date">Tuesday 22, November</h4>
+<h4 class="date">Thursday 24, November</h4>
 
 </div>
 
@@ -1621,6 +1621,15 @@ print(paste0(&quot;the first object in contact is &quot;, friends[1]))
 print(paste0(&quot;the second object in contact is &quot;, friends[2]))
 print(paste0(&quot;the third object in contact is &quot;, friends[3]))
 print(paste0(&quot;the fourth object in contact is &quot;, friends[4]))</code></pre>
+<p>Vectors can also be filled, after they were defined:</p>
+<pre class="r"><code># define an empty vector
+empty_vector &lt;- vector()
+
+# put something in position 1
+empty_vector[1] &lt;- &quot;position_one&quot;
+
+# put something in position 10
+empty_vector[10] &lt;- &quot;position_ten&quot;</code></pre>
 <p>It is important to note that, in R, the first value of a vector
 starts at position 1. In other programming languages, this is not always
 true since some may start at position 0.</p>
@@ -1633,9 +1642,7 @@ would access a value in a vector?</p>
 <div id="lists" class="section level2">
 <h2>Lists</h2>
 <p>Lists are data structures containing more than one object, as
-vectors. However, contrary to vectors lists need to be defined before
-using them. This means that first you need to define an empty list, then
-you can fill it.</p>
+vectors. They are defined in the same way:</p>
 <pre class="r"><code># define an empty list
 a_list &lt;- list()
 
@@ -1646,52 +1653,38 @@ a_list[[&quot;a_number&quot;]] &lt;- 121.36509356
 a_list[[&quot;some_chars&quot;]] &lt;- &quot;somechars&quot;
 
 # print the content of the list
-a_list</code></pre>
-<p>Also, lists can contain different data types at the same time. This
-is a fundamental difference between lists and vectors:</p>
-<pre class="r"><code># a vector of numerics is ok
-numerics_vect &lt;- c(1, 1.24587, 45, 39372.2134)
+a_list
 
-# a vector of characters is ok
-friends &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
+# define a list and fill it in one line
+one_line_list &lt;- list(a_number=4, a_char=&quot;a&quot;, some_logicals=c(T,F,T,T))
 
-# a vector of numerics AND characters is not ok!
-nums_and_chars &lt;- c(&quot;one&quot;, 2, &quot;three&quot;, 4, 5)
-
-# print the content of the vectors we just created
-numerics_vect
-friends
-nums_and_chars</code></pre>
-<p>If we look at the <code>nums_and_char</code> vector, you will notice
-something weird: numerics are quoted. This means that they are not
-numerics anymore. They were <em>casted</em>, automatically by R, into
-characters (because R can’t cast a character into a numeric so that’s
-the only way to keep data types consistent).</p>
-<p>The problem, for R, is that you cannot create a vector containing
-different data types, i.e. characters and numerics together. This,
-however, can be achieved through <code>lists</code>:</p>
+# print the content of the one line list
+one_line_list</code></pre>
+<p>As you noticed, lists can contain different data types at the same
+time <strong>but not in the same element</strong>:</p>
 <pre class="r"><code># define empty list
 a_complex_list &lt;- list()
 
-# fill the list
-a_complex_list[[&quot;drawer_one&quot;]] &lt;- &quot;one&quot;
-a_complex_list[[&quot;drawer_two&quot;]] &lt;- 2
-a_complex_list[[&quot;drawer_three&quot;]] &lt;- &quot;three&quot;
-a_complex_list[[&quot;drawer_four&quot;]] &lt;- 4
-a_complex_list[[&quot;drawer_five&quot;]] &lt;- 5
+# an element of numerics is ok
+a_complex_list[[&quot;numerics&quot;]] &lt;- c(1, 1.24587, 45, 39372.2134)
 
-# show the content of the list
-a_complex_list</code></pre>
-<p>In this case, numerics are not quoted. They are still numerics! Just
-to test if that’s true:</p>
-<pre class="r"><code># print the type of data contained in all the drawers of the list
-print(c(typeof(a_complex_list[[&quot;drawer_one&quot;]]), typeof(a_complex_list[[&quot;drawer_two&quot;]]), typeof(a_complex_list[[&quot;drawer_three&quot;]]), typeof(a_complex_list[[&quot;drawer_four&quot;]]), typeof(a_complex_list[[&quot;drawer_five&quot;]])))
+# an element of characters is ok
+a_complex_list[[&quot;friends&quot;]] &lt;- c(&quot;Francesca&quot;, &quot;Valerio&quot;, &quot;Sofia&quot;, &quot;Elena&quot;)
 
-# same for the vector
-print(c(typeof(nums_and_chars[1]), typeof(nums_and_chars[2]), typeof(nums_and_chars[3]), typeof(nums_and_chars[4]), typeof(nums_and_chars[5])))</code></pre>
-<p>In the first case, different types are shown. In the second
-case…always characters: that’s the difference between lists and
-vectors.</p>
+# an element of numerics AND characters is not ok!
+a_complex_list[[&quot;nums_and_chars&quot;]] &lt;- c(&quot;one&quot;, 2, &quot;three&quot;, 4, 5)
+
+# print the content of the vectors we just created
+a_complex_list[[&quot;numerics&quot;]]
+a_complex_list[[&quot;friends&quot;]]
+a_complex_list[[&quot;nums_and_chars&quot;]]</code></pre>
+<p>If we look at the <code>nums_and_char</code> element, you will notice
+that numerics are quoted. This means that they are not numerics any
+more. They were <em>casted</em>, automatically by R, into characters.
+This happened because R can’t cast a character into a numeric so that’s
+the only way to keep data types consistent in the element:</p>
+<pre class="r"><code># print the type of data contained in all the elements of the list
+print(c(typeof(a_complex_list[[&quot;numerics&quot;]]), typeof(a_complex_list[[&quot;friends&quot;]]), typeof(a_complex_list[[&quot;nums_and_chars&quot;]])))</code></pre>
 </div>
 <div id="matrices" class="section level2">
 <h2>Matrices</h2>

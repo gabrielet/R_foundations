@@ -52,6 +52,21 @@ print(paste0("the fourth object in contact is ", friends[4]))
 
 ```
 
+Vectors can also be filled, after they were defined:
+
+```{r}
+
+# define an empty vector
+empty_vector <- vector()
+
+# put something in position 1
+empty_vector[1] <- "position_one"
+
+# put something in position 10
+empty_vector[10] <- "position_ten"
+
+```
+
 It is important to note that, in R, the first value of a vector starts at position 1. In other programming languages, this is not always true since some may start at position 0.
 
 #### Question
@@ -60,7 +75,7 @@ Can you create a variable with one value and access this value as you would acce
 
 ## Lists
 
-Lists are data structures containing more than one object, as vectors. However, contrary to vectors lists need to be defined before using them. This means that first you need to define an empty list, then you can fill it.
+Lists are data structures containing more than one object, as vectors. They are defined in the same way:
   
 ```{r}
 
@@ -76,62 +91,45 @@ a_list[["some_chars"]] <- "somechars"
 # print the content of the list
 a_list
 
-```
+# define a list and fill it in one line
+one_line_list <- list(a_number=4, a_char="a", some_logicals=c(T,F,T,T))
 
-Also, lists can contain different data types at the same time. This is a fundamental difference between lists and vectors:
-
-```{r}
-
-# a vector of numerics is ok
-numerics_vect <- c(1, 1.24587, 45, 39372.2134)
-
-# a vector of characters is ok
-friends <- c("Francesca", "Valerio", "Sofia", "Elena")
-
-# a vector of numerics AND characters is not ok!
-nums_and_chars <- c("one", 2, "three", 4, 5)
-
-# print the content of the vectors we just created
-numerics_vect
-friends
-nums_and_chars
+# print the content of the one line list
+one_line_list
 
 ```
 
-If we look at the `nums_and_char` vector, you will notice something weird: numerics are quoted. This means that they are not numerics anymore. They were _casted_, automatically by R, into characters (because R can't cast a character into a numeric so that's the only way to keep data types consistent).
-
-The problem, for R, is that you cannot create a vector containing different data types, i.e. characters and numerics together. This, however, can be achieved through `lists`:
+As you noticed, lists can contain different data types at the same time **but not in the same element**:
 
 ```{r}
 
 # define empty list
 a_complex_list <- list()
 
-# fill the list
-a_complex_list[["drawer_one"]] <- "one"
-a_complex_list[["drawer_two"]] <- 2
-a_complex_list[["drawer_three"]] <- "three"
-a_complex_list[["drawer_four"]] <- 4
-a_complex_list[["drawer_five"]] <- 5
+# an element of numerics is ok
+a_complex_list[["numerics"]] <- c(1, 1.24587, 45, 39372.2134)
 
-# show the content of the list
-a_complex_list
+# an element of characters is ok
+a_complex_list[["friends"]] <- c("Francesca", "Valerio", "Sofia", "Elena")
+
+# an element of numerics AND characters is not ok!
+a_complex_list[["nums_and_chars"]] <- c("one", 2, "three", 4, 5)
+
+# print the content of the vectors we just created
+a_complex_list[["numerics"]]
+a_complex_list[["friends"]]
+a_complex_list[["nums_and_chars"]]
 
 ```
 
-In this case, numerics are not quoted. They are still numerics! Just to test if that's true:
+If we look at the `nums_and_char` element, you will notice that numerics are quoted. This means that they are not numerics any more. They were _casted_, automatically by R, into characters. This happened because R can't cast a character into a numeric so that's the only way to keep data types consistent in the element:
   
 ```{r}
 
-# print the type of data contained in all the drawers of the list
-print(c(typeof(a_complex_list[["drawer_one"]]), typeof(a_complex_list[["drawer_two"]]), typeof(a_complex_list[["drawer_three"]]), typeof(a_complex_list[["drawer_four"]]), typeof(a_complex_list[["drawer_five"]])))
-
-# same for the vector
-print(c(typeof(nums_and_chars[1]), typeof(nums_and_chars[2]), typeof(nums_and_chars[3]), typeof(nums_and_chars[4]), typeof(nums_and_chars[5])))
+# print the type of data contained in all the elements of the list
+print(c(typeof(a_complex_list[["numerics"]]), typeof(a_complex_list[["friends"]]), typeof(a_complex_list[["nums_and_chars"]])))
 
 ```
-
-In the first case, different types are shown. In the second case...always characters: that's the difference between lists and vectors.
 
 ## Matrices
 
