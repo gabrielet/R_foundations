@@ -1585,7 +1585,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Think like a programmer - an
 introduction</h1>
-<h4 class="date">Tuesday 22, November</h4>
+<h4 class="date">Tuesday 29, November</h4>
 
 </div>
 
@@ -1702,7 +1702,7 @@ arithmetic_mean_two_vals(3, 6)
 arithmetic_mean_two_vals(5, 10)
 arithmetic_mean_two_vals(2, 4)
 arithmetic_mean_two_vals(100, 200)</code></pre>
-<p>We can do the same, for three values. How would you do it?</p>
+<p>Compute the average for three values:</p>
 <pre class="r fold-hide"><code># define the function average for three values
 arithmetic_mean_three_vals &lt;- function(value_one, value_two, value_three) {
   # sum the two values and divide by the number of values
@@ -1735,21 +1735,23 @@ rule</a> or programming:</p>
 that, at some point, you will need to stop searching for a better
 solution and actually do the analysis.</p>
 <p>The two functions for computing averages which were defined, are
-actually not very useful (and surely not perfect!):</p>
+actually not very useful (and surely not perfect!), for two reasons:</p>
 <ol style="list-style-type: decimal">
 <li>the input is limited to two or three values;</li>
 <li>the result is a string and a string is not really useful when you
 deal with numbers.</li>
 </ol>
-<div id="questions-1" class="section level4">
-<h4>Questions</h4>
-<p>What if you want to use the average value for other operations and
-you end up with a sequence of characters? What would you do?</p>
-<p>To improve the function, you can start by thinking “how to pass
-different sets of values to my function??”.</p>
+<p>What if your vector contains 10 values? What if you want to use the
+average value for other operations and you end up with a sequence of
+characters?</p>
+<p>What you can to to improve your function?</p>
+<div id="generalise" class="section level3">
+<h3>Generalise</h3>
+<p>The question you should be asking is: “how to pass different sets of
+values to my function??”.</p>
 <p>This is easily done by using <code>vectors</code>: a vector is a data
-structure that may contain many numbers so…yep, you might want to
-consider a vector as a smart input for your smart function!</p>
+structure that may contain many numbers so, you might want to consider a
+vector as a smart input for your smart function!</p>
 <p>Then, you may want to ask yourselves “how do the function compute the
 sum of those many values??”. Here things get more tricky because knowing
 R starts to become important.</p>
@@ -1759,7 +1761,8 @@ already available that will be used to compute the sum all the values in
 the vector.</p>
 <p>Finally, you will need to divide the sum by the number of values. The
 question here, is “how to compute the number of the values in the
-vector??”. Again, you can use a function that R already has available,
+vector??”.</p>
+<p>Again, you can use a function that R already has available,
 i.e. <code>length()</code> that will return the length of the vector, or
 the number of values that it contains.</p>
 <pre class="r"><code># define the function average for two values
@@ -1780,6 +1783,12 @@ arithmetic_mean_many_values(c(10, 3))</code></pre>
 average from two or three values to any number of values. However, you
 still can’t use the output of the function since it still is a printed
 string.</p>
+</div>
+<div id="use-return" class="section level3">
+<h3>Use <code>return()</code></h3>
+<p>One the function can take any vector, what you want is something
+better than printing a string. You want <em>results</em> and you want
+them useful.</p>
 <p>It’s now a good time to introduce the <code>return()</code>
 function:</p>
 <pre class="r"><code># define the function average for two values
@@ -1790,7 +1799,7 @@ arithmetic_mean &lt;- function(a_set_of_values) {
   the_n_of_vals &lt;- length(a_set_of_values)
   # compute the average
   average &lt;- the_sum/the_n_of_vals
-  # return the average value we just computed
+  # return the average value you just computed
   return(average)
 }
 
@@ -1800,7 +1809,8 @@ average_of_five &lt;- arithmetic_mean(c(1, 5, 7, 10, 12))
 average_of_two &lt;- arithmetic_mean(c(10, 3))</code></pre>
 <p>Now, this is a proper function (probably not perfect, but it is good
 enough so you can stop working on it).</p>
-<p>Now, pretend you wanted to sum up all the averages:</p>
+<p>Finally, pretend you wanted to sum up the averages you just
+computed:</p>
 <pre class="r"><code># sum the averages, not very useful but ok!
 sum(average_of_three, average_of_five, average_of_two)</code></pre>
 <p>Very useful, right?</p>
@@ -1815,7 +1825,7 @@ is called <code>mean()</code>, but it was fun anyway!)</p>
 <p>With functions, the environment is very important because a function
 will only be available in the environment where it was defined. In the
 current environment you have the <code>arithmetic_mean()</code> function
-available because we just defined it (<code>ls()</code>).</p>
+available because you just defined it (<code>ls()</code>).</p>
 <p>However, if you restart the R session, the function
 <code>arithmetic_mean()</code> will not be available. Does this means
 that you will need to define it again? Well, yes and no. Yes because you
@@ -1871,17 +1881,19 @@ symbol for commented lines);</li>
 <p>Commenting is very important because when you will go back to some
 code you wrote months ago…then you won’t understand anything. Commented
 code will help but it will be a mess, anyway.</p>
-<p>Golden rule of a good programmer:</p>
+<p>Golden rule for good programmers:</p>
 <blockquote>
 <p>Comment your code.</p>
 </blockquote>
 </div>
 <div id="a-very-nice-exercise" class="section level2">
 <h2>A very nice exercise</h2>
-<p>Create a function that takes in input two different set of numbers.
-As output, it should return: 1) average, 2) median, 3) minimum, and 4)
-maximum for both sets of numbers. The function have to return all these
-info in a proper data structure.</p>
+<p>Create a function that takes in input a data frame (the
+<code>meta_data.csv</code> we used in lesson 02). As output, it should
+return: 1) average, 2) median, 3) minimum, and 4) maximum abundance of
+controls and treated samples, that were collected in summer, except the
+site n.8 because the data are missing. The function have to return all
+these info in a proper data structure.</p>
 <p>Idea one: you can create a data frame with the necessary info. Idea
 two: you can create a nice list (with a proper name for each element),
 with the necessary info.</p>

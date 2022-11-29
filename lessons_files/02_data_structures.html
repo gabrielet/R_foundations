@@ -1585,7 +1585,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Think like a programmer - an
 introduction</h1>
-<h4 class="date">Thursday 24, November</h4>
+<h4 class="date">Tuesday 29, November</h4>
 
 </div>
 
@@ -1674,17 +1674,29 @@ a_complex_list[[&quot;friends&quot;]] &lt;- c(&quot;Francesca&quot;, &quot;Valer
 # an element of numerics AND characters is not ok!
 a_complex_list[[&quot;nums_and_chars&quot;]] &lt;- c(&quot;one&quot;, 2, &quot;three&quot;, 4, 5)
 
-# print the content of the vectors we just created
+# print the content of the elements
 a_complex_list[[&quot;numerics&quot;]]
 a_complex_list[[&quot;friends&quot;]]
 a_complex_list[[&quot;nums_and_chars&quot;]]</code></pre>
-<p>If we look at the <code>nums_and_char</code> element, you will notice
-that numerics are quoted. This means that they are not numerics any
-more. They were <em>casted</em>, automatically by R, into characters.
-This happened because R can’t cast a character into a numeric so that’s
-the only way to keep data types consistent in the element:</p>
+<p>If you look at the <code>nums_and_char</code> element, you will
+notice that numerics are quoted. This means that they are not numerics
+any more. They were <em>casted</em>, automatically by R, into
+characters. This happened because R can’t cast a character into a
+numeric so that’s the only way to keep data types consistent in the
+element:</p>
 <pre class="r"><code># print the type of data contained in all the elements of the list
 print(c(typeof(a_complex_list[[&quot;numerics&quot;]]), typeof(a_complex_list[[&quot;friends&quot;]]), typeof(a_complex_list[[&quot;nums_and_chars&quot;]])))</code></pre>
+<p>Elements in matrices can be accessed by specifying their names, or by
+using a special symbol, i.e. <code>$</code>:</p>
+<pre class="r"><code># print the content of the elements using the bracket notation
+a_complex_list[[&quot;numerics&quot;]]
+a_complex_list[[&quot;friends&quot;]]
+a_complex_list[[&quot;nums_and_chars&quot;]]
+
+# access the content of the elements using the $ symbol
+a_complex_list$numerics
+a_complex_list$friends
+a_complex_list$nums_and_chars</code></pre>
 </div>
 <div id="matrices" class="section level2">
 <h2>Matrices</h2>
@@ -1721,28 +1733,28 @@ something to that position. You <em>substitute</em> or
 or a whole column. The general notation follows this pattern
 <code>matrix[n_of_row, n_of_column]</code>:</p>
 <ul>
-<li>if we specify <code>n_of_row</code> <strong>and not</strong>
-<code>n_of_column</code>, i.e. <code>a_matrix[1, ]</code>, we are
-accessing the first row, all the columns. We are getting the whole first
-row;</li>
-<li>if we specify <code>n_of_column</code> <strong>and not</strong>
-<code>n_of_row</code>, i.e. <code>a_matrix[, 1]</code>, we are accessing
-the first column, all the rows. We are getting the whole first
-column;</li>
-<li>if we specify both <code>n_of_row</code> <strong>and</strong>
-<code>n_of_column</code>, i.e. <code>a_matrix[1, 1]</code>, we are
+<li>if you specify <code>n_of_row</code> <strong>and not</strong>
+<code>n_of_column</code>, i.e. <code>a_matrix[1, ]</code>, you are
+accessing the first row, all the columns: you are getting the whole
+first row;</li>
+<li>if you specify <code>n_of_column</code> <strong>and not</strong>
+<code>n_of_row</code>, i.e. <code>a_matrix[, 1]</code>, you are
+accessing the first column, all the rows: you are getting the whole
+first column;</li>
+<li>if you specify both <code>n_of_row</code> <strong>and</strong>
+<code>n_of_column</code>, i.e. <code>a_matrix[1, 1]</code>, you are
 accessing a single cell;</li>
-<li>if we specify both <code>n_of_row</code> <strong>and</strong>
+<li>if you specify both <code>n_of_row</code> <strong>and</strong>
 <code>n_of_column</code> but more than one,
-i.e. <code>a_matrix[c(1,2), c(3, 4)]</code>, we are accessing a subset
+i.e. <code>a_matrix[c(1,2), c(3, 4)]</code>, you are accessing a subset
 of cells;</li>
-<li>if we specify nothing, i.e. <code>a_matrix[,]</code>
-<strong>or</strong> <code>a_matrix</code>, we are accessing the whole
+<li>if you specify nothing, i.e. <code>a_matrix[,]</code>
+<strong>or</strong> <code>a_matrix</code>, you are accessing the whole
 matrix.</li>
 </ul>
 <p>An example with numbers:</p>
 <pre class="r"><code># define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
-# (we have 12 cells, right? and R will fill the matrix for us)
+# (it has 12 cells, right? and R will fill the matrix automatically)
 a_matrix_of_numbers &lt;- matrix(c(1:12), ncol=3, nrow=4)
 
 # print
@@ -1779,8 +1791,8 @@ colnames(a_matrix_of_numbers)</code></pre>
 <p><code>colnames()</code> and <code>rownames()</code> are two-way
 functions: they can show you something or you can use them to assign
 something.</p>
-<p>At this point, you can get columns, or rows, by using their
-names:</p>
+<p>At this point, you can get columns, or rows, by using their names
+(although is not very common):</p>
 <pre class="r"><code># get second column
 a_matrix_of_numbers[, &quot;col_two&quot;]
 
@@ -1806,7 +1818,7 @@ rbind(matrix_one, matrix_two)
 # now try to merge matrix_two and matrix_three by rows, i.e. use rbind
 rbind(matrix_two, matrix_three)</code></pre>
 <pre><code>## Error in rbind(matrix_two, matrix_three): number of columns of matrices must match (see arg 2)</code></pre>
-<p>The last <code>rbind()</code> did not work because the matrices has a
+<p>The last <code>rbind()</code> did not work because the matrices had a
 different number of columns. When putting together matrices, you need to
 make sure they have the correct dimensions.</p>
 <div id="how-bugs-are-born" class="section level3">
@@ -1873,7 +1885,7 @@ students_data$student_mark
 students_data$student_name</code></pre>
 <p>Remember that data frames can be accessed in all the way matrices can
 be accessed, but they also have the <code>$</code> symbol allowing you
-to get a column by using its name (we can’t use the <code>$</code> with
+to get a column by using its name (you can’t use the <code>$</code> with
 matrices). The <code>$</code> can be used to add new columns to data
 frames in a very simple way:</p>
 <pre class="r"><code># add new column, as a vector, to an existing dataframe
@@ -1954,7 +1966,7 @@ which will be <code>TRUE</code>, and <em>what you don’t like</em>, which
 will be <code>FALSE</code>.</p>
 <p>Think like a programmer, now. First, you must know what you’re
 dealing with, in this case a table. Have a look at the table:</p>
-<pre class="r"><code># print table, just to have an idea of what we are dealing with
+<pre class="r"><code># print table, just to have an idea of what you are dealing with
 head(ecology_data)</code></pre>
 <p>First: you will need to work with the column Treatment,
 i.e. <em>ecology_data$treatment</em>.</p>

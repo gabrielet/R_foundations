@@ -115,19 +115,35 @@ a_complex_list[["friends"]] <- c("Francesca", "Valerio", "Sofia", "Elena")
 # an element of numerics AND characters is not ok!
 a_complex_list[["nums_and_chars"]] <- c("one", 2, "three", 4, 5)
 
-# print the content of the vectors we just created
+# print the content of the elements
 a_complex_list[["numerics"]]
 a_complex_list[["friends"]]
 a_complex_list[["nums_and_chars"]]
 
 ```
 
-If we look at the `nums_and_char` element, you will notice that numerics are quoted. This means that they are not numerics any more. They were _casted_, automatically by R, into characters. This happened because R can't cast a character into a numeric so that's the only way to keep data types consistent in the element:
+If you look at the `nums_and_char` element, you will notice that numerics are quoted. This means that they are not numerics any more. They were _casted_, automatically by R, into characters. This happened because R can't cast a character into a numeric so that's the only way to keep data types consistent in the element:
   
 ```{r}
 
 # print the type of data contained in all the elements of the list
 print(c(typeof(a_complex_list[["numerics"]]), typeof(a_complex_list[["friends"]]), typeof(a_complex_list[["nums_and_chars"]])))
+
+```
+
+Elements in matrices can be accessed by specifying their names, or by using a special symbol, i.e. `$`:
+
+```{r}
+
+# print the content of the elements using the bracket notation
+a_complex_list[["numerics"]]
+a_complex_list[["friends"]]
+a_complex_list[["nums_and_chars"]]
+
+# access the content of the elements using the $ symbol
+a_complex_list$numerics
+a_complex_list$friends
+a_complex_list$nums_and_chars
 
 ```
 
@@ -170,18 +186,18 @@ By doing so, you are accessing the value in the matrix, i.e. row 1, column 1, an
 
 Of course, you can access whole matrices, a single cell, a whole row, or a whole column. The general notation follows this pattern `matrix[n_of_row, n_of_column]`:
   
- - if we specify `n_of_row` **and not** `n_of_column`, i.e. `a_matrix[1, ]`, we are accessing the first row, all the columns. We are getting the whole first row;
- - if we specify `n_of_column` **and not** `n_of_row`, i.e. `a_matrix[, 1]`, we are accessing the first column, all the rows. We are getting the whole first column;
- - if we specify both `n_of_row` **and** `n_of_column`, i.e. `a_matrix[1, 1]`, we are accessing a single cell;
- - if we specify both `n_of_row` **and** `n_of_column` but more than one, i.e. `a_matrix[c(1,2), c(3, 4)]`, we are accessing a subset of cells;
- - if we specify nothing, i.e. `a_matrix[,]` **or** `a_matrix`, we are accessing the whole matrix.
+ - if you specify `n_of_row` **and not** `n_of_column`, i.e. `a_matrix[1, ]`, you are accessing the first row, all the columns: you are getting the whole first row;
+ - if you specify `n_of_column` **and not** `n_of_row`, i.e. `a_matrix[, 1]`, you are accessing the first column, all the rows: you are getting the whole first column;
+ - if you specify both `n_of_row` **and** `n_of_column`, i.e. `a_matrix[1, 1]`, you are accessing a single cell;
+ - if you specify both `n_of_row` **and** `n_of_column` but more than one, i.e. `a_matrix[c(1,2), c(3, 4)]`, you are accessing a subset of cells;
+ - if you specify nothing, i.e. `a_matrix[,]` **or** `a_matrix`, you are accessing the whole matrix.
 
 An example with numbers:
   
 ```{r}
 
 # define a matrix with 3 cols and 4 rows, with numbers from 1 to 12
-# (we have 12 cells, right? and R will fill the matrix for us)
+# (it has 12 cells, right? and R will fill the matrix automatically)
 a_matrix_of_numbers <- matrix(c(1:12), ncol=3, nrow=4)
 
 # print
@@ -225,7 +241,7 @@ colnames(a_matrix_of_numbers)
 
 `colnames()` and `rownames()` are two-way functions: they can show you something or you can use them to assign something.
 
-At this point, you can get columns, or rows, by using their names:
+At this point, you can get columns, or rows, by using their names (although is not very common):
   
 ```{r}
 
@@ -261,7 +277,7 @@ rbind(matrix_two, matrix_three)
 
 ```
 
-The last `rbind()` did not work because the matrices has a different number of columns. When putting together matrices, you need to make sure they have the correct dimensions.
+The last `rbind()` did not work because the matrices had a different number of columns. When putting together matrices, you need to make sure they have the correct dimensions.
 
 ### How bugs are born
 
@@ -331,7 +347,7 @@ students_data$student_name
 
 ```
 
-Remember that data frames can be accessed in all the way matrices can be accessed, but they also have the `$` symbol allowing you to get a column by using its name (we can't use the `$` with matrices). The `$` can be used to add new columns to data frames in a very simple way:
+Remember that data frames can be accessed in all the way matrices can be accessed, but they also have the `$` symbol allowing you to get a column by using its name (you can't use the `$` with matrices). The `$` can be used to add new columns to data frames in a very simple way:
 
 ```{r}
 
@@ -419,7 +435,7 @@ Think like a programmer, now. First, you must know what you're dealing with, in 
 
 ```{r}
 
-# print table, just to have an idea of what we are dealing with
+# print table, just to have an idea of what you are dealing with
 head(ecology_data)
 
 ```

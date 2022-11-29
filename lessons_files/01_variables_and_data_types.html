@@ -1585,7 +1585,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Think like a programmer - an
 introduction</h1>
-<h4 class="date">Wednesday 23, November</h4>
+<h4 class="date">Tuesday 29, November</h4>
 
 </div>
 
@@ -1638,11 +1638,9 @@ sentences;</li>
 future.</li>
 </ul>
 </div>
-<div id="building-blocks-of-programming" class="section level1">
-<h1>Building blocks of programming</h1>
-<div id="r-environment" class="section level2">
-<h2>R environment</h2>
-<p>When we first start a session of R, we must be aware that R is
+<div id="r-environment" class="section level1">
+<h1>R environment</h1>
+<p>When you first start a session of R, you must be aware that R is
 <em>sitting</em> in a specific folder in our computer. You can, of
 course, specify which folder this folder is, but you need to be aware.
 So…which folder are you currently in, i.e. the working directory? You
@@ -1656,10 +1654,10 @@ which is <code>setwd()</code>, which basically <em>sets a Working
 Directory</em>:</p>
 <pre class="r"><code># move to the folder containing the data for this course
 setwd(&quot;/home/gabriele/work/microbiology/think_like_a_programmer/&quot;)</code></pre>
-<p>Now that we set the working directory, it’s time to get to know the R
-environment, which represent the sets of variables, functions, and
+<p>Now that you set the working directory, it’s time to get to know the
+R environment, which represent the sets of variables, functions, and
 packages that are available to you in a specific R session. To get these
-information we can use two functions: <code>ls()</code> and
+information you can use two functions: <code>ls()</code> and
 <code>search()</code>:</p>
 <pre class="r"><code># show objects I can use
 ls()
@@ -1667,15 +1665,15 @@ ls()
 # show packages I can use
 search()</code></pre>
 <p>The working directory, and the working environment are very
-important. We will get back to this later on, though.</p>
+important.</p>
 <p>You can also have an idea of which files are currently in the working
 directory, i.e. the one that <code>getwd()</code> returns, using the
 function <code>list.files()</code>:</p>
 <pre class="r"><code># show the files in the current directory
 list.files()</code></pre>
 </div>
-<div id="variables" class="section level2">
-<h2>Variables</h2>
+<div id="variables" class="section level1">
+<h1>Variables</h1>
 <p>A variable can be considered as a box that contains zero, one, or
 many things which can be used, modified, and deleted whenever you
 like.</p>
@@ -1716,20 +1714,20 @@ left_assign
 right_assign</code></pre>
 <p>All of these assignments are valid. However, the symbol
 <code>=</code> is usually found only when a value is <em>passed</em> to
-a parameter (we will see this!), while the left arrow,
-i.e. <code>&lt;-</code>, is the preferred one. The right arrow can also
-be used but it’s very uncommon.</p>
+a parameter, while the left arrow, i.e. <code>&lt;-</code>, is the
+preferred one. The right arrow can also be used but it’s very
+uncommon.</p>
 </div>
-<div id="data-types" class="section level2">
-<h2>Data types</h2>
+<div id="data-types" class="section level1">
+<h1>Data types</h1>
 <p>In variables you can store objects. These objects can be classified
 in data types according to their nature.</p>
 <p>In R there are several data types, each one with its own
 characteristics. A general distinction can be made by separating data
 types in <em>numerical</em>, <em>categorical</em>, and
 <em>logicals</em>.</p>
-<div id="numerics" class="section level3">
-<h3>Numerics</h3>
+<div id="numerics" class="section level2">
+<h2>Numerics</h2>
 <p>Numerics, as you may expect, are numbers. Numbers which can be used
 to perform mathematics (, statistics, and much more). Numerics can be
 either integers or double (if they have decimals).</p>
@@ -1765,8 +1763,8 @@ three_point_five / 3
 
 one * three_point_five</code></pre>
 </div>
-<div id="categorical---characters" class="section level3">
-<h3>Categorical - characters</h3>
+<div id="categorical---characters" class="section level2">
+<h2>Categorical - characters</h2>
 <p>Characters, on the other hand, represents those <em>symbols</em> that
 are not numbers. So, for example, letters and words.</p>
 <p>Example of characters:</p>
@@ -1774,7 +1772,7 @@ are not numbers. So, for example, letters and words.</p>
 a_character &lt;- &quot;c&quot;
 
 # define a variable where many characters are pasted together
-# we call this sequence of characters &quot;string&quot;
+# this sequence of characters is called &quot;string&quot;
 some_characters &lt;- &quot;manycharacters&quot;</code></pre>
 <p>Clearly, arithmetic operations can be only performed on numbers,
 i.e. numerics. It does not make sense to sum up characters, or does
@@ -1788,9 +1786,9 @@ because you are trying to use a non-numeric object, i.e. the variables
 sum).</p>
 <p>The interesting thing with <code>characters</code>, is that they can
 be concatenated to form more complex sequences of
-<code>characters</code>. To do this, we need to introduce a new
-function: <code>paste()</code> that allows you <em>combining</em> the
-content of variables together.</p>
+<code>characters</code>. To do this, you will need a new function:
+<code>paste()</code> that allows you <em>combining</em> the content of
+variables together.</p>
 <p>For example, define a path to a folder in your computer:</p>
 <pre class="r"><code># path to Desktop folder
 path_to_folder &lt;- &quot;/home/gabriele/Desktop/&quot;
@@ -1818,16 +1816,16 @@ five &lt;- 5
 
 # now sum three + two
 print(paste(&quot;three plus two equals&quot;, five))</code></pre>
-<div id="a-very-nice-exercise" class="section level4">
-<h4>A very nice exercise</h4>
+<div id="a-very-nice-exercise" class="section level3">
+<h3>A very nice exercise</h3>
 <p>Use the function <code>list.files()</code> to view the content of
 <em>path_to_folder</em> and <em>path_to_work_folder</em>. Then, move the
 current working directory (remember <code>getwd()</code>) to
 <em>path_to_folder</em>.</p>
 </div>
 </div>
-<div id="categorical---factors" class="section level3">
-<h3>Categorical - factors</h3>
+<div id="categorical---factors" class="section level2">
+<h2>Categorical - factors</h2>
 <p>Factors may look like characters, but they have different
 properties.</p>
 <p>Examples of factors:</p>
@@ -1876,8 +1874,8 @@ deeper than <em>medium</em> which, in turn, is deeper than
 to set the levels (this is very handy when performing statistical
 analysis or other stuff such as plotting).</p>
 </div>
-<div id="logicals" class="section level3">
-<h3>Logicals</h3>
+<div id="logicals" class="section level2">
+<h2>Logicals</h2>
 <p>Logical can take values that are either <code>TRUE</code> or
 <code>FALSE</code>. They are fundamental in programming because contrary
 to human logic, computer logic works with zero and one, black or white:
@@ -1894,7 +1892,7 @@ written as symbols which you can find on your keyboard:</p>
 <p><code>TRUE</code> can be abbreviated as <code>T</code>,
 <code>FALSE</code> as <code>F</code>.</p>
 <p>The AND operator takes two logical values as input, and return TRUE
-when both are TRUE. We can translate this as: “I will be happy if I can
+when both are TRUE. This can be translated as: “I will be happy if I can
 have popcorn and a zombie movie!”.</p>
 <pre class="r"><code># true and true
 TRUE &amp; TRUE
@@ -1908,9 +1906,9 @@ FALSE &amp; T
 # false and false
 F &amp; F</code></pre>
 <p>The OR operator works in the same way as the AND operator but it
-returns TRUE if one of the two logical values is TRUE. We can translate
-this as: “I will be happy if I can have either a hot chocolate or a
-coffee with whip cream”.</p>
+returns TRUE if one of the two logical values is TRUE. This can be
+translated as: “I will be happy if I can have either a hot chocolate or
+a coffee with whip cream”.</p>
 <pre class="r"><code># true or true
 T | T
 
@@ -1978,10 +1976,8 @@ mathematics when multiplication has precedence over addition. For R:</p>
 <li><code>|</code>.</li>
 </ul>
 <p>For a full list of operators and precedence, see <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html">here</a>.</p>
-<p>We will see how logical values and operators work when used in actual
-loops.</p>
-<div id="vectors-of-logical-values" class="section level4">
-<h4>Vectors of logical values</h4>
+<div id="vectors-of-logical-values" class="section level3">
+<h3>Vectors of logical values</h3>
 <p>Logical values can be combined in vectors:</p>
 <pre class="r"><code># define two vectors of logical values
 logi_vals_one &lt;- c(TRUE, TRUE, FALSE)
@@ -1998,12 +1994,10 @@ logi_vals_one | logi_vals_two
 !logi_vals_one
 !logi_vals_two</code></pre>
 </div>
-</div>
-</div>
-<div id="side-note-about-casting" class="section level2">
-<h2>Side note about Casting</h2>
+<div id="side-note-about-casting" class="section level3">
+<h3>Side note about Casting</h3>
 <p>To <em>cast</em> (or <em>casting</em>) means transforming an object
-of a type into an object of another type, as we just did using the
+of a type into an object of another type, as you just did using the
 function <code>as.factor()</code>. Another example can be done using the
 function <code>as.integer()</code>. This function transforms something
 into an integer, if it is possible:</p>
@@ -2018,8 +2012,9 @@ as.integer(&quot;1&quot;) + 2
 as.integer(&quot;A&quot;)</code></pre>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <p>Interestingly, you can perform operations using factors:</p>
-<pre class="r"><code># shall we sum up some depths?
+<pre class="r"><code># sum up some depths
 sum(as.integer(depths))</code></pre>
+</div>
 </div>
 </div>
 

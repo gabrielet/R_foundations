@@ -132,7 +132,7 @@ arithmetic_mean_two_vals(100, 200)
 
 ```
 
-We can do the same, for three values. How would you do it?
+Compute the average for three values:
 
 ```{r class.source = "fold-hide"}
 
@@ -161,24 +161,28 @@ The function that was just defined can be written in many different ways: there 
 
 A very good programmer knows the rule and applies it. Which means that, at some point, you will need to stop searching for a better solution and actually do the analysis.
 
-The two functions for computing averages which were defined, are actually not very useful (and surely not perfect!):
+The two functions for computing averages which were defined, are actually not very useful (and surely not perfect!), for two reasons:
 
  1. the input is limited to two or three values;
  2. the result is a string and a string is not really useful when you deal with numbers.
 
-#### Questions
+What if your vector contains 10 values? What if you want to use the average value for other operations and you end up with a sequence of characters?
 
-What if you want to use the average value for other operations and you end up with a sequence of characters? What would you do?
+What you can to to improve your function? 
 
-To improve the function, you can start by thinking "how to pass different sets of values to my function??".
+### Generalise
 
-This is easily done by using `vectors`: a vector is a data structure that may contain many numbers so...yep, you might want to consider a vector as a smart input for your smart function!
+The question you should be asking is: "how to pass different sets of values to my function??".
+
+This is easily done by using `vectors`: a vector is a data structure that may contain many numbers so, you might want to consider a vector as a smart input for your smart function!
 
 Then, you may want to ask yourselves "how do the function compute the sum of those many values??". Here things get more tricky because knowing R starts to become important.
 
 You can either [ask the internet](https://duckduckgo.com/?q=sum+all+elements+of+vector+R&t=ffab&atb=v320-1&ia=web), or use a function, i.e. `sum()` that R has already available that will be used to compute the sum all the values in the vector.
 
-Finally, you will need to divide the sum by the number of values. The question here, is "how to compute the number of the values in the vector??". Again, you can use a function that R already has available, i.e. `length()` that will return the length of the vector, or the number of values that it contains.
+Finally, you will need to divide the sum by the number of values. The question here, is "how to compute the number of the values in the vector??".
+
+Again, you can use a function that R already has available, i.e. `length()` that will return the length of the vector, or the number of values that it contains.
 
 ```{r}
 
@@ -201,6 +205,10 @@ arithmetic_mean_many_values(c(10, 3))
 
 This is very nice! You have now _generalised_ the concept of average from two or three values to any number of values. However, you still can't use the output of the function since it still is a printed string.
 
+### Use `return()`
+
+One the function can take any vector, what you want is something better than printing a string. You want _results_ and you want them useful.
+
 It's now a good time to introduce the `return()` function:
 
 ```{r}
@@ -213,7 +221,7 @@ arithmetic_mean <- function(a_set_of_values) {
   the_n_of_vals <- length(a_set_of_values)
   # compute the average
   average <- the_sum/the_n_of_vals
-  # return the average value we just computed
+  # return the average value you just computed
   return(average)
 }
 
@@ -226,7 +234,7 @@ average_of_two <- arithmetic_mean(c(10, 3))
 
 Now, this is a proper function (probably not perfect, but it is good enough so you can stop working on it).
 
-Now, pretend you wanted to sum up all the averages:
+Finally, pretend you wanted to sum up the averages you just computed:
 
 ```{r}
 
@@ -243,7 +251,7 @@ Very useful, right?
 
 At the very beginning of the course we talked about the R environment (remember `ls()` and `search()`??).
 
-With functions, the environment is very important because a function will only be available in the environment where it was defined. In the current environment you have the `arithmetic_mean()` function available because we just defined it (`ls()`).
+With functions, the environment is very important because a function will only be available in the environment where it was defined. In the current environment you have the `arithmetic_mean()` function available because you just defined it (`ls()`).
 
 However, if you restart the R session, the function `arithmetic_mean()` will not be available. Does this means that you will need to define it again? Well, yes and no. Yes because you will need to _load_ it from somewhere, but no because you were smart (were you?) and you had it saved somewhere.
 
@@ -301,13 +309,13 @@ You can create the manual of your own functions in three ways:
 
 Commenting is very important because when you will go back to some code you wrote months ago...then you won't understand anything. Commented code will help but it will be a mess, anyway. 
 
-Golden rule of a good programmer:
+Golden rule for good programmers:
 
 > Comment your code.
 
 ## A very nice exercise
 
-Create a function that takes in input two different set of numbers. As output, it should return: 1) average, 2) median, 3) minimum, and 4) maximum for both sets of numbers. The function have to return all these info in a proper data structure.
+Create a function that takes in input a data frame (the `meta_data.csv` we used in lesson 02). As output, it should return: 1) average, 2) median, 3) minimum, and 4) maximum abundance of controls and treated samples, that were collected in summer, except the site n.8 because the data are missing. The function have to return all these info in a proper data structure.
 
 Idea one: you can create a data frame with the necessary info.
 Idea two: you can create a nice list (with a proper name for each element), with the necessary info.
