@@ -232,6 +232,35 @@ average_of_two <- arithmetic_mean(c(10, 3))
 
 ```
 
+### Add default behaviour
+
+Functions accepts inputs. However, it could be a good idea to provide a default input, in some cases. It is easy to provide default values to a function:
+
+```{r}
+
+# define the function average for two values
+# however by default, a_set_of_values will be equal to
+# the vector c(6, 8) and the function, if no input was
+# specified, will return 7, which is the average of 6 and 8
+arithmetic_mean <- function(a_set_of_values=c(6, 8)) {
+  # sum the two values and divide by the number of values
+  the_sum <- sum(a_set_of_values)
+  # compute the number of values in the vector
+  the_n_of_vals <- length(a_set_of_values)
+  # compute the average
+  average <- the_sum/the_n_of_vals
+  # return the average value you just computed
+  return(average)
+}
+
+# run function with no input: default values will be used
+arithmetic_mean()
+# run function with input: default will not be used
+# instead the average of 10 and 3 will be returned
+arithmetic_mean(c(10, 3))
+
+```
+
 Now, this is a proper function (probably not perfect, but it is good enough so you can stop working on it).
 
 Finally, pretend you wanted to sum up the averages you just computed:
