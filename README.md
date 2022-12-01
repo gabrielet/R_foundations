@@ -11,4 +11,4 @@ This is what we will (try to) cover:
  - statements and loops (if-else, for, while);
  - base plotting and ggplot2 plotting.
 
-You can download Version 1.0 of all the material from [here](https://github.com/gabrielet/R_foundations/releases/tag/version_one)!
+You can download latest version of all the material from [here](https://github.com/gabrielet/R_foundations/archive/refs/tags/version_one_four.zip)!
