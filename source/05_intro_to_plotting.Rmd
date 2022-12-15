@@ -46,15 +46,15 @@ hist(a_nice_table$Sepal.Width)
 boxplot(Sepal.Length ~ Species, data = a_nice_table)
 ```
 
-Not bad, but we can do better. For instance we can add some color, why not? Also, the axis labels don't look very nice. What can we do?? Let's look at what the R manual has to say regarding the `plot` function.
+Not bad, but you can do better. For instance, add some color, why not? Also, the axis labels don't look very nice. What can you do?? Let's look at what the R manual has to say regarding the `plot` function.
 
 ```{r}
 help(plot)
 ```
 
-Ok, we know what to do but how to assign colours to data points? Well, we have some info regarding the iris species, don't we? So, we might want to colour the data points with respect to the species they belong to.
+Ok, but how to assign colours to data points? You may want to colour the data points with respect to the species they belong to.
 
-However, in order to do it, we need a colour for each species, i.e. each category. It's now time to think like the programmer you are. Some questions you should ask yourself:
+To do it, you will need a colour for each species, i.e. each category. It's now time to think like the programmer you are. Some questions you should ask yourself:
  
  1. How do I get a set of colours?
  2. How many colours do I need?
@@ -63,7 +63,7 @@ However, in order to do it, we need a colour for each species, i.e. each categor
  
 Let's try to answer:
 
- 1. [the internet](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+ 1. [R colours, here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
  2. how about one color `for` each category/species?
  3. what about a vector?
  4. it's definitely possible that I will need a colour for each data point, right?
@@ -76,8 +76,12 @@ If you think these answers make sense...it's time to worry about how to assign a
  3. which colours to use;
  4. a vector is needed and it must be as long as the number in `1.`;
  5. in answer n. 2 (see above) there is a very specific keyword.
+ 
+Side note: shape, for R are called **pch** (probable meaning of **pch** is _point character_). So if you want to know which shapes are available, now you have the keyword.
 
-This is all we need to make this vector a reality:
+Always remember that, if you want to fill the points you see in the plot, you need to set the shape using one **pch** that allows you to have a _fill_.
+
+Now, using the ideas above, plot:
 
 ```{r}
 
@@ -90,13 +94,12 @@ shapes_i_like <- c(21, 23, 25)
 # empty vector with a colour for each data point
 data_colours <- vector()
 
-# empy vector with a different shape for each data point
+# empty vector with a different shape for each data point
 data_shapes <- vector()
 
 # for each category/species
 for (sp in a_nice_table$Species) {
-  # let's fill the empty vector, shall we?
-  # this might be a bit tricky
+  # get its colour and shape
   if (sp=="setosa") {
     # assign colour
     data_colours <- append(data_colours, colours_i_like[1])
@@ -132,7 +135,7 @@ boxplot(Sepal.Length ~ Species, data = a_nice_table, col=c("coral", "midnightblu
 
 ```
 
-Oh, that is better. But wait...how do a person know which species is which? The legend is missing, so we need to add it. A legend is something that we add _on top_ of the plot, it's not included in the `plot()` function (no signs of a legend in the `help(plot)` right?). Let's have a look at `help(legend)`.
+Oh, that is better. But wait...how do a person know which species is which? The legend is missing, so you need to add it. A legend is something that you add _on top_ of the plot, it's not included in the `plot()` function (no signs of a legend in the `help(plot)` right?). Let's have a look at `help(legend)`.
 
 ```{r}
 
@@ -146,7 +149,7 @@ legend("bottomright", c("setosa","virginica", "versicolor"), col=colours_i_like,
 
 # GGPlot2 Plotting
 
-Aside from base R plotting, another very well known method is based on `ggplot2`. `ggplot2` offers many, many different possibilities to obtain any kind of plot. (This)[https://r-graph-gallery.com/] website is full of examples, that can help you get started with the plots you want to have.
+Aside from base R plotting, another very well known method is based on `ggplot2`. `ggplot2` offers many, many different possibilities to obtain any kind of plot. [This](https://r-graph-gallery.com/) website is full of examples, that can help you get started with the plots you want to have.
 
 However, before using `ggplot2`, let's discuss how it works.
 
@@ -203,7 +206,9 @@ ggplot(a_nice_table, aes(x=Sepal.Length, y=Sepal.Width)) +
   scale_colour_manual(values=c("lightcoral", "midnightblue", "saddlebrown"))
 ```
 
-Finally, change the style using `themes` and `labels` of the plot:
+Finally, change the style using `themes` and `labels` of the plot.
+
+As you can see, a palette with three colours was defined. Then, using the function `names()`, the species were mapped to the colours. This is fundamental for `ggplot2` to know which colour will be used for which species.
 
 ```{r}
 
@@ -245,8 +250,8 @@ contact_list <- read.csv("/home/gabriele/work/microbiology/think_like_a_programm
 a_person <- "Silvia"
 a_person <- "Elena"
 
-# test whether a person is in the contact list
-person_index <- which(a_person %in% contact_list$name)
+# find a_person in the contact list
+person_index <- which(contact_list$name==a_person)
 
 # was someone found?
 if (length(person_index) > 0) {
