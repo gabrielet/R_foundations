@@ -1,6 +1,6 @@
 # R foundations for total beginners
 
-The goal of these lessons is to develop a foundation of R. Also, we will try to develop programming-oriented way of thinking to transform your ideas into code, help you better understand other people's code, and improve your coding skills.
+The goal of these lessons is to develop a foundation of R, to develop a programming-oriented way of thinking and transform your ideas into code, to help you better understand other people's code, and to improve your coding skills.
 
 This is what we will (try to) cover:
 
@@ -11,4 +11,4 @@ This is what we will (try to) cover:
  - statements and loops (if-else, for, while);
  - base plotting and ggplot2 plotting.
 
-You can download latest version of all the material from [here](https://github.com/gabrielet/R_foundations/archive/refs/tags/version_one_four.zip)!
+You can download latest version of all the material from [here](https://github.com/gabrielet/R_foundations/releases)!
