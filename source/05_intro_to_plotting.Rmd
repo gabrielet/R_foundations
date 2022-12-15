@@ -1,0 +1,353 @@
+---
+title: "Think like a programmer - an introduction"
+date: "`r format(Sys.time(), '%A %d, %B')`"
+output:
+  html_document:
+    code_folding: show
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: readable
+    colortheme: "default"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, eval=TRUE, results="hide", fig.show="show")
+```
+
+# Plotting
+
+# Base Plotting
+
+This is what you need to know about plotting:
+
+> Plotting is always tricky but one thing is for sure: do not use pie-charts
+
+For all the other best practices about plotting, [this is the website](https://www.data-to-viz.com/caveats.html) that you want to check out.
+
+## A very basic scatterplot
+
+Plotting in R doesn't change much between the type of plot. Either a scatterplot, a lineplot, an histogram...once you get the idea of how it works, then it's done (although, I still have to grasp this idea myself).
+
+Let's plot some data, then:
+
+```{r}
+
+# load a table from a csv file
+a_nice_table <- read.csv("/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/a_nicely_formatted_table.csv", header=T, sep=",")
+
+# let's use Sepal length and width to plot a simple scatterplot
+plot(x=a_nice_table$Sepal.Length, y=a_nice_table$Sepal.Width)
+
+# let's plot a histogram, now
+hist(a_nice_table$Sepal.Width)
+
+# and a boxplot
+boxplot(Sepal.Length ~ Species, data = a_nice_table)
+```
+
+Not bad, but we can do better. For instance we can add some color, why not? Also, the axis labels don't look very nice. What can we do?? Let's look at what the R manual has to say regarding the `plot` function.
+
+```{r}
+help(plot)
+```
+
+Ok, we know what to do but how to assign colours to data points? Well, we have some info regarding the iris species, don't we? So, we might want to colour the data points with respect to the species they belong to.
+
+However, in order to do it, we need a colour for each species, i.e. each category. It's now time to think like the programmer you are. Some questions you should ask yourself:
+ 
+ 1. How do I get a set of colours?
+ 2. How many colours do I need?
+ 3. How do I even create a set of colours?
+ 4. How big should this set be?
+ 
+Let's try to answer:
+
+ 1. [the internet](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+ 2. how about one color `for` each category/species?
+ 3. what about a vector?
+ 4. it's definitely possible that I will need a colour for each data point, right?
+ 5. or even a shape?? for shapes, see [here](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/points)
+ 
+If you think these answers make sense...it's time to worry about how to assign a colour to a category, i.e. how to actually make answer n. 3 a reality? Again, let's think programming. What we know:
+
+ 1. the number of data points;
+ 2. the category of each data point, i.e. the species;
+ 3. which colours to use;
+ 4. a vector is needed and it must be as long as the number in `1.`;
+ 5. in answer n. 2 (see above) there is a very specific keyword.
+
+This is all we need to make this vector a reality:
+
+```{r}
+
+# colours I like
+colours_i_like <- c("lightcoral", "midnightblue", "saddlebrown")
+
+# shapes I like
+shapes_i_like <- c(21, 23, 25)
+
+# empty vector with a colour for each data point
+data_colours <- vector()
+
+# empy vector with a different shape for each data point
+data_shapes <- vector()
+
+# for each category/species
+for (sp in a_nice_table$Species) {
+  # let's fill the empty vector, shall we?
+  # this might be a bit tricky
+  if (sp=="setosa") {
+    # assign colour
+    data_colours <- append(data_colours, colours_i_like[1])
+    # assign shape
+    data_shapes <- append(data_shapes, shapes_i_like[1])
+  } else if (sp=="versicolor") {
+    # assign colour
+    data_colours <- append(data_colours, colours_i_like[2])
+    # assign shape
+    data_shapes <- append(data_shapes, shapes_i_like[2])
+  } else {
+    # assign colour
+    data_colours <- append(data_colours, colours_i_like[3])
+    # assign shape
+    data_shapes <- append(data_shapes, shapes_i_like[3])
+  } 
+}
+
+# have a look at data colours and shapes
+data_colours
+data_shapes
+
+# use data_colours to color the data points
+plot(x=a_nice_table$Sepal.Length, y=a_nice_table$Sepal.Width, pch=data_shapes, bg=data_colours, col="black", xlab="Sepal Length", ylab="Sepal Width")
+
+# or we can modify the histogram
+hist(a_nice_table$Sepal.Width, col="indianred", breaks=20)
+hist(a_nice_table$Sepal.Width, col="steelblue", breaks=50)
+hist(a_nice_table$Sepal.Width, col="forestgreen", breaks=100)
+
+# or add colour to the boxplot
+boxplot(Sepal.Length ~ Species, data = a_nice_table, col=c("coral", "midnightblue", "darkgoldenrod1"))
+
+```
+
+Oh, that is better. But wait...how do a person know which species is which? The legend is missing, so we need to add it. A legend is something that we add _on top_ of the plot, it's not included in the `plot()` function (no signs of a legend in the `help(plot)` right?). Let's have a look at `help(legend)`.
+
+```{r}
+
+# scatterplot with colours
+plot(x=a_nice_table$Sepal.Length, y=a_nice_table$Sepal.Width, pch=data_shapes, bg=data_colours, col="black", xlab="Sepal Length", ylab="Sepal Width")
+
+# add a legend, and that's it!
+legend("bottomright", c("setosa","virginica", "versicolor"), col=colours_i_like, pch=shapes_i_like)
+
+```
+
+# GGPlot2 Plotting
+
+Aside from base R plotting, another very well known method is based on `ggplot2`. `ggplot2` offers many, many different possibilities to obtain any kind of plot. (This)[https://r-graph-gallery.com/] website is full of examples, that can help you get started with the plots you want to have.
+
+However, before using `ggplot2`, let's discuss how it works.
+
+The idea behind ggplot2 is _modularity_. If you have ever seen how a `ggplot2` plot is created you might have noticed that usually it takes more than one line. Each line is called a layer, and it define one characteristic of the final plot.
+
+To have a better understanding, create three different plots, using the same structure:
+
+```{r}
+
+# load ggplot2
+library("ggplot2")
+
+# load a table from a csv file
+a_nice_table <- read.csv("/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/a_nicely_formatted_table.csv", header=T, sep=",")
+
+# plot using dots
+ggplot(a_nice_table, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
+  geom_point()
+
+# same plot, with boxplots
+ggplot(a_nice_table, aes(x=Sepal.Length, y=Sepal.Width, fill=Species)) +
+  geom_boxplot()
+
+# same plot, with barplot
+ggplot(a_nice_table, aes(x=Sepal.Length, fill=Species)) +
+  geom_bar()
+```
+
+Now, what you just did was to pass `a_nice_table` to `ggplot2` through the `ggplot()` function, then specified some aesthetic parameters. Finally, you added another layer, using the `+`, specifying the type of plot you wanted.
+
+At this point, you can add more specifications such as the colour, for example:
+
+```{r}
+
+# plot using dots
+ggplot(a_nice_table, aes(x=Sepal.Length, y=Sepal.Width)) +
+  geom_point(aes(colour=Species)) +
+  scale_colour_manual(values=c("lightcoral", "midnightblue", "saddlebrown"))
+```
+
+Now, add some order to the labels, if you like. That's where **factors** become interesting:
+
+```{r}
+
+# load a table from a csv file
+a_nice_table <- read.csv("/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/a_nicely_formatted_table.csv", header=T, sep=",")
+
+# set order of levels for the colouring
+a_nice_table$Species <- factor(a_nice_table$Species, levels=c("virginica", "setosa", "versicolor"))
+
+# plot using dots
+ggplot(a_nice_table, aes(x=Sepal.Length, y=Sepal.Width)) +
+  geom_point(aes(colour=Species)) +
+  scale_colour_manual(values=c("lightcoral", "midnightblue", "saddlebrown"))
+```
+
+Finally, change the style using `themes` and `labels` of the plot:
+
+```{r}
+
+# load a table from a csv file
+a_nice_table <- read.csv("/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/a_nicely_formatted_table.csv", header=T, sep=",")
+
+# set order of levels for the colouring
+a_nice_table$Species <- factor(a_nice_table$Species, levels=c("virginica", "setosa", "versicolor"))
+levels(a_nice_table$Species) <- c("Virginica", "Setosa", "Versicolor")
+
+# define palette
+palette <- c("lightcoral", "midnightblue", "saddlebrown")
+# define names of each colour to map species to colour
+names(palette) <- levels(a_nice_table$Species)
+
+# plot using dots
+ggplot(a_nice_table, aes(x=Sepal.Length, y=Sepal.Width, fill=Species)) +
+	geom_point(size=4, stroke=1, color="black", shape=21) +
+	scale_fill_manual(values=palette) +
+	guides(fill=guide_legend(override.aes=list(shape=21))) +
+  xlab("Sepal length") +
+  ylab("Sepal width") +
+  ggtitle("A nice scatterplot") +
+  theme_bw() +
+  theme(text=element_text(size=15, face="bold"), legend.position="right")
+
+```
+
+# Solutions to exercises in lesson 04
+
+### If-else
+
+```{r}
+
+# load contacts
+contact_list <- read.csv("/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/contacts_list.csv", header=T, sep="\t")
+
+# define two random person names
+a_person <- "Silvia"
+a_person <- "Elena"
+
+# test whether a person is in the contact list
+person_index <- which(a_person %in% contact_list$name)
+
+# was someone found?
+if (length(person_index) > 0) {
+  print(paste(a_person, "phone n. is:", contact_list$phone[person_index], sep=" "))
+} else {
+  print(paste(a_person, "was not found.", sep=" "))
+}
+
+# ifelse() version
+ifelse(a_person %in% contact_list$name, paste(a_person, "phone n. is:", contact_list$phone[which(contact_list$name==a_person)], sep=" "), print(paste(a_person, "was not found.", sep=" ")))
+```
+
+### For and While
+
+When we discussed how to write a function to compute the average of a set of values, we started doing it for vectors of two, and then we generalised to any vector.
+
+To generalise, we used the function `sum()`.
+
+Can you replicate what the function `sum()` is doing:
+ 
+ - using a `for` loop?
+ 
+```{r}
+
+sum_for <- function(a_vector){
+  
+  # define variable at 0
+  total_sum <- 0
+  
+  # loop through the vector's values
+  for (a_value in a_vector) {
+    # sum the current value to zero
+    total_sum <- total_sum + a_value
+  }
+  
+  # return the total sum
+  return(total_sum)
+}
+
+```
+
+ - using a `while` loop?
+
+```{r}
+
+sum_while <- function(a_vector){
+  
+  # define variable at 0
+  total_sum <- 0
+  
+  # loop through the vector's values
+  while (length(a_vector)!=0) {
+    # sum the current value to zero
+    total_sum <- total_sum + a_vector[length(a_vector)]
+    
+    # remove the value that was just summed from
+    # the vector
+    a_vector <- a_vector[-length(a_vector)]
+  }
+  
+  # return the total sum
+  return(total_sum)
+}
+
+```
+
+Can you use the loop to re-write the `arithmetic_mean()` function?
+
+```{r}
+
+# define the function average for two values
+# however by default, a_set_of_values will be equal to
+# the vector c(6, 8) and the function, if no input was
+# specified, will return 7, which is the average of 6 and 8
+arithmetic_mean <- function(a_set_of_values=c(6, 8)) {
+  # sum_for the two values and divide by the number of values
+  the_sum <- sum_for(a_set_of_values)
+  
+  # sum_for the two values and divide by the number of values
+  the_sum <- sum_while(a_set_of_values)
+  
+  # compute the number of values in the vector
+  the_n_of_vals <- length(a_set_of_values)
+  # compute the average
+  average <- the_sum/the_n_of_vals
+  # return the average value you just computed
+  return(average)
+}
+
+# run function with no input: default values will be used
+arithmetic_mean()
+# run function with input: default will not be used
+# instead the average of 10 and 3 will be returned
+arithmetic_mean(c(10, 3))
+
+```
+
+# Final exercise
+
+Load the data, i.e. `counts_final.csv` and `metadata_final.csv` tables
+
+ 1. difficult to visualise, easy to plot: for each phylum plot the abundances (that are stored in the counts table), to compare treatment and controls, in winter and summer, DNA and RNA (these info are stored in the metadata table);
+ 
+ 2. medium to easy to visualise if you did n. 1. difficult to plot (probably): visualise the variables vegetation and pH together to see if they are correlated (use a scatterplot, for example). Colour the data points by phylum. Or color them by season, or treatment, or DNA/RNA Or you can colour with a variable and shape with another variable. Or, and this is what I suggest to do, is to create two plots, one for DNA, one for RNA, and to colour by treatment, and shape by season. The phylum can be added as a label. To add labels in a `ggplot2` plot, you may want to check out `geom_text()`.
