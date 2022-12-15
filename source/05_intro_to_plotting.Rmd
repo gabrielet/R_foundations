@@ -261,7 +261,7 @@ if (length(person_index) > 0) {
 }
 
 # ifelse() version
-ifelse(a_person %in% contact_list$name, paste(a_person, "phone n. is:", contact_list$phone[which(contact_list$name==a_person)], sep=" "), print(paste(a_person, "was not found.", sep=" ")))
+ifelse(a_person %in% contact_list$name, paste(a_person, "phone n. is:", contact_list$phone[which(contact_list$name==a_person)], sep=" "), paste(a_person, "was not found.", sep=" "))
 ```
 
 ### For and While

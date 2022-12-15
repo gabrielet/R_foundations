@@ -1838,7 +1838,7 @@ if (length(person_index) &gt; 0) {
 }
 
 # ifelse() version
-ifelse(a_person %in% contact_list$name, paste(a_person, &quot;phone n. is:&quot;, contact_list$phone[which(contact_list$name==a_person)], sep=&quot; &quot;), print(paste(a_person, &quot;was not found.&quot;, sep=&quot; &quot;)))</code></pre>
+ifelse(a_person %in% contact_list$name, paste(a_person, &quot;phone n. is:&quot;, contact_list$phone[which(contact_list$name==a_person)], sep=&quot; &quot;), paste(a_person, &quot;was not found.&quot;, sep=&quot; &quot;))</code></pre>
 </div>
 <div id="for-and-while" class="section level3">
 <h3>For and While</h3>
