@@ -5,7 +5,7 @@ library("ggplot2")
 path_to_data <- "/home/gabriele/work/microbiology/think_like_a_programmer/R_foundations/lessons_files/data/"
 
 # load data
-metadata <- read.csv(paste0("metadata_final.csv"), header=T, sep=",")
+metadata <- read.csv(paste0(path_to_data, "metadata_final.csv"), header=T, sep=",")
 counts <- read.csv(paste0(path_to_data, "counts_final.csv"), header=T, sep=",")
 
 # get counts in a plottable format
